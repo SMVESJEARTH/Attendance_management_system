@@ -96,89 +96,85 @@ void complete_job_num(void)//完成每个人的工号
 	for (int i = 0; i < 4; i++)
 	{
 		bool flag = 0;
-		if (flag = 0)
+		Employees *emp = com[i].head;
+		for (int j=0;emp != NULL;j++)
+		{
+			if (j < 9)
+			{
+				emp->job_num[5] ='0';
+				emp->job_num[6] = j + 1 + '0';
+				emp->job_num[7] = '\0';
+			}
+			else
+			{
+				int temp = j + 1;
+				emp->job_num[6] = temp%10 + '0';
+				temp = temp / 10;
+				emp->job_num[5] = temp + '0';
+				emp->job_num[7] = '\0';
+			}
+			emp = emp->next;
+		}
+	}
+
+	FILE *oldFile = fopen("data.txt", "r");
+	if (oldFile == NULL) {
+		printf("无法打开原始文件");
+		return;
+	}
+
+	FILE *tempFile = fopen("temp.txt", "w");
+	if (tempFile == NULL) {
+		printf("无法打开临时文件");
+		fclose(oldFile);
+		return;
+	}
+
+	char line[100];
+	
+	while (fgets(line, 100, oldFile) != NULL)
+	{
+		for (int i = 0; i < 4; i++)
 		{
 			Employees *emp = com[i].head;
-			for (int j = 0; emp != NULL; j++)
+			
+			char name[4] = { '\0' };
+			int identity_num = 0;
+			int department_num = 0;
+			sscanf(line, "%s %d %d", name, &identity_num, &department_num);
+			while (emp != NULL)
 			{
-				if (j < 9)
+				if (strcmp(name, emp->name) == 0 && strcmp(identities[identity_num - 1], emp->identity) == 0 && strcmp(departments[department_num - 1], emp->department) == 0)
 				{
-					emp->job_num[5] = '0';
-					emp->job_num[6] = j + 1 + '0';
-					emp->job_num[7] = '\0';
-				}
-				else
-				{
-					int temp = j + 1;
-					emp->job_num[6] = temp % 10 + '0';
-					temp = temp / 10;
-					emp->job_num[5] = temp + '0';
-					emp->job_num[7] = '\0';
+					// 去掉行尾的换行符
+					int temp = strcspn(line, "\n");
+					for (int j = temp; j > temp - 9; j--)
+					{
+						line[j] = '\0';
+					}
+					// 在每一行末尾添加新数据
+					fprintf(tempFile, "%s %s\n", line, emp->job_num);
 				}
 				emp = emp->next;
 			}
 		}
-
-		FILE *oldFile = fopen("data.txt", "r");
-		if (oldFile == NULL) {
-			printf("无法打开原始文件");
-			return;
-		}
-
-		FILE *tempFile = fopen("temp.txt", "w");
-		if (tempFile == NULL) {
-			printf("无法打开临时文件");
-			fclose(oldFile);
-			return;
-		}
-
-		char line[100];
-
-		while (fgets(line, 100, oldFile) != NULL)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				Employees *emp = com[i].head;
-
-				char name[4] = { '\0' };
-				int identity_num = 0;
-				int department_num = 0;
-				sscanf(line, "%s %d %d", name, &identity_num, &department_num);
-				while (emp != NULL)
-				{
-					if (strcmp(name, emp->name) == 0 && strcmp(identities[identity_num - 1], emp->identity) == 0 && strcmp(departments[department_num - 1], emp->department) == 0)
-					{
-						// 去掉行尾的换行符
-						int temp = strcspn(line, "\n");
-						for (int j = temp; j > temp - 9; j--)
-						{
-							line[j] = '\0';
-						}
-						// 在每一行末尾添加新数据
-						fprintf(tempFile, "%s %s\n", line, emp->job_num);
-					}
-					emp = emp->next;
-				}
-			}
-		}
-
-		fclose(oldFile);
-		fclose(tempFile);
-
-		remove("data.txt");
-		int temp = rename("temp.txt", "data.txt");
-
-		printf("新数据已成功添加到每一行末尾。\n");
-		flag = 1;
 	}
+
+	fclose(oldFile);
+	fclose(tempFile);
+
+	remove("data.txt");
+	int temp=rename("temp.txt", "data.txt");
+
+	printf("新数据已成功添加到每一行末尾。\n");
 }
 
 
-void Main_UI(void)
+Employees *LoginAndUi(void)
 {
+	system("cls");
 	char j_n[8] = { '\0' };
 	char pass[6] = { '\0' };
-	system("cls");
 	printf("请登录\n");
 	printf("工号：");
 	gets(j_n);
@@ -190,25 +186,91 @@ void Main_UI(void)
 		Employees *emp = com[i].head;
 		while (emp != NULL)
 		{
-			if(!strcmp(emp->job_num,j_n))
+			if(!strcmp(emp->job_num,j_n)&& !strcmp(emp->password, pass))
 			{
-				if (!strcmp(emp->password, pass))
-				{
-					emp->Whether_clock = 1;
 					flag = 1;
 					printf("%s %s 验证通过，打卡成功\n", emp->identity, emp->name);
-					break;
-				}
+					Sleep(1500);
+					return emp;
 			}
 			emp = emp->next;
 		}
-		if (flag)
-			break;
 	}
-	Sleep(1500);
-	system("cls");
 }
 
+void StaffAndUi(Employees *emp)
+{
+	system("cls");
+	char pick_0 = 0;
+	while (1)
+	{
+		printf("------------------------------\n");
+		printf("|         1.打卡选择          |\n");
+		printf("|         2.信息查询          |\n");
+		printf("|         3.请假系统          |\n");
+		printf("|         4.修改密码          |\n");
+		printf("|         5.退出登录          |\n");
+		printf("------------------------------\n");
+		scanf("%d", &pick_0);
+		switch (pick_0)
+		{
+		case 1:
+			{
+				char pick_1;
+				system("cls");;
+				printf("------------------------------\n");
+				printf("|         1.上班打卡          |\n");
+				printf("|         2.下班打卡          |\n");
+				printf("|         3.退出打卡          |\n");
+				printf("------------------------------\n");
+				scanf("%d", &pick_1);
+				switch (pick_1)
+				{
+					case 1:
+					{
+						emp->Whether_clock = 1;
+						printf("打卡成功\n");
+						time_t current_time = time(NULL);
+						struct tm *local_tm;
+						local_tm = localtime(&current_time);
+						printf("打卡时间：%d-%02d-%02d %d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+							local_tm->tm_hour, local_tm->tm_min);
+						strftime(emp->time_of_clock, 17, "%Y-%m-%d %H:%M", local_tm);
+
+						if (local_tm->tm_hour < time_of_start_hour)
+						{
+							emp->Whether_be_late = 0;
+							printf("未迟到\n");
+						}
+						else
+						{
+							emp->Whether_be_late = 1;
+							emp->num_late++;
+							printf("已迟到\n");
+						}
+						Sleep(4000);
+						system("cls");
+					}break;
+
+					case 2:
+					{
+						time_t current_time = time(NULL);
+						struct tm *local_tm;
+						local_tm = localtime(&current_time);
+						printf("下班时间：%d-%02d-%02d %d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+							local_tm->tm_hour, local_tm->tm_min);
+						strftime(emp->time_of_clock, 17, "%Y-%m-%d %H:%M", local_tm);
+					}
+					case 3:
+					{
+						system("cls");
+					}break;
+				}
+			}
+
+		}
+	}
+}
 
 
 

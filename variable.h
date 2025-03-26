@@ -7,6 +7,7 @@
 #include<stdbool.h>
 #include<string.h>
 #include<windows.h>
+#include <time.h>
 
 //MWL 1 1 20 1 1234 0 依据此格式产生20个数据，第一个数字为随机中文名，不超过四个字，第二个职位数据只能属于1至3，
 // 第三个部门数据只能属于1至4，第四个工龄数据只能属于1到60，第五个状态数据只能为1，第六个数字密码为随机四位数，
@@ -22,9 +23,10 @@ struct Employees//雇员结构
 	bool stage;//工作状态 1为正常工作 0为假期中
 	char password[5];//四位密码
 	bool Whether_clock;//是否打卡 1是 0否
-	char time_of_clock[5];//打卡时间
-	char time_of_leave[5];//离开时间
+	char time_of_clock[20];//打卡时间
+	char time_of_leave[20];//离开时间
 	bool Whether_be_late;//是否迟到
+	int num_late;
 	short total_annual_vacation;//总年假
 	short taken_annual_vacation;//已用年假
 	short remaining_annual_leave;//剩余年假
@@ -45,8 +47,9 @@ typedef struct Companys Companys;
 Companys com[4];//四个部门
 const char *departments[4];//四个部门名
 const char *identities[3];//三个不同职位
-const char time_of_start[5];//规定上班时间
-const char time_of_end[5];//规定下班时间
+const char time_of_start_hour;//规定上班时间
+const char time_of_end_hour;//规定下班时间
+const char time_of_end_min;
 const short vacation_of_less_10;//工龄小于10年的年假数
 const short vacation_of_less_20;//工龄在10~20年的年假数
 const short vacation_of_more_20;//工龄大于20年的年假数
