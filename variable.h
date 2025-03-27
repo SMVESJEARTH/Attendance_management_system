@@ -17,19 +17,22 @@ struct Employees//雇员结构
 {
 	char name[4];//姓名
 	char job_num[8];//工号
-	char identity[7];//职位
 	char department[8];//所属部门
+	int id_department;//所属部门编号
+	char identity[7];//职位
+	int id_identity;// 职位编号
+	int age;//年龄
 	short age_of_work;//工龄
-	bool stage;//工作状态 1为正常工作 0为假期中
+	int stage;//工作状态 1为正常工作 0为假期中
 	char password[5];//四位密码
-	bool Whether_clock;//是否打卡 1是 0否
+	int Whether_clock;//是否打卡 1是 0否
 	char time_of_clock[20];//打卡时间
 	char time_of_leave[20];//离开时间
-	bool Whether_be_late;//是否迟到
-	int num_late;
-	short total_annual_vacation;//总年假
-	short taken_annual_vacation;//已用年假
-	short remaining_annual_leave;//剩余年假
+	int Whether_be_late;//是否迟到
+	int num_late;//迟到数
+	int total_annual_vacation;//总年假
+	int taken_annual_vacation;//已用年假
+	int remaining_annual_leave;//剩余年假
 	struct Employees *next;//员工类型指针
 };
 typedef struct Employees Employees;

@@ -21,6 +21,7 @@ int main()
 
 	complete_job_num();
 	printf("工号生成并导入完成\n");
+	Save(2);
 
 	Sleep(1500);
 	emp=LoginAndUi();
