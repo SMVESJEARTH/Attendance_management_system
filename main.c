@@ -27,10 +27,9 @@ int main()
 
 	emp=LoginAndUi();
 
-	switch (emp->job_num[4])
+	switch (emp->id_department)
 	{
-		case '3':
-			StaffAndUi(emp);
+		case 3:StaffAndUi(emp);
 	}
 	return 0;
 }
