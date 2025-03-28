@@ -1,6 +1,8 @@
 ﻿#include"variable.h"
+#include"fun.h"
 
-Employees * CreatAndRead_employees(int i)
+
+Employees * CreatAndRead_employees(int i)//存入文件中的数据
 {
 	Employees *head = NULL, *p1 = NULL, *p2 = NULL;
 	FILE *fp = fopen("data.txt", "r");//只读打开data.txt
@@ -173,7 +175,6 @@ void complete_job_num(void)//完成每个人的工号
 	}
 }
 
-
 void Main_UI(void)
 {
 	char j_n[8] = { '\0' };
@@ -209,6 +210,268 @@ void Main_UI(void)
 	system("cls");
 }
 
+void inputStaff() //添加员工
+{
+	char name[4]; // 员工姓名
+	int identity_num; // 员工职位编号
+	int department_num; // 部门编号
+	int age; // 工龄
+	int stage; // 工作状态
+	char password[5]; // 密码
+	int clock; // 打卡状态
+
+	// 输入员工信息
+	printf("请输入员工信息\n");
+	printf("姓名（不超过3个字符）：");
+	scanf("%s", name);
+	printf("职位编号（1-Admin, 2-Manager, 3-Staff）：");
+	scanf("%d", &identity_num);
+	printf("部门编号（1-Purchase, 2-Produce, 3-Sale, 4-Manage）：");
+	scanf("%d", &department_num);
+	printf("工龄：");
+	scanf("%d", &age);
+	printf("工作状态（1-正常工作, 0-假期中）：");
+	scanf("%d", &stage);
+	printf("密码：");
+	scanf("%s", password);
+	printf("打卡状态（1-已打卡, 0-未打卡）：");
+	scanf("%d", &clock);
+
+	// 判断输入是否正确
+	if (identity_num < 1 || identity_num > 3) {
+		printf("职位编号无效！\n");
+		return;
+	}
+	if (department_num < 1 || department_num > 4) {
+		printf("部门编号无效！\n");
+		return;
+	}
+	if (age < 1 || age > 60) {
+		printf("工龄无效！\n");
+		return;
+	}
+	if (stage != 0 && stage != 1) {
+		printf("工作状态无效！\n");
+		return;
+	}
+	if (clock != 0 && clock != 1) {
+		printf("打卡状态无效！\n");
+		return;
+	}
+
+	// 创建新员工节点
+	Employees* newEmp = (Employees*)malloc(sizeof(Employees));
+	if (newEmp == NULL) {
+		printf("内存分配失败！\n");
+		return;
+	}
+
+	// 将员工信息拷贝
+	strcpy(newEmp->name, name);
+	strcpy(newEmp->identity, identities[identity_num - 1]);
+	strcpy(newEmp->department, departments[department_num - 1]);
+	newEmp->age_of_work = age;
+	newEmp->stage = stage;
+	strcpy(newEmp->password, password);
+	newEmp->Whether_clock = clock;
+	newEmp->next = NULL;
+
+	// 生成工号(姓名+部门+职位+在部门里的序号)
+	char deptNum[2];
+	char idNum[2];
+	char staffNum[3];
+	sprintf(deptNum, "%d", department_num); // 部门编号转为字符串
+	sprintf(idNum, "%d", identity_num); // 职位编号转为字符串
+	sprintf(staffNum, "%02d", com[department_num - 1].num_of_staff + 1); // 员工在部门里的序号，格式化为两位数
+
+	strcpy(newEmp->job_num, name);
+	strcat(newEmp->job_num, deptNum);
+	strcat(newEmp->job_num, idNum);
+	strcat(newEmp->job_num, staffNum);
+
+	// 插入到对应部门的链表中
+	Employees* move = com[department_num - 1].head;
+
+	// 如果链表为空，直接将新节点作为头节点
+	if (move == NULL) {
+		com[department_num - 1].head = newEmp;
+	}
+	else {
+		// 遍历链表，将新节点插入到链表末尾
+		while (move->next != NULL) {
+			move = move->next;
+		}
+		move->next = newEmp;
+	}
+
+	// 更新部门员工数
+	com[department_num - 1].num_of_staff++;
+
+	printf("员工信息已成功添加到部门 %s\n", departments[department_num - 1]);
+}
+
+void deleteStaff() // 删除员工
+{
+	char jobnum[8];
+	printf("请输入要删除的员工的编号: ");
+	scanf("%s", jobnum);
+
+	int found = 0; // 标记是否找到员工
+	for (int i = 0; i < 4; i++) // 遍历所有部门
+	{
+		Employees* prev = NULL; // 前驱节点
+		Employees* curr = com[i].head; // 当前节点
+
+		while (curr != NULL) // 遍历当前部门的员工链表
+		{
+			if (strcmp(curr->job_num, jobnum) == 0) // 找到匹配的员工
+			{
+				found = 1; // 标记找到员工
+				if (prev == NULL) // 如果要删除的员工是链表头节点
+				{
+					com[i].head = curr->next; // 更新链表头为下一个节点
+				}
+				else // 如果要删除的员工不是链表头节点
+				{
+					prev->next = curr->next; // 将前驱节点的next指向当前节点的下一个节点
+				}
+				free(curr); // 释放当前节点内存
+				com[i].num_of_staff--; // 部门员工数量减1
+				printf("员工工号为 %s 的数据已成功删除。\n", jobnum);
+				break; // 找到并删除后退出循环
+			}
+			prev = curr; // 更新前驱节点
+			curr = curr->next; // 移动到下一个节点
+		}
+		if (found) // 如果已找到并删除员工，退出部门循环
+		{
+			break;
+		}
+	}
+
+	if (!found) // 如果遍历完所有部门仍未找到员工
+	{
+		printf("未找到工号为 %s 的员工数据。\n", jobnum);
+	}
+}
 
 
 
+void modifyStaff(void) // 修改员工信息
+{
+	char jobnum[8];
+	printf("请输入要修改的员工工号：");
+	scanf("%s", jobnum);
+
+	int found = 0;
+	for (int i = 0; i < 4; i++) // 遍历所有部门
+	{
+		Employees* curr = com[i].head; // 当前节点
+		while (curr != NULL) // 遍历当前部门的员工链表
+		{
+			if (strcmp(curr->job_num, jobnum) == 0) // 找到匹配的员工
+			{
+				found = 1;
+				modifyMultipleFields(curr);//调用modifyMultipleFields函数实现信息修改
+				break;
+			}
+			curr = curr->next; // 移动到下一个节点
+		}
+		if (found) // 如果已找到员工，退出部门循环
+		{
+			break;
+		}
+	}
+
+	if (!found) // 如果遍历完所有部门仍未找到员工
+	{
+		printf("未找到工号为 %s 的员工数据。\n", jobnum);
+	}
+}
+
+void modifyMultipleFields(Employees* emp)//modifyStaff函数的辅助函数
+{
+	int fields[10] = { 0 }; // 用于记录用户选择的字段
+	int numFields = 0;
+
+	while (1)
+	{
+		printf("请选择要修改的字段（1-7），输入0完成选择：\n");
+		printf("1. 姓名\n");
+		printf("2. 职位\n");
+		printf("3. 部门\n");
+		printf("4. 工龄\n");
+		printf("5. 工作状态\n");
+		printf("6. 密码\n");
+		printf("7. 打卡状态\n");
+		printf("请输入您的选择（0-7）：");
+		int choice;
+		scanf("%d", &choice);
+
+		if (choice == 0)
+		{
+			break; // 如果用户输入0，退出循环
+		}
+		else if (choice >= 1 && choice <= 7)
+		{
+			fields[numFields++] = choice; // 记录用户选择的字段编号
+		}
+		else
+		{
+			printf("无效的选择！\n");
+		}
+	}
+
+	for (int i = 0; i < numFields; i++)
+	{
+		switch (fields[i])
+		{
+		case 1: // 修改姓名
+			printf("请输入新的姓名（不超过3个字符）：");
+			scanf("%s", emp->name);
+			break;
+		case 2: // 修改职位
+			printf("请输入新的职位编号（1-Admin, 2-Manager, 3-Staff）：");
+			int identity_num;
+			scanf("%d", &identity_num);
+			if (identity_num >= 1 && identity_num <= 3)
+			{
+				strcpy(emp->identity, identities[identity_num - 1]);
+			}
+			else
+			{
+				printf("无效的职位编号！\n");
+			}
+			break;
+		case 3: // 修改部门
+			printf("请输入新的部门编号（1-Purchase, 2-Produce, 3-Sale, 4-Manage）：");
+			int department_num;
+			scanf("%d", &department_num);
+			if (department_num >= 1 && department_num <= 4)
+			{
+				strcpy(emp->department, departments[department_num - 1]);
+			}
+			else
+			{
+				printf("无效的部门编号！\n");
+			}
+			break;
+		case 4: // 修改工龄
+			printf("请输入新的工龄：");
+			scanf("%d", &emp->age_of_work);
+			break;
+		case 5: // 修改工作状态
+			printf("请输入新的工作状态（1-正常工作, 0-假期中）：");
+			scanf("%d", &emp->stage);
+			break;
+		case 6: // 修改密码
+			printf("请输入新的密码（4位数字）：");
+			scanf("%s", emp->password);
+			break;
+		case 7: // 修改打卡状态
+			printf("请输入新的打卡状态（1-已打卡, 0-未打卡）：");
+			scanf("%d", &emp->Whether_clock);
+			break;
+		}
+	}
+}
