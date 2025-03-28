@@ -8,23 +8,24 @@ void Save(void)//数据保存
 	if (newFile == NULL)
 	{
 		printf("无法打开临时文件\n");
-		return 1;
+		Sleep(error_time);
+		exit(1);
 	}
 	for (int i = 0; i < 4; i++)
 	{
 		Employees *emp = com[i].head;
 		while (emp != NULL)
 		{
-			fprintf(newFile, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d\n",
+			fprintf(newFile, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %s\n",
 				emp->name, emp->job_num, emp->id_department, emp->id_identity, emp->age, emp->age_of_work, emp->stage, emp->password, emp->Whether_clock,
-				emp->time_of_clock, emp->time_of_leave, emp->Whether_be_late, emp->num_late, emp->total_annual_vacation, emp->taken_annual_vacation, emp->remaining_annual_leave);
+				emp->time_of_clock, emp->time_of_leave, emp->Whether_be_late, emp->num_late, emp->total_annual_vacation, emp->taken_annual_vacation, emp->remaining_annual_leave,emp->telephone_number);
 			emp = emp->next;
 		}
 	}
 	fclose(newFile);
 	remove("data.txt");
 	int useless = rename("temp.txt", "data.txt");
-	printf("数据已保存\n");
+	printf("-数据已保存\n");
 }
 
 Employees * CreatAndRead_employees(int i)
@@ -45,17 +46,19 @@ Employees * CreatAndRead_employees(int i)
     int t_v = 0;
     int h_v = 0;
     int r_v = 0;
-	
+	char phone_num[12] = { '\0' };
+
     Employees *head = NULL, *p1 = NULL, *p2 = NULL;
     FILE *fp = fopen("data.txt", "r");//只读打开data.txt
     if (fp == NULL)
     {
         printf("文件不存在");
-        return NULL;
+		Sleep(error_time);
+		exit(1);
     }
 
-	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d", 
-        name,j_num,&department_num,&identity_num,&age,&age_w,&stage,pass,&w_clock, tm_of_c, tm_of_l,&w_be_l,&n_be_l,&t_v,&h_v,&r_v) == 16)//每一行有16个数据 所以fscanf返回值为16
+	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %s", 
+        name,j_num,&department_num,&identity_num,&age,&age_w,&stage,pass,&w_clock, tm_of_c, tm_of_l,&w_be_l,&n_be_l,&t_v,&h_v,&r_v, phone_num) == 17)//每一行有17个数据 所以fscanf返回值为17
 	{
 		if (department_num == i + 1)//程序中的部门索引是0~3 而文件和手动输入的部门索引是1~4，故加1
 		{
@@ -63,7 +66,8 @@ Employees * CreatAndRead_employees(int i)
 			if (p1 == NULL)
 			{
 				fclose(fp); // 内存分配失败，关闭文件
-				return head;
+				Sleep(error_time);
+				exit(1);
 			}
 
             //数据读入
@@ -87,6 +91,7 @@ Employees * CreatAndRead_employees(int i)
             p1->total_annual_vacation = t_v;//总年假
             p1->taken_annual_vacation = h_v;//已用年假
             p1->remaining_annual_leave = r_v;//剩余年假
+			strcpy(p1->telephone_number, phone_num);//电话号码
 
 			if (head == NULL)
 				head = p1;
@@ -101,8 +106,7 @@ Employees * CreatAndRead_employees(int i)
 	return head;
 }
 
-
-void init_company(void)
+void init_company(void)//初始化公司数组
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -143,7 +147,6 @@ void complete_job_num(void)//完成每个人的工号 4~10
 	
 }
 
-
 Employees *LoginAndUi(void)
 {
 	system("cls");
@@ -152,24 +155,45 @@ Employees *LoginAndUi(void)
 	printf("请登录\n");
 	printf("工号：");
 	gets(j_n);
-	printf("密码：");
-	gets(pass);
-	for (int i = 0; i < 4; i++)
+	for(int j=0;j<3;j++)
 	{
-		Employees *emp = com[i].head;
-		while (emp != NULL)
+		printf("密码：");
+		gets(pass);
+		bool flag = 0;
+		for (int i = 0; i < 4; i++)
 		{
-			if(!strcmp(emp->job_num,j_n) && !strcmp(emp->password, pass))
+			Employees *emp = com[i].head;
+			while (emp != NULL)
 			{
-				printf("%s %s 验证通过，欢迎登录\n", emp->identity, emp->name);
-				Sleep(1500);
-				return emp;
+				if (!strcmp(emp->job_num, j_n))
+				{
+					if (!strcmp(emp->password, pass))
+					{
+						printf("%s %s 验证通过，欢迎登录\n", emp->identity, emp->name);
+						Sleep(commmon_time);
+						return emp;
+					}
+
+				}
+				emp = emp->next;
 			}
-			emp = emp->next;
+			if (flag = 1)
+				break;
 		}
+		printf("密码错误,请重新输入");
+		Sleep(commmon_time);
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		COORD coord1 = { (SHORT)0, (SHORT)2 };
+		SetConsoleCursorPosition(hConsole, coord1);
+		printf("                     ");
+		COORD coord2 = { (SHORT)0, (SHORT)3 };
+		SetConsoleCursorPosition(hConsole, coord2);
+		printf("                     ");
+		COORD coord3 = { (SHORT)0, (SHORT)2 };
+		SetConsoleCursorPosition(hConsole, coord3);
 	}
-	printf("工号或密码错误");
-	return NULL;
+	printf("连续错误三次，请联系管理员核对工号或密码\n");
+	exit(1);
 }
 
 void StaffAndUi(Employees *emp)
@@ -185,7 +209,7 @@ void StaffAndUi(Employees *emp)
 		printf("|         4.修改密码          |\n");
 		printf("|         5.退出登录          |\n");
 		printf("------------------------------\n");
-		scanf("%d", &pick_0);
+		int temp = scanf("%d", &pick_0);
 		switch (pick_0)
 		{
 			case 1:
@@ -197,7 +221,7 @@ void StaffAndUi(Employees *emp)
 					printf("|         2.下班打卡          |\n");
 					printf("|         3.退出打卡          |\n");
 					printf("------------------------------\n");
-					scanf("%d", &pick_1);
+					int temp=scanf("%d", &pick_1);
 					switch (pick_1)
 					{
 					case 1:
@@ -225,13 +249,12 @@ void StaffAndUi(Employees *emp)
 								emp->num_late++;
 								printf("已迟到\n");
 							}
-							Sleep(4000);
 							system("cls");
 						}
 						else if(local_tm->tm_hour < 6)
 						{
 							printf("未到打卡时间(6:00),打卡失败\n");
-							Sleep(2000);
+							Sleep(commmon_time);
 							system("cls");
 						}
 					}break;
@@ -246,13 +269,13 @@ void StaffAndUi(Employees *emp)
 							printf("下班时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
 								local_tm->tm_hour, local_tm->tm_min);
 							strftime(emp->time_of_clock, 17, "%Y-%m-%d %H:%M", local_tm);
-							Sleep(4000);
+							Sleep(commmon_time);
 							system("cls");
 						}
 						else
 						{
 							printf("今日还未上班打卡");
-							Sleep(2000);
+							Sleep(commmon_time);
 							system("cls");
 						}
 					}break;

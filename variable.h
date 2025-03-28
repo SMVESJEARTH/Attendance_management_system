@@ -33,6 +33,8 @@ struct Employees//雇员结构
 	int total_annual_vacation;//总年假
 	int taken_annual_vacation;//已用年假
 	int remaining_annual_leave;//剩余年假
+	char telephone_number[12];//电话号码
+
 	struct Employees *next;//员工类型指针
 };
 typedef struct Employees Employees;
@@ -56,5 +58,7 @@ const char time_of_end_min;
 const short vacation_of_less_10;//工龄小于10年的年假数
 const short vacation_of_less_20;//工龄在10~20年的年假数
 const short vacation_of_more_20;//工龄大于20年的年假数
+const short error_time;//错误信息显示时间
+const short commmon_time;//普通信息显示时间
 
 #endif
