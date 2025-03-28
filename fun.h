@@ -8,6 +8,6 @@ void init_company(void);//初始化公司数组
 void complete_job_num(void);
 Employees * LoginAndUi(void);//登录界面
 void StaffAndUi(Employees *emp);
-void Save(int i);//数据保存
+void Save(void);//数据保存
 
 #endif

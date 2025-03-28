@@ -1,5 +1,32 @@
 ﻿#include"variable.h"
 
+void Save(void)//数据保存
+{
+	char line[101] = { '\0' };
+
+	FILE *newFile = fopen("temp.txt", "w");
+	if (newFile == NULL)
+	{
+		printf("无法打开临时文件\n");
+		return 1;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		Employees *emp = com[i].head;
+		while (emp != NULL)
+		{
+			fprintf(newFile, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d\n",
+				emp->name, emp->job_num, emp->id_department, emp->id_identity, emp->age, emp->age_of_work, emp->stage, emp->password, emp->Whether_clock,
+				emp->time_of_clock, emp->time_of_leave, emp->Whether_be_late, emp->num_late, emp->total_annual_vacation, emp->taken_annual_vacation, emp->remaining_annual_leave);
+			emp = emp->next;
+		}
+	}
+	fclose(newFile);
+	remove("data.txt");
+	int useless = rename("temp.txt", "data.txt");
+	printf("数据已保存\n");
+}
+
 Employees * CreatAndRead_employees(int i)
 {
 	char name[4] = { '\0' };//第十二行至第十八行的变量临时存储fscanf读入的数据
@@ -91,11 +118,11 @@ void complete_job_num(void)//完成每个人的工号 4~10
 	for (int i = 0; i < 4; i++)
 	{
 		Employees *emp = com[i].head;
-        strcpy(emp->job_num, emp->name);
-        emp->job_num[3] = emp->id_department + '0';
-        emp->job_num[4] = emp->id_identity + '0';
 		for (int j=0;emp != NULL;j++)
 		{
+            strcpy(emp->job_num, emp->name);
+            emp->job_num[3] = emp->id_department + '0';
+            emp->job_num[4] = emp->id_identity + '0';
 			if (j < 9)
 			{
 				emp->job_num[5] ='0';
@@ -113,7 +140,7 @@ void complete_job_num(void)//完成每个人的工号 4~10
 			emp = emp->next;
 		}
 	}
-    
+	
 }
 
 
@@ -241,456 +268,7 @@ void StaffAndUi(Employees *emp)
 	}
 }
 
-void Save(int i)//数据保存
-{
-    char line[101] = { '\0' }, j_n[8] = { '\0' };
-    bool flag = 0;
-    switch (i)
-    {
-    case 1:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
 
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        line[0] = emp->name[0];
-                        line[1] = emp->name[1];
-                        line[2] = emp->name[2];
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("姓名已保存\n");
-    }break;
-
-    case 2:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            char name[4] = { '\0' };
-            int id_d = 0, id_i = 0, age_w = 0;
-            for (int i = 0; i < 3; i++)
-                name[i] = line[i];
-            id_d = line[12] - '0';
-            id_i = line[14] - '0';
-            age_w = ((line[16] - '0') * 10) + line[17] - '0';
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(emp->name, name) == 0 && emp->id_department == id_d && emp->id_identity == id_i && emp->age_of_work == age_w)
-                    {
-                        for (int j = 4; j < 11; j++)
-                        {
-                            line[j] = emp->job_num[j - 4];
-                        }
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-    }break;
-
-    case 3:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            char name[4];
-            int id_d = 0, id_i = 0, age_w = 0;
-            for (int i = 0; i < 3; i++)
-                name[i] = line[i];
-            id_d = line[12]-'0';
-            id_i = line[14] - '0';
-            age_w = ((line[16] - '0') * 10) + line[17] - '0';
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(emp->name,name)==0&&emp->id_department==id_d&&emp->id_identity==id_i&&emp->age_of_work==age_w)
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            if (strcmp(emp->identity, identities[j]) == 0);
-                            {
-                                line[4] = j + 1;
-                                break;
-                            }
-                        }
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("职位已保存\n");
-    }break;
-
-    case 4:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (strcmp(emp->department, departments[j]) == 0);
-                            {
-                                line[6] = j + 1;
-                                break;
-                            }
-                        }
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("部门已保存\n");
-    }break;
-
-    case 5:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        int temp = emp->age_of_work;
-                        line[8] = temp / 10;
-                        line[9] = temp % 10;
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("工龄已保存\n");
-    }break;
-
-    case 6:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (strcmp(emp->department, departments[j]) == 0);
-                            {
-                                line[11] = emp->stage;
-                                break;
-                            }
-                        }
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("工作状态已保存\n");
-    }break;
-
-    case 7:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        for (int j = 13; j < 17; j++)
-                        {
-                            line[j] = emp->password[j - 13];
-                        }
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("密码已保存\n");
-    }break;
-
-    case 8:
-    {
-        FILE *oldFile = fopen("data.txt", "r");
-        if (oldFile == NULL)
-        {
-            printf("无法打开原始文件\n");
-            return;
-        }
-
-        FILE *newFile = fopen("temp.txt", "w");
-        if (newFile == NULL)
-        {
-            printf("无法打开临时文件\n");
-            fclose(oldFile);
-            return;
-        }
-
-        while (fgets(line, 100, oldFile) != NULL)
-        {
-            flag = 0;
-            for (int i = 4; i < 11; i++)
-            {
-                j_n[i - 4] = line[i];
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                Employees *emp = com[i].head;
-                while (emp != NULL)
-                {
-                    if (strcmp(j_n, emp->job_num) == 0)
-                    {
-                        line[18] = emp->Whether_clock;
-                        flag = 1;
-                    }
-                    if (flag == 1)
-                        break;
-                    emp = emp->next;
-                }
-                if (flag == 1)
-                    break;
-            }
-            line[strcspn(line, "\n")] = '\0';
-            fprintf(newFile, "%s\n", line);
-        }
-        fclose(oldFile);
-        fclose(newFile);
-        remove("data.txt");
-        int useless = rename("temp.txt", "data.txt");
-        printf("打卡状态已保存\n");
-    }break;
-    }
-}
+    
 
 
