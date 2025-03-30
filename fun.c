@@ -31,7 +31,7 @@ void Save(void)//数据保存
 
 Employees * CreatAndRead_employees(int i)//创建链表与读取数据
 {
-	char name[4] = { '\0' };//第十二行至第十八行的变量临时存储fscanf读入的数据
+	char name[4] = { '\0' };//第34行至第50行的变量临时存储fscanf读入的数据
     char j_num[8] = { '\0' };
     int department_num = 0;
 	int identity_num = 0;
@@ -107,7 +107,7 @@ Employees * CreatAndRead_employees(int i)//创建链表与读取数据
 	return head;
 }
 
-void init_company(void)//初始化公司数组
+void Init_company(void)//初始化公司数组
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -118,7 +118,7 @@ void init_company(void)//初始化公司数组
 	}
 }
 
-void complete_job_num(void)//完成工号
+void Complete_job_num(void)//完成工号
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -193,89 +193,205 @@ Employees *LoginAndUi(void)//登录系统
 	exit(1);
 }
 
-void select_clock(Employees *emp)//打卡选择
+void Select_clock(Employees *emp)//打卡选择
 {
 	int pick;
-	system("cls");;
-	printf("------------------------------\n");
-	printf("|         1.上班打卡          |\n");
-	printf("|         2.下班打卡          |\n");
-	printf("|         3.退出打卡          |\n");
-	printf("------------------------------\n");
-	int temp = scanf("%d", &pick);
-	switch (pick)
+	system("cls");
+	while (1)
 	{
-	case 1:
-	{
-		time_t current_time = time(NULL);
-		struct tm *local_tm;
-		local_tm = localtime(&current_time);//将时间戳转为本地时间
-		if (emp->Whether_clock != 1 && local_tm->tm_hour > 6)
+		printf("------------------------------\n");
+		printf("|         1.上班打卡          |\n");
+		printf("|         2.下班打卡          |\n");
+		printf("|         0.退出打卡          |\n");
+		printf("------------------------------\n");
+		int flag = 0;
+		int temp = scanf("%d", &pick);
+		switch (pick)
 		{
-			emp->Whether_clock = 1;
-			printf("打卡成功\n");
-
-			printf("打卡时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
-				local_tm->tm_hour, local_tm->tm_min);
-
-			int temp = sprintf(emp->time_of_leave, "%d%d-%02d-%02d%d:%02d", 
-				local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,local_tm->tm_hour, local_tm->tm_min);
-
-			if (local_tm->tm_hour < time_of_start_hour)
+		case 1:
+		{
+			if (emp->Whether_clock == 1)
 			{
-				emp->Whether_be_late = 0;
-				printf("未迟到\n");
+				printf("今日已打卡，请勿重复打卡");
+				Sleep(commmon_time);
+				system("cls");
+				break;
+			}
+			time_t current_time = time(NULL);
+			struct tm *local_tm;
+			local_tm = localtime(&current_time);//将时间戳转为本地时间
+			if (emp->Whether_clock != 1 && local_tm->tm_hour > 6)
+			{
+				emp->Whether_clock = 1;
+				printf("打卡成功\n");
+
+				printf("打卡时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+					local_tm->tm_hour, local_tm->tm_min);
+
+				int temp = sprintf(emp->time_of_leave, "%d-%02d-%02d.%d:%02d",
+					local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday, local_tm->tm_hour, local_tm->tm_min);
+
+				if (local_tm->tm_hour < time_of_start_hour)
+				{
+					emp->Whether_be_late = 0;
+					printf("未迟到\n");
+				}
+				else
+				{
+					emp->Whether_be_late = 1;
+					emp->num_late++;
+					printf("已迟到\n");
+				}
+				Sleep(commmon_time);
+				system("cls");
+			}
+			else if (local_tm->tm_hour < 6)
+			{
+				printf("未到打卡时间(6:00),打卡失败\n");
+				Sleep(commmon_time);
+				system("cls");
+			}
+		}break;
+
+		case 2:
+		{
+			if (emp->Whether_clock == 1)
+			{
+				time_t current_time = time(NULL);
+				struct tm *local_tm;
+				local_tm = localtime(&current_time);
+				printf("下班时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+					local_tm->tm_hour, local_tm->tm_min);
+
+				int temp = sprintf(emp->time_of_leave, "%d-%02d-%02d.%d:%02d",
+					local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday, local_tm->tm_hour, local_tm->tm_min);
+
+				Sleep(commmon_time);
+				system("cls");
 			}
 			else
 			{
-				emp->Whether_be_late = 1;
-				emp->num_late++;
-				printf("已迟到\n");
+				printf("今日还未上班打卡");
+				Sleep(commmon_time);
+				system("cls");
 			}
-			Sleep(commmon_time);
-			system("cls");
+		}break;
+
+		case 0:	system("cls"); flag = 1; break;
+
 		}
-		else if (local_tm->tm_hour < 6)
-		{
-			printf("未到打卡时间(6:00),打卡失败\n");
-			Sleep(commmon_time);
-			system("cls");
-		}
-	}break;
-
-	case 2:
-	{
-		if (emp->Whether_clock == 1)
-		{
-			time_t current_time = time(NULL);
-			struct tm *local_tm;
-			local_tm = localtime(&current_time);
-			printf("下班时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
-				local_tm->tm_hour, local_tm->tm_min);
-
-			int temp = sprintf(emp->time_of_leave, "%d%d-%02d-%02d%d:%02d",
-				local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday, local_tm->tm_hour, local_tm->tm_min);
-
-			Sleep(commmon_time);
-			system("cls");
-		}
-		else
-		{
-			printf("今日还未上班打卡");
-			Sleep(commmon_time);
-			system("cls");
-		}
-	}break;
-
-	case 3:
-	{
-		system("cls");
-	}break;
-
+		if (flag == 1)
+			break;
 	}
 }
 
-void StaffAndUi(Employees *emp)
+void Information_inquiry(Employees *emp)//信息查询
+{
+	int flag = 1;
+	system("cls");
+
+	FILE *fp = fopen("data.txt", "r");
+	if (fp == NULL)
+	{
+		printf("无法data文件\n");
+		Sleep(error_time);
+		exit(1);
+	}
+
+	char name[4] = { '\0' };//第301行至第317行的变量临时存储fscanf读入的数据
+	char j_num[8] = { '\0' };
+	int department_num = 0;
+	int identity_num = 0;
+	int age = 0;
+	int age_w = 0;
+	int stage = 0;
+	char pass[5] = { '\0' };
+	int w_clock = 0;
+	char tm_of_c[20] = { '\0' };
+	char tm_of_l[20] = { '\0' };
+	int w_be_l = 0;
+	int n_be_l = 0;
+	int t_v = 0;
+	int h_v = 0;
+	int r_v = 0;
+	char phone_num[12] = { '\0' };
+
+	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %s",
+		name, j_num, &department_num, &identity_num, &age, &age_w, &stage, pass, &w_clock, tm_of_c, tm_of_l, &w_be_l, &n_be_l, &t_v, &h_v, &r_v, phone_num) == 17)
+	{
+		if (strcmp(emp->job_num, j_num) == 0)
+			break;
+	}
+
+	while (1)
+	{
+		printf("以下为你的个人信息；\n");
+		printf("姓名：%s\n", name);
+		printf("工号：%s\n", j_num);
+		printf("电话号码：%s\n", phone_num);
+		printf("部门：%s\n", departments[department_num - 1]);
+		printf("职务：%s\n", identities[identity_num - 1]);
+		printf("年龄：%d\n", age);
+		printf("工龄：%d\n", age_w);
+		printf("密码：****\n");
+		printf("工作状态：");
+		if (stage)
+			printf("工作中...\n");
+		else
+			printf("休假中\n");
+		printf("是否打卡：\n");
+		if (w_clock)
+			printf("已打卡...\n");
+		else
+			printf("未打卡O.o\n");
+		printf("打卡时间：%s\n", tm_of_c);
+
+		if (strcmp(tm_of_l, "                ") == 0)
+			printf("还未进行下班打卡\n");
+		else
+			printf("下班时间：%s\n", tm_of_l);
+		printf("是否迟到：");
+		if (w_be_l)
+			printf("已迟到＞﹏＜\n");
+		else
+			printf("未迟到\n");
+		printf("迟到数：%d\n", n_be_l);
+		printf("总年假：%d\n", t_v);
+		printf("已用年假：%d\n", h_v);
+		printf("剩余年假：%d\n", r_v);
+
+		printf("--输入'p'显示密码--\n");
+		printf("--输入0退出--\n");
+		while (1)
+		{
+			while (!_kbhit()){}
+			char ch = _getch();
+			if (ch == 'p')
+			{
+				HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+				COORD coord1 = { (SHORT)6, (SHORT)8 };
+				SetConsoleCursorPosition(hConsole, coord1);
+				printf("%s", pass);
+				Sleep(commmon_time);
+				COORD coord2 = { (SHORT)6, (SHORT)8 };
+				SetConsoleCursorPosition(hConsole, coord1);
+				printf("****");
+			}
+			else if (ch - '0' == 0)
+				flag = 0;
+			if (flag == 0)
+				break;
+		}
+		if (flag == 0)
+		{
+			system("cls");
+			break;
+		}
+	}
+
+}
+
+void StaffAndUi(Employees *emp)//员工
 {
 	system("cls");
 	int pick = 0;
@@ -289,13 +405,14 @@ void StaffAndUi(Employees *emp)
 		printf("|         2.信息查询          |\n");
 		printf("|         3.请假系统          |\n");
 		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         0.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
 		{
-			case 1:select_clock(emp); break;
-			case 5:flag = 1; system("cls"); printf("退出登录成功\n");Sleep(commmon_time); break;
+			case 1:Select_clock(emp); break;
+			case 2:Information_inquiry(emp); break;
+			case 0:flag = 1; system("cls"); printf("退出登录成功\n");Sleep(commmon_time); break;
 		}
 	}
 }

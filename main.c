@@ -11,16 +11,16 @@ const short vacation_of_less_10 = 5;//工龄小于10年的年假数
 const short vacation_of_less_20 = 10;//工龄在10~20年的年假数
 const short vacation_of_more_20 = 20;//工龄大于20年的年假数
 const short error_time = 1500;//错误信息显示时间
-const short commmon_time = 3000;//普通信息显示时间
+const short commmon_time = 2000;//普通信息显示时间
 int main()
 {
 	Employees *emp;
-	init_company(); 
+	Init_company(); 
 
-	void complete_job_num();
+	void Complete_job_num();
 	printf("-数据导入完成\n");
 
-	complete_job_num();
+	Complete_job_num();
 	printf("-工号已生成\n");
 	Save();
 	Sleep(commmon_time);
