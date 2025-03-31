@@ -355,8 +355,6 @@ void deleteStaff() // 删除员工
 	}
 }
 
-
-
 void modifyStaff(void) // 修改员工信息
 {
 	char jobnum[8];
