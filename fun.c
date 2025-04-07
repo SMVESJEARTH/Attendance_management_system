@@ -1,16 +1,11 @@
 ﻿#include"variable.h"
 #include"fun.h"
-
-<<<<<<< HEAD
-
-Employees * CreatAndRead_employees(int i)//存入文件中的数据
-=======
 void Save(void)//数据保存
->>>>>>> main
+
 {
 	char line[101] = { '\0' };
 
-	FILE *newFile = fopen("temp.txt", "w");
+	FILE* newFile = fopen("temp.txt", "w");
 	if (newFile == NULL)
 	{
 		printf("无法打开临时文件\n");
@@ -19,12 +14,12 @@ void Save(void)//数据保存
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		Employees *emp = com[i].head;
+		Employees* emp = com[i].head;
 		while (emp != NULL)
 		{
-			fprintf(newFile, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %s\n",
+			fprintf(newFile, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %d\n",
 				emp->name, emp->job_num, emp->id_department, emp->id_identity, emp->age, emp->age_of_work, emp->stage, emp->password, emp->Whether_clock,
-				emp->time_of_clock, emp->time_of_leave, emp->Whether_be_late, emp->num_late, emp->total_annual_vacation, emp->taken_annual_vacation, emp->remaining_annual_leave,emp->telephone_number);
+				emp->time_of_clock, emp->time_of_leave, emp->Whether_be_late, emp->num_late,emp->staff_clock_times,emp->requested_vacationdays,emp->vacation_status, emp->taken_annual_vacationdays);
 			emp = emp->next;
 		}
 	}
@@ -34,41 +29,40 @@ void Save(void)//数据保存
 	printf("-数据已保存\n");
 }
 
-Employees * CreatAndRead_employees(int i)//创建链表与读取数据
+Employees* CreatAndRead_employees(int i)//创建链表与读取数据
 {
 	char name[4] = { '\0' };//第十二行至第十八行的变量临时存储fscanf读入的数据
-    char j_num[8] = { '\0' };
-    int department_num = 0;
+	char j_num[8] = { '\0' };
+	int department_num = 0;
 	int identity_num = 0;
-    int age = 0;
+	int age = 0;
 	int age_w = 0;
 	int stage = 0;
 	char pass[5] = { '\0' };
-    int w_clock = 0;
-    char tm_of_c[20] = { '\0' };
-    char tm_of_l[20] = { '\0' };
-    int w_be_l = 0;
-    int n_be_l = 0;
-    int t_v = 0;
-    int h_v = 0;
-    int r_v = 0;
-	char phone_num[12] = { '\0' };
-
-    Employees *head = NULL, *p1 = NULL, *p2 = NULL;
-    FILE *fp = fopen("data.txt", "r");//只读打开data.txt
-    if (fp == NULL)
-    {
-        printf("文件不存在");
+	int w_clock = 0;
+	char tm_of_c[20] = { '\0' };
+	char tm_of_l[20] = { '\0' };
+	int w_be_l = 0;
+	int n_be_l = 0;
+	int s_c_times = 0;
+	int t_a_vdays = 0;//请的年假数
+	int r_vdays = 0;
+	int v_status = 0;
+	Employees* head = NULL, * p1 = NULL, * p2 = NULL;
+	FILE* fp = fopen("data.txt", "r");//只读打开data.txt
+	if (fp == NULL)
+	{
+		printf("文件不存在");
 		Sleep(error_time);
 		exit(1);
-    }
+	}
 
-	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %s", 
-        name,j_num,&department_num,&identity_num,&age,&age_w,&stage,pass,&w_clock, tm_of_c, tm_of_l,&w_be_l,&n_be_l,&t_v,&h_v,&r_v, phone_num) == 17)//每一行有17个数据 所以fscanf返回值为17
+	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %d",
+		name, j_num, &department_num, &identity_num, &age, &age_w, &stage, pass, &w_clock, tm_of_c, tm_of_l, &w_be_l, &n_be_l, &s_c_times,&r_vdays, &v_status ,&t_a_vdays) == 17)//每一行有17个数据 所以fscanf返回值为17
 	{
 		if (department_num == i + 1)//程序中的部门索引是0~3 而文件和手动输入的部门索引是1~4，故加1
 		{
-			p1 = (Employees *)malloc(sizeof(Employees));//开辟内存
+			p1 = (Employees*)malloc(sizeof(Employees));//开辟内存
 			if (p1 == NULL)
 			{
 				fclose(fp); // 内存分配失败，关闭文件
@@ -76,34 +70,33 @@ Employees * CreatAndRead_employees(int i)//创建链表与读取数据
 				exit(1);
 			}
 
-            //数据读入
+			//数据读入
 			strcpy(p1->name, name);//将数据存入
-            strcpy(p1->job_num, j_num);//工号
-            if (department_num >= 1 && department_num <= 4)//所属部门
-                strcpy(p1->department, departments[i]);
-            p1->id_department = department_num;
-            if (identity_num >= 1 && identity_num <=3)//职位
-                strcpy(p1->identity, identities[identity_num - 1]);
-            p1->id_identity = identity_num;
-            p1->age = age;
-            p1->age_of_work = age_w;//工龄
-            p1->stage = stage; //工作状态
-            strcpy(p1->password, pass);//四位密码
-            p1->Whether_clock = w_clock;//是否打卡
-            strcpy(p1->time_of_clock, tm_of_c);//打卡时间
-            strcpy(p1->time_of_leave, tm_of_l);//离开时间
-            p1->Whether_be_late = w_be_l;//是否迟到
-            p1->num_late = n_be_l;//迟到数
-            p1->total_annual_vacation = t_v;//总年假
-            p1->taken_annual_vacation = h_v;//已用年假
-            p1->remaining_annual_leave = r_v;//剩余年假
-			strcpy(p1->telephone_number, phone_num);//电话号码
-
+			strcpy(p1->job_num, j_num);//工号
+			if (department_num >= 1 && department_num <= 4)//所属部门
+				strcpy(p1->department, departments[i]);
+			p1->id_department = department_num;
+			if (identity_num >= 1 && identity_num <= 3)//职位
+				strcpy(p1->identity, identities[identity_num - 1]);
+			p1->id_identity = identity_num;
+			p1->age = age;
+			p1->age_of_work = age_w;//工龄
+			p1->stage = stage; //工作状态
+			strcpy(p1->password, pass);//四位密码
+			p1->Whether_clock = w_clock;//是否打卡
+			strcpy(p1->time_of_clock, tm_of_c);//打卡时间
+			strcpy(p1->time_of_leave, tm_of_l);//离开时间
+			p1->Whether_be_late = w_be_l;//是否迟到
+			p1->num_late = n_be_l;//迟到数
+			p1->taken_annual_vacationdays = t_a_vdays;//已申请成功的年假数
+			p1->staff_clock_times = s_c_times;//打卡次数
+			p1->requested_vacationdays = r_vdays;//已申请但未批准的年假天数
+			p1->vacation_status = v_status;// 请假状态
 			if (head == NULL)
 				head = p1;
 			else
 				p2->next = p1;
-            p2 = p1;
+			p2 = p1;
 			p2->next = NULL;
 			com[i].num_of_staff++;//部门员工数自增
 		}
@@ -127,11 +120,11 @@ void complete_job_num(void)//完成工号
 {
 	for (int i = 0; i < 4; i++)
 	{
-<<<<<<< HEAD
+
 		bool flag = 0;
 		if (flag = 0)
 		{
-			Employees *emp = com[i].head;
+			Employees* emp = com[i].head;
 			for (int j = 0; emp != NULL; j++)
 			{
 				if (j < 9)
@@ -152,13 +145,13 @@ void complete_job_num(void)//完成工号
 			}
 		}
 
-		FILE *oldFile = fopen("data.txt", "r");
+		FILE* oldFile = fopen("data.txt", "r");
 		if (oldFile == NULL) {
 			printf("无法打开原始文件");
 			return;
 		}
 
-		FILE *tempFile = fopen("temp.txt", "w");
+		FILE* tempFile = fopen("temp.txt", "w");
 		if (tempFile == NULL) {
 			printf("无法打开临时文件");
 			fclose(oldFile);
@@ -171,7 +164,7 @@ void complete_job_num(void)//完成工号
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				Employees *emp = com[i].head;
+				Employees* emp = com[i].head;
 
 				char name[4] = { '\0' };
 				int identity_num = 0;
@@ -219,24 +212,22 @@ void Main_UI(void)
 	for (int i = 0; i < 4; i++)
 	{
 		bool flag = 0;
-=======
->>>>>>> main
-		Employees *emp = com[i].head;
-		for (int j=0;emp != NULL;j++)
+		Employees* emp = com[i].head;
+		for (int j = 0; emp != NULL; j++)
 		{
-            strcpy(emp->job_num, emp->name);
-            emp->job_num[3] = emp->id_department + '0';
-            emp->job_num[4] = emp->id_identity + '0';
+			strcpy(emp->job_num, emp->name);
+			emp->job_num[3] = emp->id_department + '0';
+			emp->job_num[4] = emp->id_identity + '0';
 			if (j < 9)
 			{
-				emp->job_num[5] ='0';
+				emp->job_num[5] = '0';
 				emp->job_num[6] = j + 1 + '0';
 				emp->job_num[7] = '\0';
 			}
 			else
 			{
 				int temp = j + 1;
-				emp->job_num[6] = temp%10 + '0';
+				emp->job_num[6] = temp % 10 + '0';
 				temp = temp / 10;
 				emp->job_num[5] = temp + '0';
 				emp->job_num[7] = '\0';
@@ -244,10 +235,10 @@ void Main_UI(void)
 			emp = emp->next;
 		}
 	}
-	
+
 }
 
-Employees *LoginAndUi(void)//登录系统
+Employees* LoginAndUi(void)//登录系统
 {
 	system("cls");
 	char j_n[8] = { '\0' };
@@ -255,17 +246,17 @@ Employees *LoginAndUi(void)//登录系统
 	printf("请登录\n");
 	printf("工号：");
 	gets(j_n);
-	for(int j=0;j<3;j++)
+	for (int j = 0; j < 3; j++)
 	{
 		printf("密码：");
 		gets(pass);
 		bool flag = 0;
 		for (int i = 0; i < 4; i++)
 		{
-			Employees *emp = com[i].head;
+			Employees* emp = com[i].head;
 			while (emp != NULL)
 			{
-				if (!strcmp(emp->job_num, j_n)&& !strcmp(emp->password, pass))
+				if (!strcmp(emp->job_num, j_n) && !strcmp(emp->password, pass))
 				{
 					printf("%s %s 验证通过，欢迎登录\n", emp->identity, emp->name);
 					Sleep(commmon_time);
@@ -292,7 +283,7 @@ Employees *LoginAndUi(void)//登录系统
 	exit(1);
 }
 
-void select_clock(Employees *emp)//打卡选择
+void select_clock(Employees* emp)//打卡选择
 {
 	int pick;
 	system("cls");;
@@ -307,18 +298,19 @@ void select_clock(Employees *emp)//打卡选择
 	case 1:
 	{
 		time_t current_time = time(NULL);
-		struct tm *local_tm;
+		struct tm* local_tm;
 		local_tm = localtime(&current_time);//将时间戳转为本地时间
 		if (emp->Whether_clock != 1 && local_tm->tm_hour > 6)
 		{
 			emp->Whether_clock = 1;
 			printf("打卡成功\n");
+			emp->staff_clock_times++;
 
 			printf("打卡时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
 				local_tm->tm_hour, local_tm->tm_min);
 
-			int temp = sprintf(emp->time_of_leave, "%d%d-%02d-%02d%d:%02d", 
-				local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,local_tm->tm_hour, local_tm->tm_min);
+			int temp = sprintf(emp->time_of_leave, "%d%d-%02d-%02d%d:%02d",
+				local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday, local_tm->tm_hour, local_tm->tm_min);
 
 			if (local_tm->tm_hour < time_of_start_hour)
 			{
@@ -347,7 +339,7 @@ void select_clock(Employees *emp)//打卡选择
 		if (emp->Whether_clock == 1)
 		{
 			time_t current_time = time(NULL);
-			struct tm *local_tm;
+			struct tm* local_tm;
 			local_tm = localtime(&current_time);
 			printf("下班时间：%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
 				local_tm->tm_hour, local_tm->tm_min);
@@ -374,7 +366,7 @@ void select_clock(Employees *emp)//打卡选择
 	}
 }
 
-void StaffAndUi(Employees *emp)
+void StaffAndUi(Employees* emp)
 {
 	system("cls");
 	int pick = 0;
@@ -393,8 +385,87 @@ void StaffAndUi(Employees *emp)
 		int temp = scanf("%d", &pick);
 		switch (pick)
 		{
-			case 1:select_clock(emp); break;
-			case 5:flag = 1; system("cls"); printf("退出登录成功\n");Sleep(commmon_time); break;
+		case 1:select_clock(emp); break;
+		case 2:findStaff(emp); break;
+		case 3: {
+			int days;
+			printf("请输入申请的假期天数：");
+			scanf("%d", &days);
+			requestVacation(emp, days);
+		}
+		case 4:modifyStaffCode(emp); break;
+		case 5:flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		}
+	}
+}
+
+void ManagerAndUi(Employees* emp) //部门经理功能
+{
+	system("cls");
+	int pick = 0;
+	int flag = 0;
+	int days = 0;
+	while (1) {
+		if (flag == 1)
+			break;
+		printf("------------------------------\n");
+		printf("|         1.打卡选择          |\n");
+		printf("|         2.信息查询          |\n");
+		printf("|         3.审批请假          |\n");
+		printf("|         4.修改密码          |\n");
+		printf("|         5.退出登录          |\n");
+		printf("------------------------------\n");
+		int temp = scanf("%d", &pick);
+		switch (pick) {
+		case 1: select_clock(emp); break;
+		case 2: break;
+		case 3: {
+			Employees* curr = com[emp->id_department - 1].head;
+			while (curr != NULL) {
+				if (curr->vacation_status == 1) {
+					printf("员工 %s 申请了 %d 天假期。\n", curr->name, curr->requested_vacationdays);
+					printf("1. 批准\n2. 拒绝\n");
+					int choice;
+					scanf("%d", &choice);
+					if (choice == 1) {
+						approveVacation(curr);
+					}
+					else if (choice == 2) {
+						rejectVacation(curr);
+					}
+				}
+				curr = curr->next;
+			}
+		} break;
+		case 4: modifyStaffCode(emp); break;
+	
+		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		}
+	}
+}
+
+void AdminAndUi(Employees* emp)//管理员功能
+{
+	system("cls");
+	int pick = 0;
+	int flag = 0;
+	while (1) {
+		if (flag == 1)
+			break;
+		printf("------------------------------\n");
+		printf("|         1.系统维护          |\n");
+		printf("|         2.信息查询          |\n");
+		printf("|         3.信息管理         |\n");
+		printf("|         4.修改密码          |\n");
+		printf("|         5.退出登录          |\n");
+		printf("------------------------------\n");
+		int temp = scanf("%d", &pick);
+		switch (pick) {
+		case 1:  break;
+		case 2:  break;
+		case 3: break;
+		case 4: break;
+		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
 		}
 	}
 }
@@ -408,8 +479,6 @@ void inputStaff() //添加员工
 	int stage; // 工作状态
 	char password[5]; // 密码
 	int clock; // 打卡状态
-
-<<<<<<< HEAD
 	// 输入员工信息
 	printf("请输入员工信息\n");
 	printf("姓名（不超过3个字符）：");
@@ -426,9 +495,6 @@ void inputStaff() //添加员工
 	scanf("%s", password);
 	printf("打卡状态（1-已打卡, 0-未打卡）：");
 	scanf("%d", &clock);
-=======
-    
->>>>>>> main
 
 	// 判断输入是否正确
 	if (identity_num < 1 || identity_num > 3) {
@@ -666,3 +732,77 @@ void modifyMultipleFields(Employees* emp)//modifyStaff函数的辅助函数
 		}
 	}
 }
+
+void findStaff(Employees* emp)//普通职工查询自己的信息
+{
+	while (emp != NULL) {
+			printf("姓名: %s\n", emp->name);
+			printf("工号: %s\n", emp->job_num);
+			printf("部门: %s\n", emp->department);
+			printf("职位: %s\n", emp->identity);
+			printf("年龄: %d\n", emp->age);
+			printf("工龄: %d\n", emp->age_of_work);
+			printf("状态: %d\n", emp->stage);
+			printf("密码: %s\n", emp->password);
+			printf("是否打卡: %d\n", emp->Whether_clock);
+			printf("打卡时间: %s\n", emp->time_of_clock);
+			printf("离开时间: %s\n", emp->time_of_leave);
+			printf("是否迟到: %d\n", emp->Whether_be_late);
+			printf("迟到次数: %d\n", emp->num_late);
+			printf("年假天数: %d\n", emp->taken_annual_vacationdays);
+			printf("打卡次数: %d\n", emp->staff_clock_times);
+	}
+	system("pause");
+	system("cls");
+}
+
+void modifyStaffCode(Employees* emp)
+{
+		while (emp != NULL) {
+				printf("当前密码: %s\n", emp->password);
+				printf("请输入新密码: ");
+				scanf("%s", emp->password);
+				printf("密码修改成功。\n");
+		}
+		system("pause");
+		system("cls");
+}
+
+void requestVacation(Employees* emp, int days) //假期申请函数
+{
+	if (emp->stage == 0) {
+		printf("员工 %s 已经在假期中，无法再次申请假期。\n", emp->name);
+		return;
+	}
+	if (days <= 0) {
+		printf("请假天数必须大于0。\n");
+		return;
+	}
+	emp->requested_vacationdays += days;
+	emp->vacation_status = 1; // 设置为已申请待审批状态
+	printf("员工 %s 已成功申请 %d 天假期，等待审批。\n", emp->name, days);
+}
+
+void approveVacation(Employees* emp) //批准职员的请假申请
+{
+	if (emp->vacation_status != 1) {
+		printf("没有待审批的请假申请。\n");
+		return;
+	}
+	emp->taken_annual_vacationdays += emp->requested_vacationdays;
+	emp->requested_vacationdays = 0;
+	emp->vacation_status = 2; // 设置为已批准状态
+	printf("员工 %s 的请假申请已被批准。\n", emp->name);
+}
+
+void rejectVacation(Employees* emp)//拒绝职员的请假申请
+{
+	if (emp->vacation_status != 1) {
+		printf("没有待审批的请假申请。\n");
+		return;
+	}
+	emp->requested_vacationdays = 0;
+	emp->vacation_status = 3; // 设置为已拒绝状态
+	printf("员工 %s 的请假申请已被拒绝。\n", emp->name);
+}
+

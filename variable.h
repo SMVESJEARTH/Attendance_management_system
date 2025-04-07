@@ -30,14 +30,13 @@ struct Employees//雇员结构
 	int Whether_clock;//是否打卡 1是 0否
 	char time_of_clock[20];//打卡时间
 	char time_of_leave[20];//离开时间
-	int Whether_be_late;//是否迟到
+	int Whether_be_late;//是否迟到 1是 0否
 	int num_late;//迟到数
-	int total_annual_vacation;//总年假
-	int taken_annual_vacation;//已用年假
-	int remaining_annual_leave;//剩余年假
-	char telephone_number[12];//电话号码
-
-	struct Employees *next;//员工类型指针
+	int staff_clock_times;//打卡次数
+	int requested_vacationdays; // 已申请但未批准的年假天数
+	int vacation_status; // 请假状态：0 - 未申请，1 - 已申请待审批，2 - 已批准，3 - 已拒绝
+	int taken_annual_vacationdays;//已请年假的总天数
+	struct Employees* next;//员工类型指针
 };
 typedef struct Employees Employees;
 
@@ -46,14 +45,14 @@ struct Companys
 	char order;//部门编号 格式为1 2 3 4
 	char department[8];//部门名
 	int num_of_staff;//部门各自员工数
-	Employees *head;//员工类型指针
+	Employees* head;//员工类型指针
 };
 typedef struct Companys Companys;
 
 //全局变量：
 Companys com[4];//四个部门
-const char *departments[4];//四个部门名
-const char *identities[3];//三个不同职位
+const char* departments[4];//四个部门名
+const char* identities[3];//三个不同职位
 const char time_of_start_hour;//规定上班时间
 const char time_of_end_hour;//规定下班时间
 const char time_of_end_min;
