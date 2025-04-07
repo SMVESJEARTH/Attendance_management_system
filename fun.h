@@ -19,7 +19,7 @@ void select_clock(Employees* emp);//打卡选择
 void StaffAndUi(Employees* emp);//员工功能
 void findStaff(Employees* emp);//普通职工信息查询
 void modifyStaffCode(Employees* emp);//普通职工修改密码函数
-void requestVacation(Employees* emp, int days); //假期申请函数
+void requestVacation(Employees* emp); //假期申请函数
 void ManagerAndUi(Employees* emp); //部门经理功能
 void AdminAndUi(Employees* emp);//管理员功能
 void approveVacation(Employees* emp);//批准职员的请假申请
