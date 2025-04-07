@@ -378,7 +378,8 @@ void StaffAndUi(Employees* emp)
 		printf("|         2.信息查询          |\n");
 		printf("|         3.请假系统          |\n");
 		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         5.信息排序          |\n");
+		printf("|         6.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -387,7 +388,11 @@ void StaffAndUi(Employees* emp)
 		case 2:findStaff(emp); break;
 		case 3: requestVacation(emp); break;
 		case 4:modifyStaffCode(emp); break;
-		case 5:flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		case 5:
+		case 6:flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		default:
+			printf("无效选项，请重新输入。\n");
+			Sleep(commmon_time);
 		}
 	}
 }
@@ -406,7 +411,8 @@ void ManagerAndUi(Employees* emp) //部门经理功能
 		printf("|         2.信息查询          |\n");
 		printf("|         3.审批请假          |\n");
 		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         5.信息排序          |\n");
+		printf("|         6.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick) {
@@ -431,8 +437,11 @@ void ManagerAndUi(Employees* emp) //部门经理功能
 			}
 		} break;
 		case 4: modifyStaffCode(emp); break;
-	
-		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		case 5:ManagerSort(emp); break;
+		case 6: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		default:
+			printf("无效选项，请重新输入。\n");
+			Sleep(commmon_time);
 		}
 	}
 }
@@ -450,7 +459,8 @@ void AdminAndUi(Employees* emp)//管理员功能
 		printf("|         2.信息查询          |\n");
 		printf("|         3.信息管理         |\n");
 		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         5.信息排序          |\n");
+		printf("|         6.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick) {
@@ -458,7 +468,11 @@ void AdminAndUi(Employees* emp)//管理员功能
 		case 2:  break;
 		case 3: break;
 		case 4: break;
-		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		case 5:AdminSort(); break;
+		case 6: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		default:
+			printf("无效选项，请重新输入。\n");
+			Sleep(commmon_time);
 		}
 	}
 }
@@ -796,3 +810,267 @@ void rejectVacation(Employees* emp)//拒绝职员的请假申请
 	printf("员工 %s 的请假申请已被拒绝。\n", emp->name);
 }
 
+Employees* getMiddle(Employees* head)// 找到链表的中间节点
+{
+	if (head == NULL) return head;
+
+	Employees* slow = head;        // 慢指针，每次移动一步
+	Employees* fast = head;        // 快指针，每次移动两步
+
+	while (fast->next != NULL && fast->next->next != NULL) {
+		slow = slow->next;          // 慢指针移动一步
+		fast = fast->next->next;    // 快指针移动两步
+	}
+
+	return slow;  // 当快指针到达链表末尾时，慢指针指向中间节点
+}
+
+Employees* mergeByClockTimes(Employees* left, Employees* right) // 归并两个链表，按打卡次数升序（打卡的单一排序）
+{
+	if (left == NULL) return right;
+	if (right == NULL) return left;
+
+	if (left->num_clock <= right->num_clock) {
+		left->next = mergeByClockTimes(left->next, right);
+		return left;
+	}
+	else {
+		right->next = mergeByClockTimes(left, right->next);
+		return right;
+	}
+}
+
+
+Employees* mergeSortByClockTimes(Employees* head) // 归并排序主函数，按打卡次数升序
+
+{
+	// 如果链表为空或只有一个节点，直接返回
+	if (head == NULL || head->next == NULL) {
+		return head;
+	}
+
+	// 找到链表的中间节点
+	Employees* middle = getMiddle(head);
+	Employees* nextOfMiddle = middle->next;
+
+	// 将链表从中间节点处分割成两部分
+	middle->next = NULL;
+
+	// 递归地对左半部分进行排序
+	Employees* left = mergeSortByClockTimes(head);
+	// 递归地对右半部分进行排序
+	Employees* right = mergeSortByClockTimes(nextOfMiddle);
+
+	// 合并两个有序链表
+	return mergeByClockTimes(left, right);
+}
+
+Employees* mergeByVacationTimes(Employees* left, Employees* right) //归并两个链表，按请假次数升序（请假的单一排序）
+{
+	if (left == NULL) return right;
+	if (right == NULL) return left;
+
+	if (left->num_ask_vacation <= right->num_ask_vacation) {
+		left->next = mergeByVacationTimes(left->next, right);
+		return left;
+	}
+	else {
+		right->next = mergeByVacationTimes(left, right->next);
+		return right;
+	}
+}
+
+Employees* mergeSortByVacationTimes(Employees* head)////归并主函数，按请假次数升序（请假的单一排序）
+{
+	if (head == NULL || head->next == NULL) {
+		return head;
+	}
+
+	Employees* middle = getMiddle(head);
+	Employees* nextOfMiddle = middle->next;
+
+	middle->next = NULL;
+
+	Employees* left = mergeSortByVacationTimes(head);
+	Employees* right = mergeSortByVacationTimes(nextOfMiddle);
+
+	return mergeByVacationTimes(left, right);
+}
+
+Employees* mergeByMultipleAttributes(Employees* left, Employees* right) // 归并两个链表，如果请假次数相同，再按打卡次数排序（请假和打卡的多属性排序）
+{
+	if (left == NULL) return right;
+	if (right == NULL) return left;
+
+	if (left->num_ask_vacation < right->num_ask_vacation) {
+		left->next = mergeByMultipleAttributes(left->next, right);
+		return left;
+	}
+	else if (left->num_ask_vacation > right->num_ask_vacation) {
+		right->next = mergeByMultipleAttributes(left, right->next);
+		return right;
+	}
+	else {
+		// 如果请假次数相同，再按打卡次数排序
+		if (left->num_clock <= right->num_clock) {
+			left->next = mergeByMultipleAttributes(left->next, right);
+			return left;
+		}
+		else {
+			right->next = mergeByMultipleAttributes(left, right->next);
+			return right;
+		}
+	}
+}
+
+Employees* mergeSortByMultipleAttributes(Employees* head) //归并排序主函数，如果请假次数相同，再按打卡次数排序
+{
+	if (head == NULL || head->next == NULL) {
+		return head;
+	}
+
+	Employees* middle = getMiddle(head);
+	Employees* nextOfMiddle = middle->next;
+
+	middle->next = NULL;
+
+	Employees* left = mergeSortByMultipleAttributes(head);
+	Employees* right = mergeSortByMultipleAttributes(nextOfMiddle);
+
+	return mergeByMultipleAttributes(left, right);
+}
+
+void ManagerSort(Employees* emp)//部门经理的排序函数
+{
+	int sortOption;
+	printf("------------------------------\n");
+	printf("|         1.按打卡次数排序    |\n");
+	printf("|         2.按请假次数排序    |\n");
+	printf("|         3.按请假和打卡次数排序|\n");
+	printf("------------------------------\n");
+	printf("请选择排序方式：");
+	scanf("%d", &sortOption);
+
+	switch (sortOption) {
+	case 1: {
+		// 按打卡次数排序
+		com[emp->id_department - 1].head = mergeSortByClockTimes(com[emp->id_department - 1].head);
+		printf("本部门员工信息已按打卡次数升序排序。\n");
+		ManagerprintSortedEmployees(com[emp->id_department - 1].head, "打卡次数");
+		Sleep(commmon_time);
+	} break;
+	case 2: {
+		// 按请假次数排序
+		com[emp->id_department - 1].head = mergeSortByVacationTimes(com[emp->id_department - 1].head);
+		printf("本部门员工信息已按请假次数升序排序。\n");
+		ManagerprintSortedEmployees(com[emp->id_department - 1].head, "请假次数");
+		Sleep(commmon_time);
+	} break;
+	case 3: {
+		// 按请假和打卡次数排序
+		com[emp->id_department - 1].head = mergeSortByMultipleAttributes(com[emp->id_department - 1].head);
+		printf("本部门员工信息已按请假次数和打卡次数排序。\n");
+		ManagerprintSortedEmployees(com[emp->id_department - 1].head, "请假和打卡次数");
+		Sleep(commmon_time);
+	} break;
+	default:
+		printf("无效选项，请重新输入。\n");
+		Sleep(commmon_time);
+	}
+}
+
+void ManagerprintSortedEmployees(Employees* head, const char* sortBy)//部门经理的信息排序的打印函数，打印输出排序后的信息
+{
+	if (head == NULL) {
+		printf("没有员工信息可显示。\n");
+		return;
+	}
+
+	printf("------------------------------\n");
+	printf("| 姓名 | %s |\n", sortBy);
+	printf("------------------------------\n");
+
+	Employees* current = head;
+	while (current != NULL) {
+		if (strcmp(sortBy, "打卡次数") == 0) {
+			printf("| %-4s | %-8d |\n", current->name, current->num_clock);
+		}
+		else if (strcmp(sortBy, "请假次数") == 0) {
+			printf("| %-4s | %-8d |\n", current->name, current->num_ask_vacation);
+		}
+		else if (strcmp(sortBy, "请假和打卡次数") == 0) {
+			printf("| %-4s | 请假次数: %-3d 打卡次数: %-3d |\n", current->name, current->num_ask_vacation, current->num_clock);
+		}
+		current = current->next;
+	}
+	printf("------------------------------\n");
+}
+
+void AdminPrintSortedEmployees(const char* sortBy)//管理员的排序打印函数，打印排序后的数据
+{
+	printf("------------------------------\n");
+	printf("| 部门 | 姓名 | %s |\n", sortBy);
+	printf("------------------------------\n");
+
+	for (int i = 0; i < 4; i++) {
+		Employees* current = com[i].head;
+		while (current != NULL) {
+			if (strcmp(sortBy, "打卡次数") == 0) {
+				printf("| %-6s | %-4s | %-8d |\n", com[i].department, current->name, current->num_clock);
+			}
+			else if (strcmp(sortBy, "请假次数") == 0) {
+				printf("| %-6s | %-4s | %-8d |\n", com[i].department, current->name, current->num_ask_vacation);
+			}
+			else if (strcmp(sortBy, "请假和打卡次数") == 0) {
+				printf("| %-6s | %-4s | 请假次数: %-3d 打卡次数: %-3d |\n", com[i].department, current->name, current->num_ask_vacation, current->num_clock);
+			}
+			current = current->next;
+		}
+	}
+	printf("------------------------------\n");
+}
+
+void AdminSort(void)//管理员的排序函数
+{
+	int sortOption;
+	printf("------------------------------\n");
+	printf("|         1.按打卡次数排序    |\n");
+	printf("|         2.按请假次数排序    |\n");
+	printf("|         3.按请假和打卡次数排序|\n");
+	printf("------------------------------\n");
+	printf("请选择排序方式：");
+	scanf("%d", &sortOption);
+
+	switch (sortOption) {
+	case 1: {
+		// 按打卡次数排序
+		for (int i = 0; i < 4; i++) {
+			com[i].head = mergeSortByClockTimes(com[i].head);
+		}
+		printf("所有部门的员工信息已按打卡次数升序排序。\n");
+		AdminPrintSortedEmployees("打卡次数");
+		Sleep(commmon_time);
+	} break;
+	case 2: {
+		// 按请假次数排序
+		for (int i = 0; i < 4; i++) {
+			com[i].head = mergeSortByVacationTimes(com[i].head);
+		}
+		printf("所有部门的员工信息已按请假次数升序排序。\n");
+		AdminPrintSortedEmployees("请假次数");
+		Sleep(commmon_time);
+	} break;
+	case 3: {
+		// 按请假和打卡次数排序
+		for (int i = 0; i < 4; i++) {
+			com[i].head = mergeSortByMultipleAttributes(com[i].head);
+		}
+		printf("所有部门的员工信息已按请假次数和打卡次数排序。\n");
+		AdminPrintSortedEmployees("请假和打卡次数");
+		Sleep(commmon_time);
+	} break;
+	default:
+		printf("无效选项，请重新输入。\n");
+		Sleep(commmon_time);
+	}
+}

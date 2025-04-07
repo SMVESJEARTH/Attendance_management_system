@@ -24,6 +24,14 @@ void ManagerAndUi(Employees* emp); //部门经理功能
 void AdminAndUi(Employees* emp);//管理员功能
 void approveVacation(Employees* emp);//批准职员的请假申请
 void rejectVacation(Employees* emp);//拒绝职员的请假申请
+Employees* getMiddle(Employees* head);// 找到链表的中间节点,返回我们需要的指针
+Employees* mergeByClockTimes(Employees* left, Employees* right); // 归并两个链表，按打卡次数升序
+Employees* mergeSortByClockTimes(Employees* head); // 归并排序主函数，按打卡次数升序
+Employees* mergeByMultipleAttributes(Employees* left, Employees* right); // 归并两个链表，如果请假次数相同，再按打卡次数排序
+void ManagerSort(Employees* emp);//部门经理的排序函数
+void ManagerprintSortedEmployees(Employees* head, const char* sortBy);//部门经理的信息排序的打印函数，打印输出排序后的信息
+void AdminPrintSortedEmployees(const char* sortBy);//管理员的排序打印函数，打印排序后的数据
+void AdminSort(void);//管理员的排序函数
 #endif  
 
 
