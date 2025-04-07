@@ -10,9 +10,10 @@
 #include <time.h>
 #include <conio.h>
 
-//MWL 1 1 20 1 1234 0 依据此格式产生20个数据，第一个数字为随机中文名，不超过四个字，第二个职位数据只能属于1至3，
+
+//MWL 1 1 20 1 1234  MWL1201 依据此格式产生20个数据，第一个数字为随机中文名，不超过四个字，第二个职位数据只能属于1至3，
 // 第三个部门数据只能属于1至4，第四个工龄数据只能属于1到60，第五个状态数据只能为1，第六个数字密码为随机四位数，
-// 第七个数字打卡只能为0
+// 第七个数据是工号(姓名+部门+职位+在部门里的序号)
 
 struct Employees//雇员结构
 {
@@ -29,14 +30,14 @@ struct Employees//雇员结构
 	int Whether_clock;//是否打卡 1是 0否
 	char time_of_clock[20];//打卡时间
 	char time_of_leave[20];//离开时间
-	int Whether_be_late;//是否迟到
+	int Whether_be_late;//是否迟到 1是 0否
 	int num_late;//迟到数
 	int num_clock;//打卡次数
 	int num_ask_vacation;//请假次数
 	int total_annual_vacation;//总年假
 	int taken_annual_vacation;//已用年假
-	int remaining_annual_leave;//剩余年假
-	int vacation_status; // 请假状态：0 - 未申请，1 - 已申请待审批，2 - 已批准，3 - 已拒绝
+	int remaining_annual_vacation;//剩余年假
+	int ask_vacation_status; // 请假状态：0 - 未申请，1 - 已申请待审批，2 - 已批准，3 - 已拒绝
 	struct Employees *next;//员工类型指针
 };
 typedef struct Employees Employees;
@@ -46,14 +47,14 @@ struct Companys
 	char order;//部门编号 格式为1 2 3 4
 	char department[8];//部门名
 	int num_of_staff;//部门各自员工数
-	Employees *head;//员工类型指针
+	Employees* head;//员工类型指针
 };
 typedef struct Companys Companys;
 
 //全局变量：
 Companys com[4];//四个部门
-const char *departments[4];//四个部门名
-const char *identities[3];//三个不同职位
+const char* departments[4];//四个部门名
+const char* identities[3];//三个不同职位
 const char time_of_start_hour;//规定上班时间
 const char time_of_end_hour;//规定下班时间
 const char time_of_end_min;

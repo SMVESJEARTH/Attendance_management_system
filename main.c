@@ -2,8 +2,8 @@
 #include"fun.h"
 
 Companys com[4];//四个部门
-const char *departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//四个部门名
-const char *identities[3] = { "Admin","Manger","Staff" };//三个职位
+const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//四个部门名
+const char* identities[3] = { "Admin","Manger","Staff" };//三个职位
 const char time_of_start_hour = 9;//规定上班时间
 const char time_of_end_hour = 16;//规定下班时间
 const char time_of_end_min = 30;
@@ -17,19 +17,18 @@ int main()
 	Employees *emp;
 	Init_company(); 
 
-	void Complete_job_num();
-	printf("-数据导入完成\n");
-
 	Complete_job_num();
 	printf("-工号已生成\n");
 	Save();
 	Sleep(commmon_time);
 
-	emp=LoginAndUi();
+	emp = LoginAndUi();
 
 	switch (emp->id_department)
 	{
-		case 3:StaffAndUi(emp);
+		case 1:Admin_And_Ui(emp); break;
+		case 2:Manager_And_Ui(emp); break;
+		case 3:Staff_And_Ui(emp); break;
 	}
 	return 0;
 }
