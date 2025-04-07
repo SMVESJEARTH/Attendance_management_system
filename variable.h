@@ -31,11 +31,12 @@ struct Employees//雇员结构
 	char time_of_leave[20];//离开时间
 	int Whether_be_late;//是否迟到
 	int num_late;//迟到数
+	int num_clock;//打卡次数
+	int num_ask_vacation;//请假次数
 	int total_annual_vacation;//总年假
 	int taken_annual_vacation;//已用年假
 	int remaining_annual_leave;//剩余年假
-	char telephone_number[12];//电话号码
-
+	int vacation_status; // 请假状态：0 - 未申请，1 - 已申请待审批，2 - 已批准，3 - 已拒绝
 	struct Employees *next;//员工类型指针
 };
 typedef struct Employees Employees;
