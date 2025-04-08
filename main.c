@@ -24,7 +24,7 @@ int main()
 
 	emp = LoginAndUi();
 
-	switch (emp->id_department)
+	switch (emp->id_identity)
 	{
 		case 1:Admin_And_Ui(emp); break;
 		case 2:Manager_And_Ui(emp); break;

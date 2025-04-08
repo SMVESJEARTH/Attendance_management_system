@@ -311,7 +311,7 @@ void Select_clock(Employees *emp)//打卡选择
 	}
 }
 
-void Information_inquiry(Employees *emp)//信息查询
+void Information_Inquiry_Individual(Employees *emp)//信息查询
 {
 	int flag = 1;
 	system("cls");
@@ -422,6 +422,14 @@ void Information_inquiry(Employees *emp)//信息查询
 
 }
 
+void Information_Inquiry_Department(Employees *emp)
+{
+	system("cls");
+	Employees *emp_s;
+	int flag = 0, judge;
+	emp_s = com[emp->id_department - 1].head;
+}
+
 void Staff_And_Ui(Employees *emp)//员工功能
 {
 	system("cls");
@@ -442,7 +450,7 @@ void Staff_And_Ui(Employees *emp)//员工功能
 		switch (pick)
 		{
 			case 1:Select_clock(emp); break;
-			case 2:Information_inquiry(emp); break;
+			case 2:Information_Inquiry_Individual(emp); break;
 			case 3: RequestVacation(emp); break;
 			case 4:ChangePassword(emp); break;
 			case 0:flag = 1; printf("退出登录成功\n"); Sleep(commmon_time); system("cls"); ; Save(); break;
@@ -461,36 +469,22 @@ void Manager_And_Ui(Employees* emp) //部门经理功能
 			break;
 		printf("------------------------------\n");
 		printf("|         1.打卡选择          |\n");
-		printf("|         2.信息查询          |\n");
-		printf("|         3.审批请假          |\n");
-		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         2.个人查询          |\n");
+		printf("|         3.部门查询          |\n");
+		printf("|         4.审批请假          |\n");
+		printf("|         5.修改密码          |\n");
+		printf("|         0.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
-		switch (pick) {
+		switch (pick)
+		{
 		case 1: Select_clock(emp); break;
-		case 2: break;
-		case 3: {
-			Employees* curr = com[emp->id_department - 1].head;
-			while (curr != NULL) {
-				if (curr->ask_vacation_status == 1) {
-					printf("员工 %s 申请假期。\n", curr->name);
-					printf("1. 批准\n2. 拒绝\n");
-					int choice;
-					scanf("%d", &choice);
-					if (choice == 1) {
-						ApproveVacation(curr);
-					}
-					else if (choice == 2) {
-						RejectVacation(curr);
-					}
-				}
-				curr = curr->next;
-			}
-		} break;
-		case 4: ChangePassword(emp); break;
+		case 2: Information_Inquiry_Individual; break;
+		case 3: Vacation_Management(emp); break;
+		case 4:Information_Inquiry_Individual(emp); break;
+		case 5: ChangePassword(emp); break;
 	
-		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		case 0:flag = 1; printf("退出登录成功\n"); Sleep(commmon_time); system("cls"); ; Save(); break;
 		}
 	}
 }
@@ -506,9 +500,9 @@ void Admin_And_Ui(Employees* emp)//管理员功能
 		printf("------------------------------\n");
 		printf("|         1.系统维护          |\n");
 		printf("|         2.信息查询          |\n");
-		printf("|         3.信息管理         |\n");
+		printf("|         3.信息管理          |\n");
 		printf("|         4.修改密码          |\n");
-		printf("|         5.退出登录          |\n");
+		printf("|         0.退出登录          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick) {
@@ -516,7 +510,7 @@ void Admin_And_Ui(Employees* emp)//管理员功能
 		case 2:  break;
 		case 3: break;
 		case 4: break;
-		case 5: flag = 1; system("cls"); printf("退出登录成功\n"); Sleep(commmon_time); break;
+		case 0:flag = 1; printf("退出登录成功\n"); Sleep(commmon_time); system("cls"); ; Save(); break;
 		}
 	}
 }
@@ -707,7 +701,7 @@ void DeleteStaff() // 删除员工
 {
 	char jobnum[8];
 	printf("请输入要删除的员工的编号: ");
-	scanf("%s", jobnum);
+	int temp=scanf("%s", jobnum);
 
 	int found = 0; // 标记是否找到员工
 	for (int i = 0; i < 4; i++) // 遍历所有部门
@@ -752,7 +746,7 @@ void ModifyStaff(void) // 修改员工信息
 {
 	char jobnum[8];
 	printf("请输入要修改的员工工号：");
-	scanf("%s", jobnum);
+	int temp=scanf("%s", jobnum);
 
 	int found = 0;
 	for (int i = 0; i < 4; i++) // 遍历所有部门
@@ -797,7 +791,7 @@ void ModifyMultipleFields(Employees* emp)//modifyStaff函数的辅助函数
 		printf("7. 打卡状态\n");
 		printf("请输入您的选择（0-7）：");
 		int choice;
-		scanf("%d", &choice);
+		int temp = scanf("%d", &choice);
 
 		if (choice == 0)
 		{
@@ -867,7 +861,7 @@ void ModifyMultipleFields(Employees* emp)//modifyStaff函数的辅助函数
 	}
 }
 
-void ChangePassword(Employees* emp)//员工密码修改
+void ChangePassword(Employees* emp)//密码修改
 {
 	system("cls");
 	int flag = 0;
@@ -989,24 +983,42 @@ void RequestVacation(Employees* emp) //假期申请函数
 
 }
 
-void ApproveVacation(Employees* emp) //批准职员的请假申请
+void Vacation_Management(Employees* emp) //批准职员的请假申请
 {
-	if (emp->ask_vacation_status != 1) {
-		printf("没有待审批的请假申请。\n");
-		return;
+	system("cls");
+	Employees *emp_s;
+	int flag = 0,judge;
+	emp_s = com[emp->id_department - 1].head;
+	while (emp_s != NULL)
+	{
+		if (emp_s->ask_vacation_status == 1 )
+		{
+			if (emp_s->id_identity != 2)
+			{
+				printf("如果同意申请，请输入1\n");
+				printf("如果拒绝申请，请输入2\n");
+				printf("如果要退出审批，请输入0\n");
+				printf("姓名：%s\n", emp_s->name);
+				printf("工号：%s\n", emp_s->job_num);
+				printf("职务：%s\n", identities[emp_s->id_identity - 1]);
+				printf("总年假：%d\n", emp_s->total_annual_vacation);
+				printf("已用年假：%d\n", emp_s->taken_annual_vacation);
+				printf("剩余年假：%d\n", emp_s->remaining_annual_vacation);
+				scanf("%d", &judge);
+				switch (judge)
+				{
+				case 1:emp_s->ask_vacation_status = 2; printf("已同意申请=\n"); system("cls"); ; break;
+				case 2:emp_s->ask_vacation_status = 3; printf("已拒绝申请=\n"); system("cls"); ; break;
+				case 0:flag = 1; printf("退出审批管理成功\n"); Sleep(commmon_time); system("cls");  break;
+				}
+			}
+		}
+		if (flag == 1)
+			break;
+		emp_s = emp_s->next;
 	}
-	emp->ask_vacation_status = 2; // 设置为已批准状态
-	emp->num_ask_vacation++;
-	printf("员工 %s 的请假申请已被批准。\n", emp->name);
+	Save();
+	printf("已全部处理。\n");
+	Sleep(commmon_time);
+	system("cls");
 }
-
-void RejectVacation(Employees* emp)//拒绝职员的请假申请
-{
-	if (emp->ask_vacation_status != 1) {
-		printf("没有待审批的请假申请。\n");
-		return;
-	}
-	emp->ask_vacation_status = 3; // 设置为已拒绝状态
-	printf("员工 %s 的请假申请已被拒绝。\n", emp->name);
-}
-
