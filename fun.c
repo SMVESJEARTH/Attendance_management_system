@@ -417,7 +417,7 @@ void ManagerAndUi(Employees* emp) //部门经理功能
 		int temp = scanf("%d", &pick);
 		switch (pick) {
 		case 1: select_clock(emp); break;
-		case 2: break;
+		case 2:ManagerQueryInfo(emp); break;
 		case 3: {
 			Employees* curr = com[emp->id_department - 1].head;
 			while (curr != NULL) {
@@ -465,7 +465,7 @@ void AdminAndUi(Employees* emp)//管理员功能
 		int temp = scanf("%d", &pick);
 		switch (pick) {
 		case 1:  break;
-		case 2:  break;
+		case 2:  AdminQueryInfo(); break;
 		case 3: break;
 		case 4: break;
 		case 5:AdminSort(); break;
@@ -961,6 +961,7 @@ void ManagerSort(Employees* emp)//部门经理的排序函数
 	printf("|         1.按打卡次数排序    |\n");
 	printf("|         2.按请假次数排序    |\n");
 	printf("|         3.按请假和打卡次数排序|\n");
+	printf("|         4.返回上一级          |\n");
 	printf("------------------------------\n");
 	printf("请选择排序方式：");
 	scanf("%d", &sortOption);
@@ -987,6 +988,9 @@ void ManagerSort(Employees* emp)//部门经理的排序函数
 		ManagerprintSortedEmployees(com[emp->id_department - 1].head, "请假和打卡次数");
 		Sleep(commmon_time);
 	} break;
+	case 4: {
+		return;
+	}
 	default:
 		printf("无效选项，请重新输入。\n");
 		Sleep(commmon_time);
@@ -1051,6 +1055,7 @@ void AdminSort(void)//管理员的排序函数
 	printf("|         1.按打卡次数排序    |\n");
 	printf("|         2.按请假次数排序    |\n");
 	printf("|         3.按请假和打卡次数排序|\n");
+	printf("|         4.返回上一级          |\n");
 	printf("------------------------------\n");
 	printf("请选择排序方式：");
 	scanf("%d", &sortOption);
@@ -1087,4 +1092,152 @@ void AdminSort(void)//管理员的排序函数
 		printf("无效选项，请重新输入。\n");
 		Sleep(commmon_time);
 	}
+}
+
+void AdminQueryInfo(void) //管理员的信息查询函数
+{
+	system("cls");
+	printf("------------------------------\n");
+	printf("|         1.查询工作状态       |\n");
+	printf("|         2.查询打卡、迟到、请假次数|\n");
+	printf("|         3.查询员工所有信息   |\n");
+	printf("|         4.返回上一级         |\n");
+	printf("------------------------------\n");
+	printf("请选择查询内容：");
+	int choice;
+	scanf("%d", &choice);
+
+	char jobnum[8];
+	printf("请输入员工工号：");
+	scanf("%s", jobnum);
+
+	Employees* emp = NULL;
+	for (int i = 0; i < 4; i++) {
+		emp = com[i].head;
+		while (emp != NULL) {
+			if (strcmp(emp->job_num, jobnum) == 0) {
+				break;
+			}
+			emp = emp->next;
+		}
+		if (emp != NULL) {
+			break;
+		}
+	}
+
+	if (emp == NULL) {
+		printf("未找到工号为 %s 的员工。\n", jobnum);
+		Sleep(commmon_time);
+		return;
+	}
+
+	switch (choice) {
+	case 1: {
+		printf("员工 %s 的工作状态为：%s\n", emp->name, emp->stage == 1 ? "正常工作" : "假期中");
+		break;
+	}
+	case 2: {
+		printf("员工 %s 的打卡次数：%d，迟到次数：%d，请假次数：%d\n", emp->name, emp->num_clock, emp->num_late, emp->num_ask_vacation);
+		break;
+	}
+	case 3: {
+		printf("员工 %s 的信息：\n", emp->name);
+		printf("姓名：%s\n", emp->name);
+		printf("工号：%s\n", emp->job_num);
+		printf("部门：%s\n", emp->department);
+		printf("职位：%s\n", emp->identity);
+		printf("年龄：%d\n", emp->age);
+		printf("工龄：%d\n", emp->age_of_work);
+		printf("工作状态：%s\n", emp->stage == 1 ? "正常工作" : "假期中");
+		printf("密码：%s\n", emp->password);
+		printf("是否打卡：%s\n", emp->Whether_clock == 1 ? "已打卡" : "未打卡");
+		printf("打卡时间：%s\n", emp->time_of_clock);
+		printf("离开时间：%s\n", emp->time_of_leave);
+		printf("是否迟到：%s\n", emp->Whether_be_late == 1 ? "是" : "否");
+		printf("迟到次数：%d\n", emp->num_late);
+		printf("打卡次数：%d\n", emp->num_clock);
+		printf("请假次数：%d\n", emp->num_ask_vacation);
+		break;
+	}
+	case 4: {
+		return;
+	}
+	default: {
+		printf("无效选项，请重新输入。\n");
+		Sleep(commmon_time);
+		return;
+	}
+	}
+	Sleep(commmon_time);
+}
+
+void ManagerQueryInfo(Employees* emp) //部门经理的信息查询函数
+{
+	system("cls");
+	printf("------------------------------\n");
+	printf("|         1.查询工作状态       |\n");
+	printf("|         2.查询打卡、迟到、请假次数|\n");
+	printf("|         3.查询员工所有信息   |\n");
+	printf("|         4.返回上一级         |\n");
+	printf("------------------------------\n");
+	printf("请选择查询内容：");
+	int choice;
+	scanf("%d", &choice);
+
+	char jobnum[8];
+	printf("请输入员工工号：");
+	scanf("%s", jobnum);
+
+	Employees* curr = com[emp->id_department - 1].head;
+	while (curr != NULL) {
+		if (strcmp(curr->job_num, jobnum) == 0) {
+			break;
+		}
+		curr = curr->next;
+	}
+
+	if (curr == NULL) {
+		printf("未找到工号为 %s 的员工。\n", jobnum);
+		Sleep(commmon_time);
+		return;
+	}
+
+	switch (choice) {
+	case 1: {
+		printf("员工 %s 的工作状态为：%s\n", curr->name, curr->stage == 1 ? "正常工作" : "假期中");
+		break;
+	}
+	case 2: {
+		printf("员工 %s 的打卡次数：%d，迟到次数：%d，请假次数：%d\n", curr->name, curr->num_clock, curr->num_late, curr->num_ask_vacation);
+		break;
+	}
+	case 3: {
+		printf("员工 %s 的信息：\n", curr->name);
+		printf("姓名：%s\n", curr->name);
+		printf("工号：%s\n", curr->job_num);
+		printf("部门：%s\n", curr->department);
+		printf("职位：%s\n", curr->identity);
+		printf("年龄：%d\n", curr->age);
+		printf("工龄：%d\n", curr->age_of_work);
+		printf("工作状态：%s\n", curr->stage == 1 ? "正常工作" : "假期中");
+		printf("密码：%s\n", curr->password);
+		printf("是否打卡：%s\n", curr->Whether_clock == 1 ? "已打卡" : "未打卡");
+		printf("打卡时间：%s\n", curr->time_of_clock);
+		printf("离开时间：%s\n", curr->time_of_leave);
+		printf("是否迟到：%s\n", curr->Whether_be_late == 1 ? "是" : "否");
+		printf("迟到次数：%d\n", curr->num_late);
+		printf("打卡次数：%d\n", curr->num_clock);
+		printf("请假次数：%d\n", curr->num_ask_vacation);
+		break;
+	}
+	case 4: {
+		return;
+	}
+	default: {
+		printf("无效选项，请重新输入。\n");
+		Sleep(commmon_time);
+		return;
+	}
+	}
+	Sleep(commmon_time);
 }
