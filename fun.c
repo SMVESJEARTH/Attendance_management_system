@@ -810,6 +810,18 @@ void rejectVacation(Employees* emp)//拒绝职员的请假申请
 	printf("员工 %s 的请假申请已被拒绝。\n", emp->name);
 }
 
+Employees* createNewNode(Employees* originalNode) //创建新的链表节点，用来排序输出
+{
+	Employees* newNode = (Employees*)malloc(sizeof(Employees));
+	if (newNode == NULL) {
+		printf("内存分配失败！\n");
+		exit(1);
+	}
+	*newNode = *originalNode;  // 复制原节点的数据
+	newNode->next = NULL;      // 新节点的 next 指针初始化为 NULL
+	return newNode;
+}
+
 Employees* getMiddle(Employees* head)// 找到链表的中间节点
 {
 	if (head == NULL) return head;
@@ -827,100 +839,102 @@ Employees* getMiddle(Employees* head)// 找到链表的中间节点
 
 Employees* mergeByClockTimes(Employees* left, Employees* right) // 归并两个链表，按打卡次数升序（打卡的单一排序）
 {
-	if (left == NULL) return right;
-	if (right == NULL) return left;
+	if (left == NULL) return right; // 如果左链表为空，返回右链表
+	if (right == NULL) return left; // 如果右链表为空，返回左链表
 
 	if (left->num_clock <= right->num_clock) {
-		left->next = mergeByClockTimes(left->next, right);
-		return left;
+		Employees* newNode = createNewNode(left); // 创建新节点
+		newNode->next = mergeByClockTimes(left->next, right); // 递归合并
+		return newNode;
 	}
 	else {
-		right->next = mergeByClockTimes(left, right->next);
-		return right;
+		Employees* newNode = createNewNode(right); // 创建新节点
+		newNode->next = mergeByClockTimes(left, right->next); // 递归合并
+		return newNode;
 	}
+	
 }
-
 
 Employees* mergeSortByClockTimes(Employees* head) // 归并排序主函数，按打卡次数升序
 
 {
-	// 如果链表为空或只有一个节点，直接返回
 	if (head == NULL || head->next == NULL) {
-		return head;
+		return createNewNode(head); // 如果链表为空或只有一个节点，直接返回新节点
 	}
 
-	// 找到链表的中间节点
-	Employees* middle = getMiddle(head);
+	Employees* middle = getMiddle(head); // 找到链表的中间节点
 	Employees* nextOfMiddle = middle->next;
 
-	// 将链表从中间节点处分割成两部分
-	middle->next = NULL;
+	middle->next = NULL; // 将链表从中间节点处分割成两部分
 
-	// 递归地对左半部分进行排序
-	Employees* left = mergeSortByClockTimes(head);
-	// 递归地对右半部分进行排序
-	Employees* right = mergeSortByClockTimes(nextOfMiddle);
+	Employees* left = mergeSortByClockTimes(head); // 递归地对左半部分进行排序
+	Employees* right = mergeSortByClockTimes(nextOfMiddle); // 递归地对右半部分进行排序
 
-	// 合并两个有序链表
-	return mergeByClockTimes(left, right);
+	return mergeByClockTimes(left, right); // 合并两个有序链表
 }
 
 Employees* mergeByVacationTimes(Employees* left, Employees* right) //归并两个链表，按请假次数升序（请假的单一排序）
 {
-	if (left == NULL) return right;
-	if (right == NULL) return left;
+	if (left == NULL) return right; // 如果左链表为空，返回右链表
+	if (right == NULL) return left; // 如果右链表为空，返回左链表
 
 	if (left->num_ask_vacation <= right->num_ask_vacation) {
-		left->next = mergeByVacationTimes(left->next, right);
-		return left;
+		Employees* newNode = createNewNode(left); // 创建新节点
+		newNode->next = mergeByVacationTimes(left->next, right); // 递归合并
+		return newNode;
 	}
 	else {
-		right->next = mergeByVacationTimes(left, right->next);
-		return right;
+		Employees* newNode = createNewNode(right); // 创建新节点
+		newNode->next = mergeByVacationTimes(left, right->next); // 递归合并
+		return newNode;
 	}
 }
 
 Employees* mergeSortByVacationTimes(Employees* head)////归并主函数，按请假次数升序（请假的单一排序）
 {
 	if (head == NULL || head->next == NULL) {
-		return head;
+		return createNewNode(head); // 如果链表为空或只有一个节点，直接返回新节点
 	}
 
-	Employees* middle = getMiddle(head);
+	Employees* middle = getMiddle(head); // 找到链表的中间节点
 	Employees* nextOfMiddle = middle->next;
 
-	middle->next = NULL;
+	middle->next = NULL; // 将链表从中间节点处分割成两部分
 
-	Employees* left = mergeSortByVacationTimes(head);
-	Employees* right = mergeSortByVacationTimes(nextOfMiddle);
+	Employees* left = mergeSortByVacationTimes(head); // 递归地对左半部分进行排序
+	Employees* right = mergeSortByVacationTimes(nextOfMiddle); // 递归地对右半部分进行排序
 
-	return mergeByVacationTimes(left, right);
+	return mergeByVacationTimes(left, right); // 合并两个有序链表
 }
 
 Employees* mergeByMultipleAttributes(Employees* left, Employees* right) // 归并两个链表，如果请假次数相同，再按打卡次数排序（请假和打卡的多属性排序）
 {
-	if (left == NULL) return right;
-	if (right == NULL) return left;
+	if (left == NULL) return right; // 如果左链表为空，返回右链表
+	if (right == NULL) return left; // 如果右链表为空，返回左链表
 
+	Employees* result = NULL; // 用于存储合并后的链表头指针
+
+	// 比较请假次数
 	if (left->num_ask_vacation < right->num_ask_vacation) {
-		left->next = mergeByMultipleAttributes(left->next, right);
-		return left;
+		result = createNewNode(left); // 创建新节点
+		result->next = mergeByMultipleAttributes(left->next, right); // 递归合并
 	}
 	else if (left->num_ask_vacation > right->num_ask_vacation) {
-		right->next = mergeByMultipleAttributes(left, right->next);
-		return right;
+		result = createNewNode(right); // 创建新节点
+		result->next = mergeByMultipleAttributes(left, right->next); // 递归合并
 	}
 	else {
-		// 如果请假次数相同，再按打卡次数排序
+		// 请假次数相等，比较打卡次数
 		if (left->num_clock <= right->num_clock) {
-			left->next = mergeByMultipleAttributes(left->next, right);
-			return left;
+			result = createNewNode(left); // 创建新节点
+			result->next = mergeByMultipleAttributes(left->next, right); // 递归合并
 		}
 		else {
-			right->next = mergeByMultipleAttributes(left, right->next);
-			return right;
+			result = createNewNode(right); // 创建新节点
+			result->next = mergeByMultipleAttributes(left, right->next); // 递归合并
 		}
 	}
+	return result;
 }
 
 Employees* mergeSortByMultipleAttributes(Employees* head) //归并排序主函数，如果请假次数相同，再按打卡次数排序
@@ -1045,28 +1059,28 @@ void AdminSort(void)//管理员的排序函数
 	case 1: {
 		// 按打卡次数排序
 		for (int i = 0; i < 4; i++) {
-			com[i].head = mergeSortByClockTimes(com[i].head);
+			Employees* sortedHead = mergeSortByClockTimes(com[i].head); // 创建新的排序链表
+			AdminPrintSortedEmployees("打卡次数"); // 打印排序后的链表
 		}
 		printf("所有部门的员工信息已按打卡次数升序排序。\n");
-		AdminPrintSortedEmployees("打卡次数");
 		Sleep(commmon_time);
 	} break;
 	case 2: {
 		// 按请假次数排序
 		for (int i = 0; i < 4; i++) {
-			com[i].head = mergeSortByVacationTimes(com[i].head);
+			Employees* sortedHead = mergeSortByVacationTimes(com[i].head); // 创建新的排序链表
+			AdminPrintSortedEmployees("请假次数"); // 打印排序后的链表
 		}
 		printf("所有部门的员工信息已按请假次数升序排序。\n");
-		AdminPrintSortedEmployees("请假次数");
 		Sleep(commmon_time);
 	} break;
 	case 3: {
 		// 按请假和打卡次数排序
 		for (int i = 0; i < 4; i++) {
-			com[i].head = mergeSortByMultipleAttributes(com[i].head);
+			Employees* sortedHead = mergeSortByMultipleAttributes(com[i].head); // 创建新的排序链表
+			AdminPrintSortedEmployees("请假和打卡次数"); // 打印排序后的链表
 		}
 		printf("所有部门的员工信息已按请假次数和打卡次数排序。\n");
-		AdminPrintSortedEmployees("请假和打卡次数");
 		Sleep(commmon_time);
 	} break;
 	default:

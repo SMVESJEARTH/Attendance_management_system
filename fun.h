@@ -24,6 +24,7 @@ void ManagerAndUi(Employees* emp); //部门经理功能
 void AdminAndUi(Employees* emp);//管理员功能
 void approveVacation(Employees* emp);//批准职员的请假申请
 void rejectVacation(Employees* emp);//拒绝职员的请假申请
+Employees* createNewNode(Employees* originalNode); //创建新的链表节点，用来排序输出
 Employees* getMiddle(Employees* head);// 找到链表的中间节点,返回我们需要的指针
 Employees* mergeByClockTimes(Employees* left, Employees* right); // 归并两个链表，按打卡次数升序
 Employees* mergeSortByClockTimes(Employees* head); // 归并排序主函数，按打卡次数升序
