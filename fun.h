@@ -34,6 +34,8 @@ void ManagerprintSortedEmployees(Employees* head, const char* sortBy);//部门�
 void AdminPrintSortedEmployees(const char* sortBy);//管理员的排序打印函数，打印排序后的数据
 void AdminSort(void);//管理员的排序函数
 void AdminQueryInfo(void);//管理员的信息查询函数
+void findAndPrintBestEmployees(Employees* head); // 查找并打印所有最佳员工
+void ManagerQueryInfo(Employees* emp);//部门经理的信息查询函数
 #endif  
 
 
