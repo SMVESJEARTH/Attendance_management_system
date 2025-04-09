@@ -690,7 +690,8 @@ void Manager_And_Ui(Employees* emp) //部门经理功能
 		printf("|         3.部门查询          |\n");
 		printf("|         4.信息排序          |\n");
 		printf("|         5.审批请假          |\n");
-		printf("|         6.修改密码          |\n");
+		printf("|         6.信息统计          |\n");
+		printf("|         7.修改密码          |\n");
 		printf("|         0.退出登录          |\n");
 		printf("-------------------------------\n");
 		int temp = scanf("%d", &pick);
@@ -701,7 +702,8 @@ void Manager_And_Ui(Employees* emp) //部门经理功能
 			case 3: Information_Inquiry_Department(emp); break;
 			case 4: ManagerSort(emp); break;
 			case 5: Vacation_Management(emp); break;
-			case 6: ChangePassword(emp); break;
+			case 6: Stats(emp); break;
+			case 7: ChangePassword(emp); break;
 			case 0:flag = 1; printf("退出登录成功\n"); Sleep(commmon_time); system("cls"); Save(); break;
 		}
 		if (flag == 1)
@@ -2292,7 +2294,8 @@ void Annual_leave_allocation(void)//分配年假
 {
 	for(int i=0;i<4;i++)
 	{ 
-		Employees *emp = com[i].head;
+		Employees *emp;
+		emp = com[i].head;
 		while (emp!=NULL)
 		{
 			if (emp->age_of_work < 10)
@@ -2303,10 +2306,98 @@ void Annual_leave_allocation(void)//分配年假
 			{
 				emp->total_annual_vacation = 10;
 			}
-			else if (emp->age_of_work < 30)
+			else
 			{
 				emp->total_annual_vacation = 15;
 			}
+			emp = emp->next;
 		}
+	}
+}
+
+void Stats(Employees *emp_m)
+{
+	int flag = 0, pick = -1;
+	Employees *emp;
+	emp = com[emp_m->id_department - 1].head;
+	while (1)
+	{
+		system("cls");
+		printf("------------------------------\n");
+		printf("|         1.打卡统计          |\n");
+		printf("|         2.迟到统计          |\n");
+		printf("|         3.年龄统计          |\n");
+		printf("|         4.状态统计          |\n");
+		printf("|         0.退出统计          |\n");
+		printf("------------------------------\n");
+		int temp = scanf("%d", &pick);
+		temp = getchar();
+		switch (pick)
+		{
+			case 1:
+				{
+					int count = 0;
+					emp = com[emp_m->id_department - 1].head;
+					while (emp != NULL)
+					{
+						if (emp->Whether_clock != 1)
+							count++;
+						emp = emp->next;
+					}
+					printf("今日本部门有%d人未打卡", count);
+					Sleep(commmon_time);
+				}break;
+			case 2:
+				{
+					int count = 0;
+					emp = com[emp_m->id_department - 1].head;
+					while (emp != NULL)
+					{
+						if (emp->Whether_be_late == 1)
+							count++;
+						emp = emp->next;
+					}
+					printf("今日本部门有%d人迟到", count);
+					Sleep(commmon_time);
+				}break;
+			case 3:
+				{
+					int age = 0;
+					printf("请输入一个分界年龄");
+					int temp = scanf("%d", &age);
+					int count_less = 0, count_more = 0, count = 0;
+					emp = com[emp_m->id_department - 1].head;
+					while (emp != NULL)
+					{
+						if (emp->age == age)
+							count++;
+						else if (emp->age < age)
+							count_less++;
+						else
+							count_more++;
+						emp = emp->next;
+					}
+					printf("等于%d岁的人有%d个\n", age,count);
+					printf("小于%d岁的人有%d个\n", age, count_less);
+					printf("大于%d岁的人有%d个\n", age, count_more);
+					Sleep(commmon_time);
+				}break;
+			case 4:
+				{
+					int count = 0;
+					emp = com[emp_m->id_department - 1].head;
+					while (emp != NULL)
+					{
+						if (emp->stage == 0)
+							count++;
+						emp = emp->next;
+					}
+					printf("今日本部门有%d人休假", count);
+					Sleep(commmon_time);
+				}break;
+			case 0:flag = 1; system("cls"); break;
+		}
+		if (flag == 1)
+			break;
 	}
 }

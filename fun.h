@@ -39,5 +39,6 @@ void Information_Management(Employees *emp);//信息管理
 void Information_Management_1(Companys com);
 void System_maintenance(void);//系统维护
 void Annual_leave_allocation(void);//分配年假
+void Stats(Employees *emp_m);//统计
 
 #endif
