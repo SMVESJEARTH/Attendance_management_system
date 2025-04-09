@@ -8,7 +8,7 @@ void Save(void);//数据保存
 Employees *CreatAndRead_employees(int i);//创建链表与读取数据
 void Init_company(void);//初始化公司数组
 void Complete_job_num(void);//完成工号
-Employees * LoginAndUi(void);//登录系统
+Employees *LoginAndUi(void);//登录系统
 void Select_clock(Employees *emp);//打卡选择
 void Information_Inquiry_Individual(Employees *emp);//个人信息查询
 void Information_Inquiry_Department(Employees *emp);//部门信息查询
@@ -25,8 +25,20 @@ void ModifyMultipleFields(Employees *emp);//实现对员工多种信息修改的
 void Manager_And_Ui(Employees *emp); //部门经理功能
 void Admin_And_Ui(Employees *emp);//管理员功能
 
+Employees *createNewNode(Employees *originalNode); //创建新的链表节点，用来排序输出
+Employees *getMiddle(Employees *head);// 找到链表的中间节点,返回需要的指针
+Employees *mergeByClockTimes(Employees *left, Employees *right); // 归并两个链表，按打卡次数升序
+Employees *mergeSortByClockTimes(Employees *head); // 归并排序主函数，按打卡次数升序
+Employees *mergeByMultipleAttributes(Employees *left, Employees *right); // 归并两个链表，如果请假次数相同，再按打卡次数排序
+void ManagerSort(Employees *emp);//部门经理的排序函数
+void ManagerprintSortedEmployees(Employees *head, const char *sortBy);//部门经理的信息排序的打印函数，打印输出排序后的信息
+void AdminPrintSortedEmployees(const char *sortBy);//管理员的排序打印函数，打印排序后的数据
+void AdminSort(void);//管理员的排序函数
+void AdminQueryInfo(void);//管理员的信息查询函数
+
 
 #endif
+
 
 
 
