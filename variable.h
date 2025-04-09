@@ -35,8 +35,8 @@ struct Employees//雇员结构
 	int num_clock;//打卡次数
 	int num_ask_vacation;//请假次数
 	int total_annual_vacation;//总年假
-	int taken_annual_vacation;//已用年假
 	int remaining_annual_vacation;//剩余年假
+	int taken_vacation;//已用假期
 	int ask_vacation_status; // 请假状态：0 - 未申请，1 - 已申请待审批，2 - 已批准，3 - 已拒绝
 	struct Employees *next;//员工类型指针
 };

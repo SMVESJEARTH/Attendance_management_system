@@ -12,18 +12,17 @@ const short vacation_of_less_20 = 10;//工龄在10~20年的年假数
 const short vacation_of_more_20 = 20;//工龄大于20年的年假数
 const short error_time = 1500;//错误信息显示时间
 const short commmon_time = 2000;//普通信息显示时间
+
 int main()
 {
 	Employees *emp;
 	Init_company(); 
-
 	Complete_job_num();
-	printf("-工号已生成\n");
+	printf("工号已生成\n");
+	Annual_leave_allocation();//分配年假
 	Save();
 	Sleep(commmon_time);
-
 	emp = LoginAndUi();
-
 	switch (emp->id_identity)
 	{
 		case 1:Admin_And_Ui(emp); break;
