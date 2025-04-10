@@ -1,41 +1,44 @@
-ï»¿#ifndef FUN_H
+#ifndef FUN_H
 #define FUN_H
 
 #include"variable.h"
 
-void Save(void);//æ•°æ®ä¿å­˜
-Employees* CreatAndRead_employees(int i);//åˆ›å»ºé“¾è¡¨ä¸è¯»å–æ•°æ®
-void init_company(void);//åˆå§‹åŒ–å…¬å¸æ•°ç»„
+void Set_Cursor_And_Position(int x, int y);//¸Ä±ä¹â±êÎ»ÖÃ
+int Exit_with_Flag(int flag);//½«ÊäÈëÖµÖÃÎª1ÒÔÍË³öÑ­»·
+void ClearLine(int line);//Çå³ıĞĞ
+void Save(void);//Êı¾İ±£´æ
 
-void complete_job_num(void);
-void Main_UI(void);
-void inputStaff(void);//æ·»åŠ å‘˜å·¥
-void deleteStaff(void);//åˆ é™¤å‘˜å·¥
-void modifyStaff(void);//ä¿®æ”¹å‘˜å·¥ä¿¡æ¯
-void modifyMultipleFields(Employees* emp);//å®ç°å¯¹å‘˜å·¥å¤šç§ä¿¡æ¯ä¿®æ”¹çš„å·¥å…·å‡½æ•°ï¼ˆè¾…åŠ© modifyStaffå‡½æ•°å®ç°å…¶åŠŸèƒ½,modifyStaffå‡½æ•°å·²ç»åŒ…å«è¯¥å‡½æ•°æ— éœ€å†æ¬¡è°ƒç”¨ï¼‰
-void complete_job_num(void);//å®Œæˆå·¥å·
-Employees* LoginAndUi(void);//ç™»å½•ç³»ç»Ÿ
-void select_clock(Employees* emp);//æ‰“å¡é€‰æ‹©
-void StaffAndUi(Employees* emp);//å‘˜å·¥åŠŸèƒ½
-void findStaff(Employees* emp);//æ™®é€šèŒå·¥ä¿¡æ¯æŸ¥è¯¢
-void modifyStaffCode(Employees* emp);//æ™®é€šèŒå·¥ä¿®æ”¹å¯†ç å‡½æ•°
-void requestVacation(Employees* emp); //å‡æœŸç”³è¯·å‡½æ•°
-void ManagerAndUi(Employees* emp); //éƒ¨é—¨ç»ç†åŠŸèƒ½
-void AdminAndUi(Employees* emp);//ç®¡ç†å‘˜åŠŸèƒ½
-void approveVacation(Employees* emp);//æ‰¹å‡†èŒå‘˜çš„è¯·å‡ç”³è¯·
-void rejectVacation(Employees* emp);//æ‹’ç»èŒå‘˜çš„è¯·å‡ç”³è¯·
-Employees* createNewNode(Employees* originalNode); //åˆ›å»ºæ–°çš„é“¾è¡¨èŠ‚ç‚¹ï¼Œç”¨æ¥æ’åºè¾“å‡º
-Employees* getMiddle(Employees* head);// æ‰¾åˆ°é“¾è¡¨çš„ä¸­é—´èŠ‚ç‚¹,è¿”å›æˆ‘ä»¬éœ€è¦çš„æŒ‡é’ˆ
-Employees* mergeByClockTimes(Employees* left, Employees* right); // å½’å¹¶ä¸¤ä¸ªé“¾è¡¨ï¼ŒæŒ‰æ‰“å¡æ¬¡æ•°å‡åº
-Employees* mergeSortByClockTimes(Employees* head); // å½’å¹¶æ’åºä¸»å‡½æ•°ï¼ŒæŒ‰æ‰“å¡æ¬¡æ•°å‡åº
-Employees* mergeByMultipleAttributes(Employees* left, Employees* right); // å½’å¹¶ä¸¤ä¸ªé“¾è¡¨ï¼Œå¦‚æœè¯·å‡æ¬¡æ•°ç›¸åŒï¼Œå†æŒ‰æ‰“å¡æ¬¡æ•°æ’åº
-void ManagerSort(Employees* emp);//éƒ¨é—¨ç»ç†çš„æ’åºå‡½æ•°
-void ManagerprintSortedEmployees(Employees* head, const char* sortBy);//éƒ¨é—¨ç»ç†çš„ä¿¡æ¯æ’åºçš„æ‰“å°å‡½æ•°ï¼Œæ‰“å°è¾“å‡ºæ’åºåçš„ä¿¡æ¯
-void AdminPrintSortedEmployees(const char* sortBy);//ç®¡ç†å‘˜çš„æ’åºæ‰“å°å‡½æ•°ï¼Œæ‰“å°æ’åºåçš„æ•°æ®
-void AdminSort(void);//ç®¡ç†å‘˜çš„æ’åºå‡½æ•°
-void AdminQueryInfo(void);//ç®¡ç†å‘˜çš„ä¿¡æ¯æŸ¥è¯¢å‡½æ•°
-void findAndPrintBestEmployees(Employees* head); // æŸ¥æ‰¾å¹¶æ‰“å°æ‰€æœ‰æœ€ä½³å‘˜å·¥
-void ManagerQueryInfo(Employees* emp);//éƒ¨é—¨ç»ç†çš„ä¿¡æ¯æŸ¥è¯¢å‡½æ•°
-#endif  
+Employees* CreatAndRead_employees(int i);//´´½¨Á´±íÓë¶ÁÈ¡Êı¾İ
+void Init_company(void);//³õÊ¼»¯¹«Ë¾Êı×é
+void Complete_job_num(void);//Íê³É¹¤ºÅ
+Employees* LoginAndUi(void);//µÇÂ¼ÏµÍ³
+void Staff_And_Ui(Employees* emp);// Ô±¹¤¹¦ÄÜ
+void Manager_And_Ui(Employees* emp); //²¿ÃÅ¾­Àí¹¦ÄÜ
+void Admin_And_Ui(Employees* emp);//¹ÜÀíÔ±¹¦ÄÜ
+void Select_clock(Employees* emp);//´ò¿¨Ñ¡Ôñ
+void Information_Inquiry_Individual(Employees* emp);//¸öÈËĞÅÏ¢²éÑ¯
+void Information_Inquiry_Department(Employees* emp);//²¿ÃÅĞÅÏ¢²éÑ¯
+void RequestVacation(Employees* emp); //¼ÙÆÚÉêÇë
+void Vacation_Management(Employees* emp);//Çë¼ÙÉêÇë¹ÜÀí
+void ChangePassword(Employees* emp);//ĞŞ¸ÄÃÜÂë
+void InputStaff(void);//Ìí¼ÓÔ±¹¤
+void DeleteStaff(void);//É¾³ıÔ±¹¤
+void Modify_Seek(Companys com);//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨Ñ°ÕÒ£©
+void Modify(Employees* emp);//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
+void Find_And_Print_BestEmployees(Employees* head); // ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
+Employees* createNewNode(Employees* originalNode); //´´½¨ĞÂµÄÁ´±í½Úµã£¬ÓÃÀ´ÅÅĞòÊä³ö
+Employees* getMiddle(Employees* head);// ÕÒµ½Á´±íµÄÖĞ¼ä½Úµã,·µ»ØĞèÒªµÄÖ¸Õë
+Employees* mergeByClockTimes(Employees* left, Employees* right); // ¹é²¢Á½¸öÁ´±í£¬°´´ò¿¨´ÎÊıÉıĞò
+Employees* mergeSortByClockTimes(Employees* head); // ¹é²¢ÅÅĞò£¬°´´ò¿¨´ÎÊıÉıĞò
+Employees* mergeByMultipleAttributes(Employees* left, Employees* right); // ¹é²¢Á½¸öÁ´±í£¬Èç¹ûÇë¼Ù´ÎÊıÏàÍ¬£¬ÔÙ°´´ò¿¨´ÎÊıÅÅĞò
+void ManagerSort(Employees* emp);//²¿ÃÅ¾­ÀíµÄÅÅĞòº¯Êı
+void Manager_Sorted_Print(Employees* head, const char* sortBy);//²¿ÃÅ¾­Àí ´òÓ¡ÅÅĞòºóµÄĞÅÏ¢
+void AdminPrintSortedEmployees(const char* sortBy);//¹ÜÀíÔ± ´òÓ¡ÅÅĞòºóµÄÊı¾İ
+void AdminSort(void);//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
+void Information_Management(Employees* emp);//ĞÅÏ¢¹ÜÀí
+void Information_Management_1(Companys com);
+void System_maintenance(void);//ÏµÍ³Î¬»¤
+void Annual_leave_allocation(void);//·ÖÅäÄê¼Ù
+void Stats(Employees* emp_m);//Í³¼Æ
 
-
+#endif

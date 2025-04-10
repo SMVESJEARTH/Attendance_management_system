@@ -1,35 +1,33 @@
-ï»¿#include"variable.h"
+#include"variable.h"
 #include"fun.h"
 
-Companys com[4];//å››ä¸ªéƒ¨é—¨
-const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//å››ä¸ªéƒ¨é—¨å
-const char* identities[3] = { "Admin","Manger","Staff" };//ä¸‰ä¸ªèŒä½
-const char time_of_start_hour = 9;//è§„å®šä¸Šç­æ—¶é—´
-const char time_of_end_hour = 16;//è§„å®šä¸‹ç­æ—¶é—´
+Companys com[4];//ËÄ¸ö²¿ÃÅ
+const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//ËÄ¸ö²¿ÃÅÃû
+const char* identities[3] = { "Admin","Manger","Staff" };//Èý¸öÖ°Î»
+const char time_of_start_hour = 9;//¹æ¶¨ÉÏ°àÊ±¼ä
+const char time_of_end_hour = 16;//¹æ¶¨ÏÂ°àÊ±¼ä
 const char time_of_end_min = 30;
-const short vacation_of_less_10 = 5;//å·¥é¾„å°äºŽ10å¹´çš„å¹´å‡æ•°
-const short vacation_of_less_20 = 10;//å·¥é¾„åœ¨10~20å¹´çš„å¹´å‡æ•°
-const short vacation_of_more_20 = 20;//å·¥é¾„å¤§äºŽ20å¹´çš„å¹´å‡æ•°
-const short error_time = 1500;//é”™è¯¯ä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
-const short commmon_time = 3000;//æ™®é€šä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
+const short vacation_of_less_10 = 5;//¹¤ÁäÐ¡ÓÚ10ÄêµÄÄê¼ÙÊý
+const short vacation_of_less_20 = 10;//¹¤ÁäÔÚ10~20ÄêµÄÄê¼ÙÊý
+const short vacation_of_more_20 = 20;//¹¤Áä´óÓÚ20ÄêµÄÄê¼ÙÊý
+const short error_time = 1500;//´íÎóÐÅÏ¢ÏÔÊ¾Ê±¼ä
+const short commmon_time = 2000;//ÆÕÍ¨ÐÅÏ¢ÏÔÊ¾Ê±¼ä
+
 int main()
 {
 	Employees* emp;
-	init_company();
-
-	void complete_job_num();
-	printf("-æ•°æ®å¯¼å…¥å®Œæˆ\n");
-
-	complete_job_num();
-	printf("-å·¥å·å·²ç”Ÿæˆ\n");
+	Init_company();
+	Complete_job_num();
+	printf("¹¤ºÅÒÑÉú³É\n");
+	Annual_leave_allocation();//·ÖÅäÄê¼Ù
 	Save();
 	Sleep(commmon_time);
-
 	emp = LoginAndUi();
-
-	switch (emp->id_department)
+	switch (emp->id_identity)
 	{
-	case 3:StaffAndUi(emp);
+	case 1:Admin_And_Ui(emp); break;
+	case 2:Manager_And_Ui(emp); break;
+	case 3:Staff_And_Ui(emp); break;
 	}
 	return 0;
 }
