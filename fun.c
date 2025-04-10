@@ -14,7 +14,7 @@ int Exit_with_Flag(int flag)
 {
 	while (1)
 	{
-		printf("°´ÁãÍË³ö\n");
+		printf("æŒ‰é›¶é€€å‡º\n");
 		while (!_kbhit());
 		char ch = _getch();
 		if (ch - '0' == 0)
@@ -41,14 +41,14 @@ void ClearLine(int line)
 	SetConsoleCursorPosition(hConsole, coord);
 }
 
-void Save(void)//Êı¾İ±£´æ
+void Save(void)//æ•°æ®ä¿å­˜
 {
 	char line[101] = { '\0' };
 
 	FILE* newFile = fopen("temp.txt", "w");
 	if (newFile == NULL)
 	{
-		printf("ÎŞ·¨´ò¿ªÁÙÊ±ÎÄ¼ş\n");
+		printf("æ— æ³•æ‰“å¼€ä¸´æ—¶æ–‡ä»¶\n");
 		Sleep(error_time);
 		exit(1);
 	}
@@ -69,76 +69,76 @@ void Save(void)//Êı¾İ±£´æ
 	int useless = rename("temp.txt", "data.txt");
 }
 
-Employees* CreatAndRead_employees(int i)//´´½¨Á´±íÓë¶ÁÈ¡Êı¾İ
+Employees* CreatAndRead_employees(int i)//åˆ›å»ºé“¾è¡¨ä¸è¯»å–æ•°æ®
 {
-	char name[4] = { '\0' };//ĞÕÃû
-	char j_num[8] = { '\0' };//¹¤ºÅ
-	int department_num = 0;//ËùÊô²¿ÃÅ±àºÅ
-	int identity_num = 0;// Ö°Î»±àºÅ
-	int age = 0;//ÄêÁä
-	int age_w = 0;//¹¤Áä
-	int stage = 0;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
-	char pass[5] = { '\0' };//ËÄÎ»ÃÜÂë
-	int w_clock = 0;//ÊÇ·ñ´ò¿¨ 1ÊÇ 0·ñ
-	char tm_of_c[20] = { "1111111111111111" };//´ò¿¨Ê±¼ä
-	char tm_of_l[20] = { "1111111111111111" };//Àë¿ªÊ±¼ä
-	int w_be_l = 0;//ÊÇ·ñ³Ùµ½
-	int n_be_l = 0;//³Ùµ½Êı
-	int n_c = 0;//´ò¿¨´ÎÊı
-	int n_a_v = 0;//Çë¼Ù´ÎÊı
-	int t_v = 0;//×ÜÄê¼Ù
-	int h_v = 0;//ÒÑÓÃÄê¼Ù
-	int r_v = 0;//Ê£ÓàÄê¼Ù
-	int a_v_s = 0;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
+	char name[4] = { '\0' };//å§“å
+	char j_num[8] = { '\0' };//å·¥å·
+	int department_num = 0;//æ‰€å±éƒ¨é—¨ç¼–å·
+	int identity_num = 0;// èŒä½ç¼–å·
+	int age = 0;//å¹´é¾„
+	int age_w = 0;//å·¥é¾„
+	int stage = 0;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
+	char pass[5] = { '\0' };//å››ä½å¯†ç 
+	int w_clock = 0;//æ˜¯å¦æ‰“å¡ 1æ˜¯ 0å¦
+	char tm_of_c[20] = { "1111111111111111" };//æ‰“å¡æ—¶é—´
+	char tm_of_l[20] = { "1111111111111111" };//ç¦»å¼€æ—¶é—´
+	int w_be_l = 0;//æ˜¯å¦è¿Ÿåˆ°
+	int n_be_l = 0;//è¿Ÿåˆ°æ•°
+	int n_c = 0;//æ‰“å¡æ¬¡æ•°
+	int n_a_v = 0;//è¯·å‡æ¬¡æ•°
+	int t_v = 0;//æ€»å¹´å‡
+	int h_v = 0;//å·²ç”¨å¹´å‡
+	int r_v = 0;//å‰©ä½™å¹´å‡
+	int a_v_s = 0;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
 
 	Employees* head = NULL, * p1 = NULL, * p2 = NULL;
-	FILE* fp = fopen("data.txt", "r");//Ö»¶Á´ò¿ªdata.txt
+	FILE* fp = fopen("data.txt", "r");//åªè¯»æ‰“å¼€data.txt
 	if (fp == NULL)
 	{
-		printf("ÎÄ¼ş²»´æÔÚ");
+		printf("æ–‡ä»¶ä¸å­˜åœ¨");
 		Sleep(error_time);
 		exit(1);
 	}
 
 	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %d %d %d",
 		name, j_num, &department_num, &identity_num, &age, &age_w, &stage, pass,
-		&w_clock, tm_of_c, tm_of_l, &w_be_l, &n_be_l, &n_c, &n_a_v, &t_v, &h_v, &r_v, &a_v_s) == 19)//Ã¿Ò»ĞĞÓĞ19¸öÊı¾İ ËùÒÔfscanf·µ»ØÖµÎª19
+		&w_clock, tm_of_c, tm_of_l, &w_be_l, &n_be_l, &n_c, &n_a_v, &t_v, &h_v, &r_v, &a_v_s) == 19)//æ¯ä¸€è¡Œæœ‰19ä¸ªæ•°æ® æ‰€ä»¥fscanfè¿”å›å€¼ä¸º19
 
 	{
-		if (department_num == i + 1)//³ÌĞòÖĞµÄ²¿ÃÅË÷ÒıÊÇ0~3 ¶øÎÄ¼şºÍÊÖ¶¯ÊäÈëµÄ²¿ÃÅË÷ÒıÊÇ1~4£¬¹Ê¼Ó1
+		if (department_num == i + 1)//ç¨‹åºä¸­çš„éƒ¨é—¨ç´¢å¼•æ˜¯0~3 è€Œæ–‡ä»¶å’Œæ‰‹åŠ¨è¾“å…¥çš„éƒ¨é—¨ç´¢å¼•æ˜¯1~4ï¼Œæ•…åŠ 1
 		{
-			p1 = (Employees*)malloc(sizeof(Employees));//¿ª±ÙÄÚ´æ
+			p1 = (Employees*)malloc(sizeof(Employees));//å¼€è¾Ÿå†…å­˜
 			if (p1 == NULL)
 			{
-				fclose(fp); // ÄÚ´æ·ÖÅäÊ§°Ü£¬¹Ø±ÕÎÄ¼ş
+				fclose(fp); // å†…å­˜åˆ†é…å¤±è´¥ï¼Œå…³é—­æ–‡ä»¶
 				Sleep(error_time);
 				exit(1);
 			}
 
-			//Êı¾İ¶ÁÈë
-			strcpy(p1->name, name);//ĞÕÃû
-			strcpy(p1->job_num, j_num);//¹¤ºÅ
-			if (department_num >= 1 && department_num <= 4)//ËùÊô²¿ÃÅ±àºÅ
+			//æ•°æ®è¯»å…¥
+			strcpy(p1->name, name);//å§“å
+			strcpy(p1->job_num, j_num);//å·¥å·
+			if (department_num >= 1 && department_num <= 4)//æ‰€å±éƒ¨é—¨ç¼–å·
 				strcpy(p1->department, departments[i]);
 			p1->id_department = department_num;
-			if (identity_num >= 1 && identity_num <= 3)//Ö°Î»±àºÅ
+			if (identity_num >= 1 && identity_num <= 3)//èŒä½ç¼–å·
 				strcpy(p1->identity, identities[identity_num - 1]);
 			p1->id_identity = identity_num;
-			p1->age = age;//ÄêÁä
-			p1->age_of_work = age_w;//¹¤Áä
-			p1->stage = stage; //¹¤×÷×´Ì¬
-			strcpy(p1->password, pass);//ËÄÎ»ÃÜÂë
-			p1->Whether_clock = w_clock;//ÊÇ·ñ´ò¿¨
-			strcpy(p1->time_of_clock, tm_of_c);//´ò¿¨Ê±¼ä
-			strcpy(p1->time_of_leave, tm_of_l);//Àë¿ªÊ±¼ä
-			p1->Whether_be_late = w_be_l;//ÊÇ·ñ³Ùµ½
-			p1->num_late = n_be_l;//³Ùµ½Êı
-			p1->num_clock = n_c;//´ò¿¨´ÎÊı
-			p1->num_ask_vacation = n_a_v;//Çë¼Ù´ÎÊı
-			p1->total_annual_vacation = t_v;//×ÜÄê¼Ù
-			p1->taken_vacation = h_v;//ÒÑÓÃ¼ÙÆÚ
-			p1->remaining_annual_vacation = r_v;//Ê£ÓàÄê¼Ù
-			p1->ask_vacation_status = a_v_s;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
+			p1->age = age;//å¹´é¾„
+			p1->age_of_work = age_w;//å·¥é¾„
+			p1->stage = stage; //å·¥ä½œçŠ¶æ€
+			strcpy(p1->password, pass);//å››ä½å¯†ç 
+			p1->Whether_clock = w_clock;//æ˜¯å¦æ‰“å¡
+			strcpy(p1->time_of_clock, tm_of_c);//æ‰“å¡æ—¶é—´
+			strcpy(p1->time_of_leave, tm_of_l);//ç¦»å¼€æ—¶é—´
+			p1->Whether_be_late = w_be_l;//æ˜¯å¦è¿Ÿåˆ°
+			p1->num_late = n_be_l;//è¿Ÿåˆ°æ•°
+			p1->num_clock = n_c;//æ‰“å¡æ¬¡æ•°
+			p1->num_ask_vacation = n_a_v;//è¯·å‡æ¬¡æ•°
+			p1->total_annual_vacation = t_v;//æ€»å¹´å‡
+			p1->taken_vacation = h_v;//å·²ç”¨å‡æœŸ
+			p1->remaining_annual_vacation = r_v;//å‰©ä½™å¹´å‡
+			p1->ask_vacation_status = a_v_s;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
 
 
 			if (head == NULL)
@@ -147,25 +147,25 @@ Employees* CreatAndRead_employees(int i)//´´½¨Á´±íÓë¶ÁÈ¡Êı¾İ
 				p2->next = p1;
 			p2 = p1;
 			p2->next = NULL;
-			com[i].num_of_staff++;//²¿ÃÅÔ±¹¤Êı×ÔÔö
+			com[i].num_of_staff++;//éƒ¨é—¨å‘˜å·¥æ•°è‡ªå¢
 		}
 	}
 	fclose(fp);
 	return head;
 }
 
-void Init_company(void)//³õÊ¼»¯¹«Ë¾Êı×é
+void Init_company(void)//åˆå§‹åŒ–å…¬å¸æ•°ç»„
 {
 	for (int i = 0; i < 4; i++)
 	{
 		com[i].order = i + 1;
 		strcpy(com[i].department, departments[i]);
-		com[i].num_of_staff = 0;//³õÊ¼»¯²¿ÃÅÈËÊı
-		com[i].head = CreatAndRead_employees(i);//i´Ó0~3´ú±í²»Í¬¹«Ë¾²¿ÃÅ
+		com[i].num_of_staff = 0;//åˆå§‹åŒ–éƒ¨é—¨äººæ•°
+		com[i].head = CreatAndRead_employees(i);//iä»0~3ä»£è¡¨ä¸åŒå…¬å¸éƒ¨é—¨
 	}
 }
 
-void Complete_job_num(void)//Íê³É¹¤ºÅ
+void Complete_job_num(void)//å®Œæˆå·¥å·
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -195,18 +195,18 @@ void Complete_job_num(void)//Íê³É¹¤ºÅ
 
 }
 
-Employees* LoginAndUi(void)//µÇÂ¼ÏµÍ³
+Employees* LoginAndUi(void)//ç™»å½•ç³»ç»Ÿ
 {
 	system("cls");
 	char j_num[8] = { '\0' };
 	char pass[6] = { '\0' };
-	printf("ÇëµÇÂ¼\n");
-	printf("¹¤ºÅ£º");
+	printf("è¯·ç™»å½•\n");
+	printf("å·¥å·ï¼š");
 	int temp = scanf("%s", j_num);
 	temp = getchar();
 	for (int j = 0; j < 3; j++)
 	{
-		printf("ÃÜÂë£º");
+		printf("å¯†ç ï¼š");
 		temp = scanf("%s", pass);
 		temp = getchar();
 		bool flag = 0;
@@ -217,7 +217,7 @@ Employees* LoginAndUi(void)//µÇÂ¼ÏµÍ³
 			{
 				if (!strcmp(emp->job_num, j_num) && !strcmp(emp->password, pass))
 				{
-					printf("%s %s ÑéÖ¤Í¨¹ı£¬»¶Ó­µÇÂ¼\n", emp->identity, emp->name);
+					printf("%s %s éªŒè¯é€šè¿‡ï¼Œæ¬¢è¿ç™»å½•\n", emp->identity, emp->name);
 					Sleep(commmon_time);
 					return emp;
 				}
@@ -226,7 +226,7 @@ Employees* LoginAndUi(void)//µÇÂ¼ÏµÍ³
 			if (flag == 1)
 				break;
 		}
-		printf("ÃÜÂë´íÎó,ÇëÖØĞÂÊäÈë");
+		printf("å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥");
 		Sleep(commmon_time);
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		COORD coord1 = { (SHORT)0, (SHORT)2 };
@@ -238,20 +238,20 @@ Employees* LoginAndUi(void)//µÇÂ¼ÏµÍ³
 		COORD coord3 = { (SHORT)0, (SHORT)2 };
 		SetConsoleCursorPosition(hConsole, coord3);
 	}
-	printf("Á¬Ğø´íÎóÈı´Î£¬ÇëÁªÏµ¹ÜÀíÔ±ºË¶Ô¹¤ºÅ»òÃÜÂë\n");
+	printf("è¿ç»­é”™è¯¯ä¸‰æ¬¡ï¼Œè¯·è”ç³»ç®¡ç†å‘˜æ ¸å¯¹å·¥å·æˆ–å¯†ç \n");
 	exit(1);
 }
 
-void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
+void Select_clock(Employees* emp)//æ‰“å¡é€‰æ‹©
 {
 	int pick;
 	system("cls");
 	while (1)
 	{
 		printf("------------------------------\n");
-		printf("|         1.ÉÏ°à´ò¿¨          |\n");
-		printf("|         2.ÏÂ°à´ò¿¨          |\n");
-		printf("|         0.ÍË³ö´ò¿¨          |\n");
+		printf("|         1.ä¸Šç­æ‰“å¡          |\n");
+		printf("|         2.ä¸‹ç­æ‰“å¡          |\n");
+		printf("|         0.é€€å‡ºæ‰“å¡          |\n");
 		printf("------------------------------\n");
 		int flag = 0;
 		int temp = scanf("%d", &pick);
@@ -261,20 +261,20 @@ void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
 		{
 			if (emp->Whether_clock == 1)
 			{
-				printf("½ñÈÕÒÑ´ò¿¨£¬ÇëÎğÖØ¸´´ò¿¨");
+				printf("ä»Šæ—¥å·²æ‰“å¡ï¼Œè¯·å‹¿é‡å¤æ‰“å¡");
 				Sleep(commmon_time);
 				system("cls");
 				break;
 			}
 			time_t current_time = time(NULL);
 			struct tm* local_tm;
-			local_tm = localtime(&current_time);//½«Ê±¼ä´Á×ªÎª±¾µØÊ±¼ä
+			local_tm = localtime(&current_time);//å°†æ—¶é—´æˆ³è½¬ä¸ºæœ¬åœ°æ—¶é—´
 			if (emp->Whether_clock != 1 && local_tm->tm_hour > 6)
 			{
 				emp->Whether_clock = 1;
-				printf("´ò¿¨³É¹¦\n");
+				printf("æ‰“å¡æˆåŠŸ\n");
 
-				printf("´ò¿¨Ê±¼ä£º%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+				printf("æ‰“å¡æ—¶é—´ï¼š%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
 					local_tm->tm_hour, local_tm->tm_min);
 
 				int temp = sprintf(emp->time_of_clock, "%d-%02d-%02d.%d:%02d",
@@ -283,20 +283,20 @@ void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
 				if (local_tm->tm_hour < time_of_start_hour)
 				{
 					emp->Whether_be_late = 0;
-					printf("Î´³Ùµ½\n");
+					printf("æœªè¿Ÿåˆ°\n");
 				}
 				else
 				{
 					emp->Whether_be_late = 1;
 					emp->num_late++;
-					printf("ÒÑ³Ùµ½\n");
+					printf("å·²è¿Ÿåˆ°\n");
 				}
 				Sleep(commmon_time);
 				system("cls");
 			}
 			else if (local_tm->tm_hour < 6)
 			{
-				printf("Î´µ½´ò¿¨Ê±¼ä(6:00),´ò¿¨Ê§°Ü\n");
+				printf("æœªåˆ°æ‰“å¡æ—¶é—´(6:00),æ‰“å¡å¤±è´¥\n");
 				Sleep(commmon_time);
 				system("cls");
 			}
@@ -309,7 +309,7 @@ void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
 				time_t current_time = time(NULL);
 				struct tm* local_tm;
 				local_tm = localtime(&current_time);
-				printf("ÏÂ°àÊ±¼ä£º%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
+				printf("ä¸‹ç­æ—¶é—´ï¼š%d-%02d-%02d.%d:%02d\n", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday,
 					local_tm->tm_hour, local_tm->tm_min);
 
 				int temp = sprintf(emp->time_of_leave, "%d-%02d-%02d.%d:%02d",
@@ -320,7 +320,7 @@ void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
 			}
 			else
 			{
-				printf("½ñÈÕ»¹Î´ÉÏ°à´ò¿¨");
+				printf("ä»Šæ—¥è¿˜æœªä¸Šç­æ‰“å¡");
 				Sleep(commmon_time);
 				system("cls");
 			}
@@ -334,7 +334,7 @@ void Select_clock(Employees* emp)//´ò¿¨Ñ¡Ôñ
 	}
 }
 
-void Information_Inquiry_Individual(Employees* emp)//ĞÅÏ¢²éÑ¯
+void Information_Inquiry_Individual(Employees* emp)//ä¿¡æ¯æŸ¥è¯¢
 {
 	int flag = 1;
 	system("cls");
@@ -342,30 +342,30 @@ void Information_Inquiry_Individual(Employees* emp)//ĞÅÏ¢²éÑ¯
 	FILE* fp = fopen("data.txt", "r");
 	if (fp == NULL)
 	{
-		printf("ÎŞ·¨´ò¿ªdataÎÄ¼ş\n");
+		printf("æ— æ³•æ‰“å¼€dataæ–‡ä»¶\n");
 		Sleep(error_time);
 		exit(1);
 	}
 
-	char name[4] = { '\0' };//ĞÕÃû
-	char j_num[8] = { '\0' };//¹¤ºÅ
-	int department_num = 0;//ËùÊô²¿ÃÅ±àºÅ
-	int identity_num = 0;// Ö°Î»±àºÅ
-	int age = 0;//ÄêÁä
-	int age_w = 0;//¹¤Áä
-	int stage = 0;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
-	char pass[5] = { '\0' };//ËÄÎ»ÃÜÂë
-	int w_clock = 0;//ÊÇ·ñ´ò¿¨ 1ÊÇ 0·ñ
-	char tm_of_c[20] = { '\0' };//´ò¿¨Ê±¼ä
-	char tm_of_l[20] = { '\0' };//Àë¿ªÊ±¼ä
-	int w_be_l = 0;//ÊÇ·ñ³Ùµ½
-	int n_be_l = 0;//³Ùµ½Êı
-	int n_c = 0;//´ò¿¨´ÎÊı
-	int n_a_v = 0;//Çë¼Ù´ÎÊı
-	int t_v = 0;//×ÜÄê¼Ù
-	int h_v = 0;//ÒÑÓÃÄê¼Ù
-	int r_v = 0;//Ê£ÓàÄê¼Ù
-	int a_v_s = 0;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
+	char name[4] = { '\0' };//å§“å
+	char j_num[8] = { '\0' };//å·¥å·
+	int department_num = 0;//æ‰€å±éƒ¨é—¨ç¼–å·
+	int identity_num = 0;// èŒä½ç¼–å·
+	int age = 0;//å¹´é¾„
+	int age_w = 0;//å·¥é¾„
+	int stage = 0;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
+	char pass[5] = { '\0' };//å››ä½å¯†ç 
+	int w_clock = 0;//æ˜¯å¦æ‰“å¡ 1æ˜¯ 0å¦
+	char tm_of_c[20] = { '\0' };//æ‰“å¡æ—¶é—´
+	char tm_of_l[20] = { '\0' };//ç¦»å¼€æ—¶é—´
+	int w_be_l = 0;//æ˜¯å¦è¿Ÿåˆ°
+	int n_be_l = 0;//è¿Ÿåˆ°æ•°
+	int n_c = 0;//æ‰“å¡æ¬¡æ•°
+	int n_a_v = 0;//è¯·å‡æ¬¡æ•°
+	int t_v = 0;//æ€»å¹´å‡
+	int h_v = 0;//å·²ç”¨å¹´å‡
+	int r_v = 0;//å‰©ä½™å¹´å‡
+	int a_v_s = 0;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
 
 	while (fscanf(fp, "%s %s %d %d %d %d %d %s %d %s %s %d %d %d %d %d %d %d %d",
 		name, j_num, &department_num, &identity_num, &age, &age_w, &stage, pass,
@@ -377,48 +377,48 @@ void Information_Inquiry_Individual(Employees* emp)//ĞÅÏ¢²éÑ¯
 
 	while (1)
 	{
-		printf("ÒÔÏÂÎª%sµÄ¸öÈËĞÅÏ¢:\n", emp->name);
-		printf("ĞÕÃû£º%s\n", name);
-		printf("¹¤ºÅ£º%s\n", j_num);
-		printf("²¿ÃÅ£º%s\n", departments[department_num - 1]);
-		printf("Ö°Îñ£º%s\n", identities[identity_num - 1]);
-		printf("ÄêÁä£º%d\n", age);
-		printf("¹¤Áä£º%d\n", age_w);
-		printf("ÃÜÂë£º****\n");
-		printf("¹¤×÷×´Ì¬£º");
+		printf("ä»¥ä¸‹ä¸º%sçš„ä¸ªäººä¿¡æ¯:\n", emp->name);
+		printf("å§“åï¼š%s\n", name);
+		printf("å·¥å·ï¼š%s\n", j_num);
+		printf("éƒ¨é—¨ï¼š%s\n", departments[department_num - 1]);
+		printf("èŒåŠ¡ï¼š%s\n", identities[identity_num - 1]);
+		printf("å¹´é¾„ï¼š%d\n", age);
+		printf("å·¥é¾„ï¼š%d\n", age_w);
+		printf("å¯†ç ï¼š****\n");
+		printf("å·¥ä½œçŠ¶æ€ï¼š");
 		if (stage)
-			printf("¹¤×÷ÖĞ...\n");
+			printf("å·¥ä½œä¸­...\n");
 		else
-			printf("Ğİ¼ÙÖĞ\n");
-		printf("ÊÇ·ñ´ò¿¨£º");
+			printf("ä¼‘å‡ä¸­\n");
+		printf("æ˜¯å¦æ‰“å¡ï¼š");
 		if (w_clock)
-			printf("ÒÑ´ò¿¨...\n");
+			printf("å·²æ‰“å¡...\n");
 		else
-			printf("Î´´ò¿¨O.o\n");
+			printf("æœªæ‰“å¡O.o\n");
 
 		if (strcmp(tm_of_c, "1111111111111111") == 0)
-			printf("ÉÏ°àÊ±¼ä£º»¹Î´½øĞĞÉÏ°à´ò¿¨\n");
+			printf("ä¸Šç­æ—¶é—´ï¼šè¿˜æœªè¿›è¡Œä¸Šç­æ‰“å¡\n");
 		else
-			printf("´ò¿¨Ê±¼ä£º%s\n", tm_of_c);
+			printf("æ‰“å¡æ—¶é—´ï¼š%s\n", tm_of_c);
 
 		if (strcmp(tm_of_l, "1111111111111111") == 0)
-			printf("ÏÂ°àÊ±¼ä£º»¹Î´½øĞĞÏÂ°à´ò¿¨\n");
+			printf("ä¸‹ç­æ—¶é—´ï¼šè¿˜æœªè¿›è¡Œä¸‹ç­æ‰“å¡\n");
 		else
-			printf("ÏÂ°àÊ±¼ä£º%s\n", tm_of_l);
-		printf("ÊÇ·ñ³Ùµ½£º");
+			printf("ä¸‹ç­æ—¶é—´ï¼š%s\n", tm_of_l);
+		printf("æ˜¯å¦è¿Ÿåˆ°ï¼š");
 		if (w_be_l)
-			printf("ÒÑ³Ùµ½£¾©n£¼\n");
+			printf("å·²è¿Ÿåˆ°ï¼ï¹ï¼œ\n");
 		else
-			printf("Î´³Ùµ½\n");
-		printf("³Ùµ½Êı£º%d\n", n_be_l);
-		printf("´ò¿¨Êı£º%d\n", n_c);
-		printf("Çë¼ÙÊı£º%d\n", n_a_v);
-		printf("×ÜÄê¼Ù£º%d\n", t_v);
-		printf("ÒÑÓÃÄê¼Ù£º%d\n", h_v);
-		printf("Ê£ÓàÄê¼Ù£º%d\n", r_v);
-		printf("Çë¼Ù×´Ì¬£º%d\n", a_v_s);
-		printf("--ÊäÈë'p'ÏÔÊ¾ÃÜÂë--\n");
-		printf("--ÊäÈë0ÍË³ö--\n");
+			printf("æœªè¿Ÿåˆ°\n");
+		printf("è¿Ÿåˆ°æ•°ï¼š%d\n", n_be_l);
+		printf("æ‰“å¡æ•°ï¼š%d\n", n_c);
+		printf("è¯·å‡æ•°ï¼š%d\n", n_a_v);
+		printf("æ€»å¹´å‡ï¼š%d\n", t_v);
+		printf("å·²ç”¨å¹´å‡ï¼š%d\n", h_v);
+		printf("å‰©ä½™å¹´å‡ï¼š%d\n", r_v);
+		printf("è¯·å‡çŠ¶æ€ï¼š%d\n", a_v_s);
+		printf("--è¾“å…¥'p'æ˜¾ç¤ºå¯†ç --\n");
+		printf("--è¾“å…¥0é€€å‡º--\n");
 		while (1)
 		{
 			while (!_kbhit());
@@ -426,10 +426,10 @@ void Information_Inquiry_Individual(Employees* emp)//ĞÅÏ¢²éÑ¯
 			if (ch == 'p')
 			{
 				ClearLine(7);
-				printf("ÃÜÂë£º%s", pass);
+				printf("å¯†ç ï¼š%s", pass);
 				Sleep(commmon_time);
 				ClearLine(7);
-				printf("ÃÜÂë£º****");
+				printf("å¯†ç ï¼š****");
 			}
 			else if (ch - '0' == 0)
 				flag = 0;
@@ -454,12 +454,12 @@ void Information_Inquiry_Department(Employees* emp)
 	{
 		system("cls");
 		printf("------------------------------\n");
-		printf("|         1.¹¤ºÅ²éÑ¯          |\n");
-		printf("|         2.ĞÕÃû²éÑ¯          |\n");
-		printf("|         3.Ö°Î»²éÑ¯          |\n");
-		printf("|         4.ÄêÁä²éÑ¯          |\n");
-		printf("|         5.×´Ì¬²éÑ¯          |\n");
-		printf("|         0.ÍË³ö²éÑ¯          |\n");
+		printf("|         1.å·¥å·æŸ¥è¯¢          |\n");
+		printf("|         2.å§“åæŸ¥è¯¢          |\n");
+		printf("|         3.èŒä½æŸ¥è¯¢          |\n");
+		printf("|         4.å¹´é¾„æŸ¥è¯¢          |\n");
+		printf("|         5.çŠ¶æ€æŸ¥è¯¢          |\n");
+		printf("|         0.é€€å‡ºæŸ¥è¯¢          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		temp = getchar();
@@ -470,8 +470,8 @@ void Information_Inquiry_Department(Employees* emp)
 			emp_s = com[emp->id_department - 1].head;
 			int flag = 0, judge = 0;
 			system("cls");
-			printf("ÇëÊäÈëÒª²éÑ¯µÄ¹¤ºÅ£º");
-			char j_num[8] = { '\0' };//¹¤ºÅ
+			printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å·¥å·ï¼š");
+			char j_num[8] = { '\0' };//å·¥å·
 			int temp = scanf("%s", j_num);
 			while (emp_s != NULL)
 			{
@@ -485,51 +485,51 @@ void Information_Inquiry_Department(Employees* emp)
 			if (judge == 1)
 			{
 				system("cls");
-				printf("ĞÅÏ¢ÈçÏÂ:\n");
-				printf("ĞÕÃû£º%s\n", emp_s->name);
-				printf("¹¤ºÅ£º%s\n", j_num);
-				printf("²¿ÃÅ£º%s\n", departments[emp_s->id_department - 1]);
-				printf("Ö°Îñ£º%s\n", identities[emp_s->id_identity - 1]);
-				printf("ÄêÁä£º%d\n", emp_s->age);
-				printf("¹¤Áä£º%d\n", emp_s->age_of_work);
-				printf("¹¤×÷×´Ì¬£º");
+				printf("ä¿¡æ¯å¦‚ä¸‹:\n");
+				printf("å§“åï¼š%s\n", emp_s->name);
+				printf("å·¥å·ï¼š%s\n", j_num);
+				printf("éƒ¨é—¨ï¼š%s\n", departments[emp_s->id_department - 1]);
+				printf("èŒåŠ¡ï¼š%s\n", identities[emp_s->id_identity - 1]);
+				printf("å¹´é¾„ï¼š%d\n", emp_s->age);
+				printf("å·¥é¾„ï¼š%d\n", emp_s->age_of_work);
+				printf("å·¥ä½œçŠ¶æ€ï¼š");
 				if (emp_s->stage)
-					printf("¹¤×÷ÖĞ...\n");
+					printf("å·¥ä½œä¸­...\n");
 				else
-					printf("Ğİ¼ÙÖĞ\n");
-				printf("ÊÇ·ñ´ò¿¨£º");
+					printf("ä¼‘å‡ä¸­\n");
+				printf("æ˜¯å¦æ‰“å¡ï¼š");
 				if (emp_s->Whether_clock)
-					printf("ÒÑ´ò¿¨...\n");
+					printf("å·²æ‰“å¡...\n");
 				else
-					printf("Î´´ò¿¨O.o\n");
+					printf("æœªæ‰“å¡O.o\n");
 
 				if (strcmp(emp_s->time_of_clock, "1111111111111111") == 0)
-					printf("ÉÏ°àÊ±¼ä£º»¹Î´½øĞĞÉÏ°à´ò¿¨\n");
+					printf("ä¸Šç­æ—¶é—´ï¼šè¿˜æœªè¿›è¡Œä¸Šç­æ‰“å¡\n");
 				else
-					printf("´ò¿¨Ê±¼ä£º%s\n", emp_s->time_of_clock);
+					printf("æ‰“å¡æ—¶é—´ï¼š%s\n", emp_s->time_of_clock);
 
 				if (strcmp(emp_s->time_of_leave, "1111111111111111") == 0)
-					printf("ÏÂ°àÊ±¼ä£º»¹Î´½øĞĞÏÂ°à´ò¿¨\n");
+					printf("ä¸‹ç­æ—¶é—´ï¼šè¿˜æœªè¿›è¡Œä¸‹ç­æ‰“å¡\n");
 				else
-					printf("ÏÂ°àÊ±¼ä£º%s\n", emp_s->time_of_leave);
-				printf("ÊÇ·ñ³Ùµ½£º");
+					printf("ä¸‹ç­æ—¶é—´ï¼š%s\n", emp_s->time_of_leave);
+				printf("æ˜¯å¦è¿Ÿåˆ°ï¼š");
 				if (emp_s->Whether_be_late)
-					printf("ÒÑ³Ùµ½£¾©n£¼\n");
+					printf("å·²è¿Ÿåˆ°ï¼ï¹ï¼œ\n");
 				else
-					printf("Î´³Ùµ½\n");
-				printf("³Ùµ½Êı£º%d\n", emp_s->num_late);
-				printf("´ò¿¨Êı£º%d\n", emp_s->num_clock);
-				printf("Çë¼ÙÊı£º%d\n", emp_s->num_ask_vacation);
-				printf("×ÜÄê¼Ù£º%d\n", emp_s->total_annual_vacation);
-				printf("ÒÑÓÃÄê¼Ù£º%d\n", emp_s->taken_vacation);
-				printf("Ê£ÓàÄê¼Ù£º%d\n", emp_s->remaining_annual_vacation);
-				printf("Çë¼Ù×´Ì¬£º%d\n", emp_s->ask_vacation_status);
-				printf("--ÊäÈë0ÍË³ö--\n");
+					printf("æœªè¿Ÿåˆ°\n");
+				printf("è¿Ÿåˆ°æ•°ï¼š%d\n", emp_s->num_late);
+				printf("æ‰“å¡æ•°ï¼š%d\n", emp_s->num_clock);
+				printf("è¯·å‡æ•°ï¼š%d\n", emp_s->num_ask_vacation);
+				printf("æ€»å¹´å‡ï¼š%d\n", emp_s->total_annual_vacation);
+				printf("å·²ç”¨å¹´å‡ï¼š%d\n", emp_s->taken_vacation);
+				printf("å‰©ä½™å¹´å‡ï¼š%d\n", emp_s->remaining_annual_vacation);
+				printf("è¯·å‡çŠ¶æ€ï¼š%d\n", emp_s->ask_vacation_status);
+				printf("--è¾“å…¥0é€€å‡º--\n");
 				flag = Exit_with_Flag(flag);
 			}
 			else
 			{
-				printf("²éÎŞ´ËÈË\n");
+				printf("æŸ¥æ— æ­¤äºº\n");
 				Sleep(commmon_time);
 				system("cls");
 			}
@@ -539,8 +539,8 @@ void Information_Inquiry_Department(Employees* emp)
 			emp_s = com[emp->id_department - 1].head;
 			int flag = 0, judge = 0;
 			system("cls");
-			printf("ÇëÊäÈëÒª²éÑ¯µÄĞÕÃû£º");
-			char name[5] = { '\0' };//ĞÕÃû
+			printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å§“åï¼š");
+			char name[5] = { '\0' };//å§“å
 			int temp = scanf("%s", name);
 			printf("------------------------------\n");
 			while (emp_s != NULL)
@@ -548,16 +548,16 @@ void Information_Inquiry_Department(Employees* emp)
 				if (strcmp(emp_s->name, name) == 0)
 				{
 					judge = 1;
-					printf("¹¤ºÅ£º%s\n", emp_s->job_num);
-					printf("Ö°Î»£º%s\n", emp_s->identity);
-					printf("ÄêÁä£º%d\n", emp_s->age);
-					printf("×´Ì¬£º%d\n", emp_s->stage);
+					printf("å·¥å·ï¼š%s\n", emp_s->job_num);
+					printf("èŒä½ï¼š%s\n", emp_s->identity);
+					printf("å¹´é¾„ï¼š%d\n", emp_s->age);
+					printf("çŠ¶æ€ï¼š%d\n", emp_s->stage);
 					printf("------------------------------\n");
 				}
 				emp_s = emp_s->next;
 			}
 			if (judge == 0)
-				printf("²éÎŞ´ËÈË\n");
+				printf("æŸ¥æ— æ­¤äºº\n");
 			flag = Exit_with_Flag(flag);
 		}break;
 		case 3:
@@ -565,8 +565,8 @@ void Information_Inquiry_Department(Employees* emp)
 			emp_s = com[emp->id_department - 1].head;
 			int flag = 0, judge = 0;
 			system("cls");
-			printf("ÇëÊäÈëÒª²éÑ¯µÄÖ°Î»±àºÅ£º");
-			int identity_num = 0;// Ö°Î»±àºÅ
+			printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„èŒä½ç¼–å·ï¼š");
+			int identity_num = 0;// èŒä½ç¼–å·
 			int temp = scanf("%d", &identity_num);
 			printf("------------------------------\n");
 			while (emp_s != NULL)
@@ -574,16 +574,16 @@ void Information_Inquiry_Department(Employees* emp)
 				if (emp_s->id_identity == identity_num)
 				{
 					judge = 1;
-					printf("ĞÕÃû£º%s\n", emp_s->job_num);
-					printf("¹¤ºÅ£º%s\n", emp_s->job_num);
-					printf("ÄêÁä£º%d\n", emp_s->age);
-					printf("×´Ì¬£º%d\n", emp_s->stage);
+					printf("å§“åï¼š%s\n", emp_s->job_num);
+					printf("å·¥å·ï¼š%s\n", emp_s->job_num);
+					printf("å¹´é¾„ï¼š%d\n", emp_s->age);
+					printf("çŠ¶æ€ï¼š%d\n", emp_s->stage);
 					printf("------------------------------\n");
 				}
 				emp_s = emp_s->next;
 			}
 			if (judge == 0)
-				printf("²éÎŞ´ËÈË\n");
+				printf("æŸ¥æ— æ­¤äºº\n");
 			flag = Exit_with_Flag(flag);
 		}break;
 		case 4:
@@ -591,8 +591,8 @@ void Information_Inquiry_Department(Employees* emp)
 			emp_s = com[emp->id_department - 1].head;
 			int flag = 0, judge = 0;
 			system("cls");
-			printf("ÇëÊäÈëÒª²éÑ¯µÄÄêÁä£º");
-			int age = 0;//ÄêÁä
+			printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å¹´é¾„ï¼š");
+			int age = 0;//å¹´é¾„
 			int temp = scanf("%d", &age);
 			printf("------------------------------\n");
 			while (emp_s != NULL)
@@ -600,16 +600,16 @@ void Information_Inquiry_Department(Employees* emp)
 				if (emp_s->age == age)
 				{
 					judge = 1;
-					printf("ĞÕÃû£º%s\n", emp_s->job_num);
-					printf("¹¤ºÅ£º%s\n", emp_s->job_num);
-					printf("Ö°Î»£º%s\n", emp_s->identity);
-					printf("×´Ì¬£º%d\n", emp_s->stage);
+					printf("å§“åï¼š%s\n", emp_s->job_num);
+					printf("å·¥å·ï¼š%s\n", emp_s->job_num);
+					printf("èŒä½ï¼š%s\n", emp_s->identity);
+					printf("çŠ¶æ€ï¼š%d\n", emp_s->stage);
 					printf("------------------------------\n");
 				}
 				emp_s = emp_s->next;
 			}
 			if (judge == 0)
-				printf("²éÎŞ´ËÈË\n");
+				printf("æŸ¥æ— æ­¤äºº\n");
 			flag = Exit_with_Flag(flag);
 		}break;
 		case 5:
@@ -617,8 +617,8 @@ void Information_Inquiry_Department(Employees* emp)
 			emp_s = com[emp->id_department - 1].head;
 			int flag = 0, judge = 0;
 			system("cls");
-			printf("ÇëÊäÈëÒª²éÑ¯µÄ¹¤×÷×´Ì¬£º");
-			int stage = 0;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
+			printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å·¥ä½œçŠ¶æ€ï¼š");
+			int stage = 0;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
 			int temp = scanf("%d", &stage);
 			printf("------------------------------\n");
 			while (emp_s != NULL)
@@ -626,26 +626,26 @@ void Information_Inquiry_Department(Employees* emp)
 				if (emp_s->stage == stage)
 				{
 					judge = 1;
-					printf("ĞÕÃû£º%s\n", emp_s->job_num);
-					printf("¹¤ºÅ£º%s\n", emp_s->job_num);
-					printf("Ö°Î»£º%s\n", emp_s->identity);
-					printf("ÄêÁä£º%d\n", emp_s->age);
+					printf("å§“åï¼š%s\n", emp_s->job_num);
+					printf("å·¥å·ï¼š%s\n", emp_s->job_num);
+					printf("èŒä½ï¼š%s\n", emp_s->identity);
+					printf("å¹´é¾„ï¼š%d\n", emp_s->age);
 					printf("------------------------------\n");
 				}
 				emp_s = emp_s->next;
 			}
 			if (judge == 0)
-				printf("²éÎŞ´ËÈË\n");
+				printf("æŸ¥æ— æ­¤äºº\n");
 			flag = Exit_with_Flag(flag);
 		}break;
-		case 0:flag = 1; printf("ÍË³öµÇÂ¼³É¹¦\n"); Sleep(commmon_time); system("cls"); break;
+		case 0:flag = 1; printf("é€€å‡ºç™»å½•æˆåŠŸ\n"); Sleep(commmon_time); system("cls"); break;
 		}
 		if (flag == 1)
 			break;
 	}
 }
 
-void Staff_And_Ui(Employees* emp)//Ô±¹¤¹¦ÄÜ
+void Staff_And_Ui(Employees* emp)//å‘˜å·¥åŠŸèƒ½
 {
 	system("cls");
 	int pick = 0;
@@ -655,11 +655,11 @@ void Staff_And_Ui(Employees* emp)//Ô±¹¤¹¦ÄÜ
 		if (flag == 1)
 			break;
 		printf("------------------------------\n");
-		printf("|         1.´ò¿¨Ñ¡Ôñ          |\n");
-		printf("|         2.ĞÅÏ¢²éÑ¯          |\n");
-		printf("|         3.Çë¼ÙÏµÍ³          |\n");
-		printf("|         4.ĞŞ¸ÄÃÜÂë          |\n");
-		printf("|         0.ÍË³öµÇÂ¼          |\n");
+		printf("|         1.æ‰“å¡é€‰æ‹©          |\n");
+		printf("|         2.ä¿¡æ¯æŸ¥è¯¢          |\n");
+		printf("|         3.è¯·å‡ç³»ç»Ÿ          |\n");
+		printf("|         4.ä¿®æ”¹å¯†ç           |\n");
+		printf("|         0.é€€å‡ºç™»å½•          |\n");
 
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
@@ -669,14 +669,14 @@ void Staff_And_Ui(Employees* emp)//Ô±¹¤¹¦ÄÜ
 		case 2:Information_Inquiry_Individual(emp); break;
 		case 3: RequestVacation(emp); break;
 		case 4:ChangePassword(emp); break;
-		case 0:flag = 1; printf("ÍË³öµÇÂ¼³É¹¦\n"); Sleep(commmon_time); system("cls"); ; Save(); break;
+		case 0:flag = 1; printf("é€€å‡ºç™»å½•æˆåŠŸ\n"); Sleep(commmon_time); system("cls"); ; Save(); break;
 
 
 		}
 	}
 }
 
-void Manager_And_Ui(Employees* emp) //²¿ÃÅ¾­Àí¹¦ÄÜ
+void Manager_And_Ui(Employees* emp) //éƒ¨é—¨ç»ç†åŠŸèƒ½
 {
 	system("cls");
 	int pick = 0;
@@ -685,14 +685,14 @@ void Manager_And_Ui(Employees* emp) //²¿ÃÅ¾­Àí¹¦ÄÜ
 	while (1)
 	{
 		printf("-------------------------------\n");
-		printf("|         1.´ò¿¨Ñ¡Ôñ          |\n");
-		printf("|         2.¸öÈË²éÑ¯          |\n");
-		printf("|         3.²¿ÃÅ²éÑ¯          |\n");
-		printf("|         4.ĞÅÏ¢ÅÅĞò          |\n");
-		printf("|         5.ÉóÅúÇë¼Ù          |\n");
-		printf("|         6.ĞÅÏ¢Í³¼Æ          |\n");
-		printf("|         7.ĞŞ¸ÄÃÜÂë          |\n");
-		printf("|         0.ÍË³öµÇÂ¼          |\n");
+		printf("|         1.æ‰“å¡é€‰æ‹©          |\n");
+		printf("|         2.ä¸ªäººæŸ¥è¯¢          |\n");
+		printf("|         3.éƒ¨é—¨æŸ¥è¯¢          |\n");
+		printf("|         4.ä¿¡æ¯æ’åº          |\n");
+		printf("|         5.å®¡æ‰¹è¯·å‡          |\n");
+		printf("|         6.ä¿¡æ¯ç»Ÿè®¡          |\n");
+		printf("|         7.ä¿®æ”¹å¯†ç           |\n");
+		printf("|         0.é€€å‡ºç™»å½•          |\n");
 		printf("-------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -704,14 +704,14 @@ void Manager_And_Ui(Employees* emp) //²¿ÃÅ¾­Àí¹¦ÄÜ
 		case 5: Vacation_Management(emp); break;
 		case 6: Stats(emp); break;
 		case 7: ChangePassword(emp); break;
-		case 0:flag = 1; printf("ÍË³öµÇÂ¼³É¹¦\n"); Sleep(commmon_time); system("cls"); Save(); break;
+		case 0:flag = 1; printf("é€€å‡ºç™»å½•æˆåŠŸ\n"); Sleep(commmon_time); system("cls"); Save(); break;
 		}
 		if (flag == 1)
 			break;
 	}
 }
 
-void Admin_And_Ui(Employees* emp)//¹ÜÀíÔ±¹¦ÄÜ
+void Admin_And_Ui(Employees* emp)//ç®¡ç†å‘˜åŠŸèƒ½
 {
 
 	int flag = 0, pick = 0;
@@ -719,14 +719,14 @@ void Admin_And_Ui(Employees* emp)//¹ÜÀíÔ±¹¦ÄÜ
 	{
 		system("cls");
 		printf("------------------------------\n");
-		printf("|         1.ÏµÍ³Î¬»¤          |\n");
-		printf("|         2.´ò¿¨Ñ¡Ôñ          |\n");
-		printf("|         3.¸öÈË²éÑ¯          |\n");
-		printf("|         4.²¿ÃÅ²éÑ¯          |\n");
-		printf("|         5.ĞÅÏ¢ÅÅĞò          |\n");
-		printf("|         6.ĞÅÏ¢¹ÜÀí          |\n");
-		printf("|         7.ĞŞ¸ÄÃÜÂë          |\n");
-		printf("|         0.ÍË³öµÇÂ¼          |\n");
+		printf("|         1.ç³»ç»Ÿç»´æŠ¤          |\n");
+		printf("|         2.æ‰“å¡é€‰æ‹©          |\n");
+		printf("|         3.ä¸ªäººæŸ¥è¯¢          |\n");
+		printf("|         4.éƒ¨é—¨æŸ¥è¯¢          |\n");
+		printf("|         5.ä¿¡æ¯æ’åº          |\n");
+		printf("|         6.ä¿¡æ¯ç®¡ç†          |\n");
+		printf("|         7.ä¿®æ”¹å¯†ç           |\n");
+		printf("|         0.é€€å‡ºç™»å½•          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -738,46 +738,46 @@ void Admin_And_Ui(Employees* emp)//¹ÜÀíÔ±¹¦ÄÜ
 		case 5: AdminSort(); break;
 		case 6: Information_Management(emp); break;
 		case 7: ChangePassword(emp); break;
-		case 0:flag = 1; printf("ÍË³öµÇÂ¼³É¹¦\n"); Sleep(commmon_time); system("cls"); Save(); break;
+		case 0:flag = 1; printf("é€€å‡ºç™»å½•æˆåŠŸ\n"); Sleep(commmon_time); system("cls"); Save(); break;
 		}
 		if (flag == 1)
 			break;
 	}
 }
 
-void InputStaff() //Ìí¼ÓÔ±¹¤
+void InputStaff() //æ·»åŠ å‘˜å·¥
 {
 	system("cls");
 	int flag = 1;
 	while (1)
 	{
-		char name[4] = { '\0' };//ĞÕÃû
-		char j_num[8] = { '\0' };//¹¤ºÅ
-		int department_num = 0;//ËùÊô²¿ÃÅ±àºÅ
-		int identity_num = 0;// Ö°Î»±àºÅ
-		int age = 0;//ÄêÁä
-		int age_w = 0;//¹¤Áä
-		int stage = 0;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
-		char pass[5] = { '\0' };//ËÄÎ»ÃÜÂë
-		int w_clock = 0;//ÊÇ·ñ´ò¿¨ 1ÊÇ 0·ñ
-		int w_be_l = 0;//ÊÇ·ñ³Ùµ½
-		int n_be_l = 0;//³Ùµ½Êı
-		int n_c = 0;//´ò¿¨´ÎÊı
-		int n_a_v = 0;//Çë¼Ù´ÎÊı
-		int t_v = 0;//×ÜÄê¼Ù
-		int r_v = 0;//Ê£ÓàÄê¼Ù
-		int h_v = 0;//ÒÑÓÃ¼ÙÆÚ
-		int a_v_s = 0;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
+		char name[4] = { '\0' };//å§“å
+		char j_num[8] = { '\0' };//å·¥å·
+		int department_num = 0;//æ‰€å±éƒ¨é—¨ç¼–å·
+		int identity_num = 0;// èŒä½ç¼–å·
+		int age = 0;//å¹´é¾„
+		int age_w = 0;//å·¥é¾„
+		int stage = 0;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
+		char pass[5] = { '\0' };//å››ä½å¯†ç 
+		int w_clock = 0;//æ˜¯å¦æ‰“å¡ 1æ˜¯ 0å¦
+		int w_be_l = 0;//æ˜¯å¦è¿Ÿåˆ°
+		int n_be_l = 0;//è¿Ÿåˆ°æ•°
+		int n_c = 0;//æ‰“å¡æ¬¡æ•°
+		int n_a_v = 0;//è¯·å‡æ¬¡æ•°
+		int t_v = 0;//æ€»å¹´å‡
+		int r_v = 0;//å‰©ä½™å¹´å‡
+		int h_v = 0;//å·²ç”¨å‡æœŸ
+		int a_v_s = 0;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
 		int temp;
 
-		printf("ÇëÊäÈëÔ±¹¤ĞÅÏ¢\n");
+		printf("è¯·è¾“å…¥å‘˜å·¥ä¿¡æ¯\n");
 		while (1)
 		{
-			printf("ĞÕÃû£¨²»³¬¹ı3¸ö×Ö·û£©£º");
+			printf("å§“åï¼ˆä¸è¶…è¿‡3ä¸ªå­—ç¬¦ï¼‰ï¼š");
 			temp = scanf("%s", name);
 			if (strlen(name) != 3 || name[0] < 'A' || name[0]>'Z' || name[1] < 'A' || name[1]>'Z' || name[2] < 'A' || name[2]>'Z')
 			{
-				printf("ĞÕÃûÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+				printf("å§“åæ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			}
 			else
 				break;
@@ -797,11 +797,11 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 			break;
 		while (1)
 		{
-			printf("²¿ÃÅ±àºÅ£¨1-Purchase, 2-Produce, 3-Sale, 4-Manage£©£º");
+			printf("éƒ¨é—¨ç¼–å·ï¼ˆ1-Purchase, 2-Produce, 3-Sale, 4-Manageï¼‰ï¼š");
 			temp = scanf("%d", &department_num);
 			if (department_num < 1 || department_num > 4)
 			{
-				printf("²¿ÃÅ±àºÅÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+				printf("éƒ¨é—¨ç¼–å·æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			}
 			else
 				break;
@@ -821,11 +821,11 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 			break;
 		while (1)
 		{
-			printf("Ö°Î»±àºÅ£¨1-Admin, 2-Manager, 3-Staff£©£º");
+			printf("èŒä½ç¼–å·ï¼ˆ1-Admin, 2-Manager, 3-Staffï¼‰ï¼š");
 			temp = scanf("%d", &identity_num);
 			if (identity_num < 1 || identity_num > 3)
 			{
-				printf("Ö°Î»±àºÅÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+				printf("èŒä½ç¼–å·æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			}
 			else
 				break;
@@ -845,11 +845,11 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 			break;
 		while (1)
 		{
-			printf("ÄêÁä£º");
+			printf("å¹´é¾„ï¼š");
 			temp = scanf("%d", &age);
 			if (age < 18 || age > 60)
 			{
-				printf("ÄêÁäÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+				printf("å¹´é¾„æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			}
 			else
 				break;
@@ -867,15 +867,15 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 		}
 		if (flag == 0)
 			break;
-		// ´´½¨ĞÂÔ±¹¤½Úµã
+		// åˆ›å»ºæ–°å‘˜å·¥èŠ‚ç‚¹
 		Employees* newEmp = (Employees*)malloc(sizeof(Employees));
 		if (newEmp == NULL)
 		{
-			printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+			printf("å†…å­˜åˆ†é…å¤±è´¥ï¼\n");
 			exit(1);
 		}
 
-		// ¿½±´Ô±¹¤ĞÅÏ¢
+		// æ‹·è´å‘˜å·¥ä¿¡æ¯
 		strcpy(newEmp->name, name);
 		strcpy(newEmp->department, departments[department_num - 1]);
 		newEmp->id_department = department_num;
@@ -897,17 +897,17 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 
 		newEmp->next = NULL;
 
-		// ²åÈëµ½¶ÔÓ¦²¿ÃÅµÄÁ´±íÖĞ
+		// æ’å…¥åˆ°å¯¹åº”éƒ¨é—¨çš„é“¾è¡¨ä¸­
 		Employees* move = com[department_num - 1].head;
 
-		// Èç¹ûÁ´±íÎª¿Õ£¬Ö±½Ó½«ĞÂ½Úµã×÷ÎªÍ·½Úµã
+		// å¦‚æœé“¾è¡¨ä¸ºç©ºï¼Œç›´æ¥å°†æ–°èŠ‚ç‚¹ä½œä¸ºå¤´èŠ‚ç‚¹
 		if (move == NULL)
 		{
 			com[department_num - 1].head = newEmp;
 		}
 		else
 		{
-			// ±éÀúÁ´±í£¬½«ĞÂ½Úµã²åÈëµ½Á´±íÄ©Î²
+			// éå†é“¾è¡¨ï¼Œå°†æ–°èŠ‚ç‚¹æ’å…¥åˆ°é“¾è¡¨æœ«å°¾
 			while (move->next != NULL)
 			{
 				move = move->next;
@@ -915,10 +915,10 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 			move->next = newEmp;
 		}
 
-		// ¸üĞÂ²¿ÃÅÔ±¹¤Êı
+		// æ›´æ–°éƒ¨é—¨å‘˜å·¥æ•°
 		com[department_num - 1].num_of_staff++;
 
-		printf("Ô±¹¤ĞÅÏ¢ÒÑ³É¹¦Ìí¼Óµ½²¿ÃÅ %s\n", departments[department_num - 1]);
+		printf("å‘˜å·¥ä¿¡æ¯å·²æˆåŠŸæ·»åŠ åˆ°éƒ¨é—¨ %s\n", departments[department_num - 1]);
 		Complete_job_num();
 		Save();
 		flag = 0;
@@ -931,59 +931,59 @@ void InputStaff() //Ìí¼ÓÔ±¹¤
 	Save();
 }
 
-void DeleteStaff() // É¾³ıÔ±¹¤
+void DeleteStaff() // åˆ é™¤å‘˜å·¥
 {
 	system("cls");
 	char j_num[8] = { '\0' };
-	printf("ÇëÊäÈëÒªÉ¾³ıµÄÔ±¹¤µÄ¹¤ºÅ: ");
+	printf("è¯·è¾“å…¥è¦åˆ é™¤çš„å‘˜å·¥çš„å·¥å·: ");
 	int temp = scanf("%s", j_num);
 
-	int found = 0; // ±ê¼ÇÊÇ·ñÕÒµ½Ô±¹¤
-	for (int i = 0; i < 4; i++) // ±éÀúËùÓĞ²¿ÃÅ
+	int found = 0; // æ ‡è®°æ˜¯å¦æ‰¾åˆ°å‘˜å·¥
+	for (int i = 0; i < 4; i++) // éå†æ‰€æœ‰éƒ¨é—¨
 	{
-		Employees* prev = NULL; // Ç°Çı½Úµã
-		Employees* curr = com[i].head; // µ±Ç°½Úµã
+		Employees* prev = NULL; // å‰é©±èŠ‚ç‚¹
+		Employees* curr = com[i].head; // å½“å‰èŠ‚ç‚¹
 
-		while (curr != NULL) // ±éÀúµ±Ç°²¿ÃÅµÄÔ±¹¤Á´±í
+		while (curr != NULL) // éå†å½“å‰éƒ¨é—¨çš„å‘˜å·¥é“¾è¡¨
 		{
-			if (strcmp(curr->job_num, j_num) == 0) // ÕÒµ½Æ¥ÅäµÄÔ±¹¤
+			if (strcmp(curr->job_num, j_num) == 0) // æ‰¾åˆ°åŒ¹é…çš„å‘˜å·¥
 			{
-				found = 1; // ±ê¼ÇÕÒµ½Ô±¹¤
-				if (prev == NULL) // Èç¹ûÒªÉ¾³ıµÄÔ±¹¤ÊÇÁ´±íÍ·½Úµã
+				found = 1; // æ ‡è®°æ‰¾åˆ°å‘˜å·¥
+				if (prev == NULL) // å¦‚æœè¦åˆ é™¤çš„å‘˜å·¥æ˜¯é“¾è¡¨å¤´èŠ‚ç‚¹
 				{
-					com[i].head = curr->next; // ¸üĞÂÁ´±íÍ·ÎªÏÂÒ»¸ö½Úµã
+					com[i].head = curr->next; // æ›´æ–°é“¾è¡¨å¤´ä¸ºä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 				}
-				else // Èç¹ûÒªÉ¾³ıµÄÔ±¹¤²»ÊÇÁ´±íÍ·½Úµã
+				else // å¦‚æœè¦åˆ é™¤çš„å‘˜å·¥ä¸æ˜¯é“¾è¡¨å¤´èŠ‚ç‚¹
 				{
-					prev->next = curr->next; // ½«Ç°Çı½ÚµãµÄnextÖ¸Ïòµ±Ç°½ÚµãµÄÏÂÒ»¸ö½Úµã
+					prev->next = curr->next; // å°†å‰é©±èŠ‚ç‚¹çš„nextæŒ‡å‘å½“å‰èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 				}
-				free(curr); // ÊÍ·Åµ±Ç°½ÚµãÄÚ´æ
-				com[i].num_of_staff--; // ²¿ÃÅÔ±¹¤ÊıÁ¿¼õ1
-				printf("Ô±¹¤¹¤ºÅÎª %s µÄÊı¾İÒÑ³É¹¦É¾³ı¡£\n", j_num);
-				break; // ÕÒµ½²¢É¾³ıºóÍË³öÑ­»·
+				free(curr); // é‡Šæ”¾å½“å‰èŠ‚ç‚¹å†…å­˜
+				com[i].num_of_staff--; // éƒ¨é—¨å‘˜å·¥æ•°é‡å‡1
+				printf("å‘˜å·¥å·¥å·ä¸º %s çš„æ•°æ®å·²æˆåŠŸåˆ é™¤ã€‚\n", j_num);
+				break; // æ‰¾åˆ°å¹¶åˆ é™¤åé€€å‡ºå¾ªç¯
 			}
-			prev = curr; // ¸üĞÂÇ°Çı½Úµã
-			curr = curr->next; // ÒÆ¶¯µ½ÏÂÒ»¸ö½Úµã
+			prev = curr; // æ›´æ–°å‰é©±èŠ‚ç‚¹
+			curr = curr->next; // ç§»åŠ¨åˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 		}
-		if (found) // Èç¹ûÒÑÕÒµ½²¢É¾³ıÔ±¹¤£¬ÍË³ö²¿ÃÅÑ­»·
+		if (found) // å¦‚æœå·²æ‰¾åˆ°å¹¶åˆ é™¤å‘˜å·¥ï¼Œé€€å‡ºéƒ¨é—¨å¾ªç¯
 		{
 			break;
 		}
 	}
 
-	if (!found) // Èç¹û±éÀúÍêËùÓĞ²¿ÃÅÈÔÎ´ÕÒµ½Ô±¹¤
+	if (!found) // å¦‚æœéå†å®Œæ‰€æœ‰éƒ¨é—¨ä»æœªæ‰¾åˆ°å‘˜å·¥
 	{
-		printf("Î´ÕÒµ½¹¤ºÅÎª %s µÄÔ±¹¤Êı¾İ¡£\n", j_num);
+		printf("æœªæ‰¾åˆ°å·¥å·ä¸º %s çš„å‘˜å·¥æ•°æ®ã€‚\n", j_num);
 	}
 	Save();
 }
 
-void Modify_Seek(Companys com) // ĞŞ¸ÄÔ±¹¤ĞÅÏ¢
+void Modify_Seek(Companys com) // ä¿®æ”¹å‘˜å·¥ä¿¡æ¯
 {
 	system("cls");
 	char j_num[8] = { '\0' };
 	int find = 0;
-	printf("ÇëÊäÈëÒªĞŞ¸ÄµÄÔ±¹¤¹¤ºÅ£º");
+	printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„å‘˜å·¥å·¥å·ï¼š");
 	int temp = scanf("%s", j_num);
 	temp = getchar();
 	Employees* emp = com.head;
@@ -997,52 +997,52 @@ void Modify_Seek(Companys com) // ĞŞ¸ÄÔ±¹¤ĞÅÏ¢
 		emp = emp->next;
 	}
 	if (find == 0)
-		printf("²éÎŞ´ËÈË");
+		printf("æŸ¥æ— æ­¤äºº");
 	else
 		Modify(emp);
 }
 
-void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
+void Modify(Employees* emp)//ä¿®æ”¹å‘˜å·¥ä¿¡æ¯ï¼ˆä¿®æ”¹ï¼‰
 {
 	system("cls");
-	char name[4] = { '\0' };//ĞÕÃû
-	char j_num[8] = { '\0' };//¹¤ºÅ
-	int department_num = 0;//ËùÊô²¿ÃÅ±àºÅ
-	int identity_num = 0;// Ö°Î»±àºÅ
-	int age = 0;//ÄêÁä
-	int age_w = 0;//¹¤Áä
-	int stage = 0;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
-	char pass[5] = { '\0' };//ËÄÎ»ÃÜÂë
-	int w_clock = 0;//ÊÇ·ñ´ò¿¨ 1ÊÇ 0·ñ
-	int w_be_l = 0;//ÊÇ·ñ³Ùµ½
-	int n_be_l = 0;//³Ùµ½Êı
-	int n_c = 0;//´ò¿¨´ÎÊı
-	int n_a_v = 0;//Çë¼Ù´ÎÊı
-	int t_v = 0;//×ÜÄê¼Ù
-	int r_v = 0;//Ê£ÓàÄê¼Ù
-	int h_v = 0;//ÒÑÓÃ¼ÙÆÚ
-	int a_v_s = 0;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
+	char name[4] = { '\0' };//å§“å
+	char j_num[8] = { '\0' };//å·¥å·
+	int department_num = 0;//æ‰€å±éƒ¨é—¨ç¼–å·
+	int identity_num = 0;// èŒä½ç¼–å·
+	int age = 0;//å¹´é¾„
+	int age_w = 0;//å·¥é¾„
+	int stage = 0;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
+	char pass[5] = { '\0' };//å››ä½å¯†ç 
+	int w_clock = 0;//æ˜¯å¦æ‰“å¡ 1æ˜¯ 0å¦
+	int w_be_l = 0;//æ˜¯å¦è¿Ÿåˆ°
+	int n_be_l = 0;//è¿Ÿåˆ°æ•°
+	int n_c = 0;//æ‰“å¡æ¬¡æ•°
+	int n_a_v = 0;//è¯·å‡æ¬¡æ•°
+	int t_v = 0;//æ€»å¹´å‡
+	int r_v = 0;//å‰©ä½™å¹´å‡
+	int h_v = 0;//å·²ç”¨å‡æœŸ
+	int a_v_s = 0;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
 
-	printf("ĞÕÃû£º%s\n", emp->name);
-	printf("¹¤ºÅ£º%s\n", emp->job_num);
-	printf("²¿ÃÅ£º%s\n", emp->department);
-	printf("Ö°Î»£º%s\n", emp->identity);
-	printf("ÄêÁä£º%d\n", emp->age);
-	printf("¹¤Áä£º%d\n", emp->age_of_work);
-	printf("¹¤×÷×´Ì¬£º%d\n", emp->stage);
-	printf("ÃÜÂë£º%s\n", emp->password);
-	printf("ÊÇ·ñ´ò¿¨£º%d\n", emp->Whether_clock);
-	printf("ÊÇ·ñ³Ùµ½£º%d\n", emp->Whether_be_late);
-	printf("³Ùµ½´ÎÊı£º%d\n", emp->num_late);
-	printf("´ò¿¨´ÎÊı£º%d\n", emp->num_clock);
-	printf("Çë¼Ù´ÎÊı£º%d\n", emp->num_ask_vacation);
-	printf("×ÜÄê¼Ù£º%d\n", emp->total_annual_vacation);
-	printf("Ê£ÓàÄê¼Ù£º%d\n", emp->remaining_annual_vacation);
-	printf("ÒÑÓÃ¼ÙÆÚ£º%d\n", emp->taken_vacation);
-	printf("Çë¼Ù×´Ì¬£º%d\n", emp->ask_vacation_status);
+	printf("å§“åï¼š%s\n", emp->name);
+	printf("å·¥å·ï¼š%s\n", emp->job_num);
+	printf("éƒ¨é—¨ï¼š%s\n", emp->department);
+	printf("èŒä½ï¼š%s\n", emp->identity);
+	printf("å¹´é¾„ï¼š%d\n", emp->age);
+	printf("å·¥é¾„ï¼š%d\n", emp->age_of_work);
+	printf("å·¥ä½œçŠ¶æ€ï¼š%d\n", emp->stage);
+	printf("å¯†ç ï¼š%s\n", emp->password);
+	printf("æ˜¯å¦æ‰“å¡ï¼š%d\n", emp->Whether_clock);
+	printf("æ˜¯å¦è¿Ÿåˆ°ï¼š%d\n", emp->Whether_be_late);
+	printf("è¿Ÿåˆ°æ¬¡æ•°ï¼š%d\n", emp->num_late);
+	printf("æ‰“å¡æ¬¡æ•°ï¼š%d\n", emp->num_clock);
+	printf("è¯·å‡æ¬¡æ•°ï¼š%d\n", emp->num_ask_vacation);
+	printf("æ€»å¹´å‡ï¼š%d\n", emp->total_annual_vacation);
+	printf("å‰©ä½™å¹´å‡ï¼š%d\n", emp->remaining_annual_vacation);
+	printf("å·²ç”¨å‡æœŸï¼š%d\n", emp->taken_vacation);
+	printf("è¯·å‡çŠ¶æ€ï¼š%d\n", emp->ask_vacation_status);
 
 	Set_Cursor_And_Position(25, 0);
-	printf("Èç¹ûÒªĞŞ¸Äµ±Ç°ÏîĞÅÏ¢Çë°´ÏÂ1£¬·ñÔòÇë°´ÏÂ0");
+	printf("å¦‚æœè¦ä¿®æ”¹å½“å‰é¡¹ä¿¡æ¯è¯·æŒ‰ä¸‹1ï¼Œå¦åˆ™è¯·æŒ‰ä¸‹0");
 
 	Set_Cursor_And_Position(25, 1);
 	while (1)
@@ -1060,7 +1060,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		}
 		if (strlen(name) != 3 || name[0] < 'A' || name[0]>'Z' || name[1] < 'A' || name[1]>'Z' || name[2] < 'A' || name[2]>'Z')
 		{
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 1);
 		}
 		else
@@ -1086,7 +1086,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (strlen(name) != 3 || name[0] < 'A' || name[0]>'Z' || name[1] < 'A' || name[1]>'Z' || name[2] < 'A' || name[2]>'Z')
 		{
 			Set_Cursor_And_Position(25, 1);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 1);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 1);
@@ -1114,7 +1114,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (department_num < 1 || department_num>4)
 		{
 			Set_Cursor_And_Position(25, 2);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 2);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 2);
@@ -1142,7 +1142,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (identity_num < 1 || identity_num>3)
 		{
 			Set_Cursor_And_Position(25, 3);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 3);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 3);
@@ -1170,7 +1170,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (age < 18 || age>60)
 		{
 			Set_Cursor_And_Position(25, 4);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 4);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 4);
@@ -1198,7 +1198,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (age_w < 0)
 		{
 			Set_Cursor_And_Position(25, 5);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 5);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 5);
@@ -1226,7 +1226,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (stage < 0 || stage > 1)
 		{
 			Set_Cursor_And_Position(25, 6);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 6);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 6);
@@ -1254,7 +1254,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (strlen(pass) != 4)
 		{
 			Set_Cursor_And_Position(25, 7);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 7);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 7);
@@ -1282,7 +1282,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (w_clock < 0 || w_clock >1)
 		{
 			Set_Cursor_And_Position(25, 8);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 8);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 8);
@@ -1310,7 +1310,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (w_be_l < 0 || w_be_l > 1)
 		{
 			Set_Cursor_And_Position(25, 9);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 9);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 9);
@@ -1338,7 +1338,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (n_be_l != 1 || n_be_l)
 		{
 			Set_Cursor_And_Position(25, 10);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 10);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 10);
@@ -1366,7 +1366,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (n_c < 0 || n_c >1)
 		{
 			Set_Cursor_And_Position(25, 11);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 11);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 11);
@@ -1394,7 +1394,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (n_a_v < 0 || n_a_v >1)
 		{
 			Set_Cursor_And_Position(25, 12);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 12);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 12);
@@ -1422,7 +1422,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (t_v < 0)
 		{
 			Set_Cursor_And_Position(25, 13);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 13);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 13);
@@ -1450,7 +1450,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (r_v < 0)
 		{
 			Set_Cursor_And_Position(25, 14);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 14);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 14);
@@ -1478,7 +1478,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (h_v < 0)
 		{
 			Set_Cursor_And_Position(25, 15);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 15);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 15);
@@ -1506,7 +1506,7 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 		if (a_v_s < 0 || a_v_s >3)
 		{
 			Set_Cursor_And_Position(25, 16);
-			printf("ÊäÈëÎŞĞ§ Çë°´1ÖØĞÂÊäÈë»ò°´0ÍË³ö\n");
+			printf("è¾“å…¥æ— æ•ˆ è¯·æŒ‰1é‡æ–°è¾“å…¥æˆ–æŒ‰0é€€å‡º\n");
 			Set_Cursor_And_Position(25, 16);
 			printf("                                                   ");
 			Set_Cursor_And_Position(25, 16);
@@ -1520,30 +1520,30 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 	{
 		int flag = 0;
 		Set_Cursor_And_Position(0, 17);
-		printf("Çë°´ÏÂ1È·ÈÏĞŞ¸Ä£¬°´ÏÂ0È¡ÏûĞŞ¸Ä");
+		printf("è¯·æŒ‰ä¸‹1ç¡®è®¤ä¿®æ”¹ï¼ŒæŒ‰ä¸‹0å–æ¶ˆä¿®æ”¹");
 		while (!_kbhit());
 		char ch = _getch();
 		if (ch - '0' == 1)
 		{
-			strcpy(emp->name, name);//ĞÕÃû
-			strcpy(emp->job_num, j_num);//¹¤ºÅ
+			strcpy(emp->name, name);//å§“å
+			strcpy(emp->job_num, j_num);//å·¥å·
 			strcpy(emp->department, departments[department_num - 1]);
 			emp->id_department = department_num;
 			strcpy(emp->identity, identities[identity_num - 1]);
 			emp->id_identity = identity_num;
-			emp->age = age;//ÄêÁä
-			emp->age_of_work = age_w;//¹¤Áä
-			emp->stage = stage; //¹¤×÷×´Ì¬
-			strcpy(emp->password, pass);//ËÄÎ»ÃÜÂë
-			emp->Whether_clock = w_clock;//ÊÇ·ñ´ò¿¨
-			emp->Whether_be_late = w_be_l;//ÊÇ·ñ³Ùµ½
-			emp->num_late = n_be_l;//³Ùµ½Êı
-			emp->num_clock = n_c;//´ò¿¨´ÎÊı
-			emp->num_ask_vacation = n_a_v;//Çë¼Ù´ÎÊı
-			emp->total_annual_vacation = t_v;//×ÜÄê¼Ù
-			emp->remaining_annual_vacation = r_v;//Ê£ÓàÄê¼Ù
-			emp->taken_vacation = h_v;//ÒÑÓÃ¼ÙÆÚ
-			emp->ask_vacation_status = a_v_s;// Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬
+			emp->age = age;//å¹´é¾„
+			emp->age_of_work = age_w;//å·¥é¾„
+			emp->stage = stage; //å·¥ä½œçŠ¶æ€
+			strcpy(emp->password, pass);//å››ä½å¯†ç 
+			emp->Whether_clock = w_clock;//æ˜¯å¦æ‰“å¡
+			emp->Whether_be_late = w_be_l;//æ˜¯å¦è¿Ÿåˆ°
+			emp->num_late = n_be_l;//è¿Ÿåˆ°æ•°
+			emp->num_clock = n_c;//æ‰“å¡æ¬¡æ•°
+			emp->num_ask_vacation = n_a_v;//è¯·å‡æ¬¡æ•°
+			emp->total_annual_vacation = t_v;//æ€»å¹´å‡
+			emp->remaining_annual_vacation = r_v;//å‰©ä½™å¹´å‡
+			emp->taken_vacation = h_v;//å·²ç”¨å‡æœŸ
+			emp->ask_vacation_status = a_v_s;// è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ
 			Save();
 		}
 		if (ch - '0' == 0)
@@ -1551,37 +1551,37 @@ void Modify(Employees* emp)//ĞŞ¸ÄÔ±¹¤ĞÅÏ¢£¨ĞŞ¸Ä£©
 	}
 }
 
-void ChangePassword(Employees* emp)//ÃÜÂëĞŞ¸Ä
+void ChangePassword(Employees* emp)//å¯†ç ä¿®æ”¹
 {
 	system("cls");
 	int flag = 0;
 	while (1)
 	{
 		char pass1[5] = { '\0' }, pass2[5] = { '\0' };
-		printf("ÇëÊäÈëÔ­ÃÜÂë£º\n");
+		printf("è¯·è¾“å…¥åŸå¯†ç ï¼š\n");
 		int temp = scanf("%s", pass1);
 		temp = getchar();
 		if (strcmp(pass1, emp->password) == 0)
 		{
-			printf("ÇëÊäÈëĞÂÃÜÂë£º\n");
+			printf("è¯·è¾“å…¥æ–°å¯†ç ï¼š\n");
 			int temp = scanf("%s", pass1);
 			temp = getchar();
 
-			printf("ÇëÔÙ´ÎÊäÈëĞÂÃÜÂë£º\n");
+			printf("è¯·å†æ¬¡è¾“å…¥æ–°å¯†ç ï¼š\n");
 			temp = scanf("%s", pass2);
 			temp = getchar();
 
 			if (strcmp(pass1, pass2) == 0)
 			{
 				strcpy(emp->password, pass1);
-				printf("ÃÜÂëĞŞ¸Ä³É¹¦¡£\n");
+				printf("å¯†ç ä¿®æ”¹æˆåŠŸã€‚\n");
 				Sleep(commmon_time);
 				flag = 1;
 			}
 			else
 			{
-				printf("Á½´ÎÊäÈëĞÂÃÜÂë²»Í¬¡£\n");
-				printf("Çë°´rÖØÊä»ò°´0ÍË³ö\n");
+				printf("ä¸¤æ¬¡è¾“å…¥æ–°å¯†ç ä¸åŒã€‚\n");
+				printf("è¯·æŒ‰ré‡è¾“æˆ–æŒ‰0é€€å‡º\n");
 				Sleep(commmon_time);
 				while (!_kbhit());
 				char ch = _getch();
@@ -1598,8 +1598,8 @@ void ChangePassword(Employees* emp)//ÃÜÂëĞŞ¸Ä
 		}
 		else
 		{
-			printf("Ô­ÃÜÂë´íÎó¡£\n");
-			printf("Çë°´rÖØÊä»ò°´0ÍË³ö\n");
+			printf("åŸå¯†ç é”™è¯¯ã€‚\n");
+			printf("è¯·æŒ‰ré‡è¾“æˆ–æŒ‰0é€€å‡º\n");
 			Sleep(commmon_time);
 			while (!_kbhit());
 			char ch = _getch();
@@ -1620,16 +1620,16 @@ void ChangePassword(Employees* emp)//ÃÜÂëĞŞ¸Ä
 	system("cls");
 }
 
-void RequestVacation(Employees* emp) //¼ÙÆÚÉêÇëº¯Êı
+void RequestVacation(Employees* emp) //å‡æœŸç”³è¯·å‡½æ•°
 {
 	while (1)
 	{
 		int pick, flag = 0;
 		system("cls");
 		printf("------------------------------\n");
-		printf("|         1.Çë¼ÙÉêÇë          |\n");
-		printf("|         2.È¡ÏûÉêÇë          |\n");
-		printf("|         0.ÍË³ö´ò¿¨          |\n");
+		printf("|         1.è¯·å‡ç”³è¯·          |\n");
+		printf("|         2.å–æ¶ˆç”³è¯·          |\n");
+		printf("|         0.é€€å‡ºæ‰“å¡          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -1639,7 +1639,7 @@ void RequestVacation(Employees* emp) //¼ÙÆÚÉêÇëº¯Êı
 			int flag = 0;
 			if (emp->stage == 0)
 			{
-				printf("%s %s ÒÑ¾­ÔÚ¼ÙÆÚÖĞ£¬ÎŞ·¨ÔÙ´ÎÉêÇë¼ÙÆÚ¡£\n", emp->identity, emp->name);
+				printf("%s %s å·²ç»åœ¨å‡æœŸä¸­ï¼Œæ— æ³•å†æ¬¡ç”³è¯·å‡æœŸã€‚\n", emp->identity, emp->name);
 				return;
 			}
 			if (emp->ask_vacation_status == 0)
@@ -1649,22 +1649,22 @@ void RequestVacation(Employees* emp) //¼ÙÆÚÉêÇëº¯Êı
 					int pick1 = -1;
 					system("cls");
 					printf("-------------------------------\n");
-					printf("|         1.²¡¼Ù              |\n");
-					printf("|         2.ÊÂ¼Ù              |\n");
-					printf("|         0.ÍË³ö              |\n");
+					printf("|         1.ç—…å‡              |\n");
+					printf("|         2.äº‹å‡              |\n");
+					printf("|         0.é€€å‡º              |\n");
 					printf("-------------------------------\n");
 					int temp1 = scanf("%d", &pick1);
 					if (pick1 == 1)
 					{
-						emp->ask_vacation_status = 11; // ÉèÖÃÎªÒÑÉêÇë´ıÉóÅú×´Ì¬
+						emp->ask_vacation_status = 11; // è®¾ç½®ä¸ºå·²ç”³è¯·å¾…å®¡æ‰¹çŠ¶æ€
 						flag = 1;
-						printf("%s %s ÒÑ³É¹¦ÉêÇë²¡¼Ù\n", emp->identity, emp->name);
+						printf("%s %s å·²æˆåŠŸç”³è¯·ç—…å‡\n", emp->identity, emp->name);
 					}
 					if (pick1 == 2)
 					{
-						emp->ask_vacation_status = 12; // ÉèÖÃÎªÒÑÉêÇë´ıÉóÅú×´Ì¬
+						emp->ask_vacation_status = 12; // è®¾ç½®ä¸ºå·²ç”³è¯·å¾…å®¡æ‰¹çŠ¶æ€
 						flag = 1;
-						printf("%s %s ÒÑ³É¹¦ÉêÇëÊÂ¼Ù¡£\n", emp->identity, emp->name);
+						printf("%s %s å·²æˆåŠŸç”³è¯·äº‹å‡ã€‚\n", emp->identity, emp->name);
 					}
 					if (pick1 == 0)
 						flag = 1;
@@ -1675,22 +1675,22 @@ void RequestVacation(Employees* emp) //¼ÙÆÚÉêÇëº¯Êı
 			
 			else if (emp->ask_vacation_status == 11 || emp->ask_vacation_status == 12)
 			{
-				printf("%s %s ÉêÇë´ıÉóÅúÖĞ¡£\n", emp->identity, emp->name);
+				printf("%s %s ç”³è¯·å¾…å®¡æ‰¹ä¸­ã€‚\n", emp->identity, emp->name);
 			}
 			
 			else if (emp->ask_vacation_status == 2)
 			{
 				emp->stage = 0;
-				printf("%s %s ÉêÇëÍ¨¹ı¡£\n", emp->identity, emp->name);
+				printf("%s %s ç”³è¯·é€šè¿‡ã€‚\n", emp->identity, emp->name);
 			}
 			else if (emp->ask_vacation_status == 3)
 			{
 				emp->stage = 0;
-				printf("%s %s ÉêÇë±»¾Ü¾ø¡£\n", emp->identity, emp->name);
+				printf("%s %s ç”³è¯·è¢«æ‹’ç»ã€‚\n", emp->identity, emp->name);
 			}
 		}Sleep(commmon_time); system("cls"); break;
-		case 2:emp->ask_vacation_status = 0; printf("ÒÑ³É¹¦È¡ÏûÉêÇë¡£\n"); Sleep(commmon_time); system("cls"); break;
-		case 0:flag = 1; printf("ÍË³öµÇÂ¼³É¹¦\n"); Sleep(commmon_time); Save(); break;
+		case 2:emp->ask_vacation_status = 0; printf("å·²æˆåŠŸå–æ¶ˆç”³è¯·ã€‚\n"); Sleep(commmon_time); system("cls"); break;
+		case 0:flag = 1; printf("é€€å‡ºç™»å½•æˆåŠŸ\n"); Sleep(commmon_time); Save(); break;
 		}
 		if (flag == 1)
 		{
@@ -1701,7 +1701,7 @@ void RequestVacation(Employees* emp) //¼ÙÆÚÉêÇëº¯Êı
 
 }
 
-void Vacation_Management(Employees* emp) //Åú×¼Ö°Ô±µÄÇë¼ÙÉêÇë
+void Vacation_Management(Employees* emp) //æ‰¹å‡†èŒå‘˜çš„è¯·å‡ç”³è¯·
 {
 	system("cls");
 	Employees* emp_s;
@@ -1713,21 +1713,21 @@ void Vacation_Management(Employees* emp) //Åú×¼Ö°Ô±µÄÇë¼ÙÉêÇë
 		{
 			if (emp_s->id_identity != 2)
 			{
-				printf("Èç¹ûÍ¬ÒâÉêÇë£¬ÇëÊäÈë1\n");
-				printf("Èç¹û¾Ü¾øÉêÇë£¬ÇëÊäÈë2\n");
-				printf("Èç¹ûÒªÍË³öÉóÅú£¬ÇëÊäÈë0\n");
-				printf("ĞÕÃû£º%s\n", emp_s->name);
-				printf("¹¤ºÅ£º%s\n", emp_s->job_num);
-				printf("Ö°Îñ£º%s\n", identities[emp_s->id_identity - 1]);
-				printf("×ÜÄê¼Ù£º%d\n", emp_s->total_annual_vacation);
-				printf("ÒÑÓÃÄê¼Ù£º%d\n", emp_s->taken_vacation);
-				printf("Ê£ÓàÄê¼Ù£º%d\n", emp_s->remaining_annual_vacation);
+				printf("å¦‚æœåŒæ„ç”³è¯·ï¼Œè¯·è¾“å…¥1\n");
+				printf("å¦‚æœæ‹’ç»ç”³è¯·ï¼Œè¯·è¾“å…¥2\n");
+				printf("å¦‚æœè¦é€€å‡ºå®¡æ‰¹ï¼Œè¯·è¾“å…¥0\n");
+				printf("å§“åï¼š%s\n", emp_s->name);
+				printf("å·¥å·ï¼š%s\n", emp_s->job_num);
+				printf("èŒåŠ¡ï¼š%s\n", identities[emp_s->id_identity - 1]);
+				printf("æ€»å¹´å‡ï¼š%d\n", emp_s->total_annual_vacation);
+				printf("å·²ç”¨å¹´å‡ï¼š%d\n", emp_s->taken_vacation);
+				printf("å‰©ä½™å¹´å‡ï¼š%d\n", emp_s->remaining_annual_vacation);
 				int temp = scanf("%d", &judge);
 				switch (judge)
 				{
-				case 1:emp_s->ask_vacation_status = 2; printf("ÒÑÍ¬ÒâÉêÇë=\n"); system("cls"); ; break;
-				case 2:emp_s->ask_vacation_status = 3; printf("ÒÑ¾Ü¾øÉêÇë=\n"); system("cls"); ; break;
-				case 0:flag = 1; printf("ÍË³öÉóÅú¹ÜÀí³É¹¦\n"); Sleep(commmon_time); system("cls");  break;
+				case 1:emp_s->ask_vacation_status = 2; printf("å·²åŒæ„ç”³è¯·=\n"); system("cls"); ; break;
+				case 2:emp_s->ask_vacation_status = 3; printf("å·²æ‹’ç»ç”³è¯·=\n"); system("cls"); ; break;
+				case 0:flag = 1; printf("é€€å‡ºå®¡æ‰¹ç®¡ç†æˆåŠŸ\n"); Sleep(commmon_time); system("cls");  break;
 				}
 			}
 		}
@@ -1736,143 +1736,143 @@ void Vacation_Management(Employees* emp) //Åú×¼Ö°Ô±µÄÇë¼ÙÉêÇë
 		emp_s = emp_s->next;
 	}
 	Save();
-	printf("ÒÑÈ«²¿´¦Àí¡£\n");
+	printf("å·²å…¨éƒ¨å¤„ç†ã€‚\n");
 	Sleep(commmon_time);
 	system("cls");
 }
 
-Employees* createNewNode(Employees* originalNode) //´´½¨ĞÂµÄÁ´±í½Úµã£¬ÓÃÀ´ÅÅĞòÊä³ö
+Employees* createNewNode(Employees* originalNode) //åˆ›å»ºæ–°çš„é“¾è¡¨èŠ‚ç‚¹ï¼Œç”¨æ¥æ’åºè¾“å‡º
 {
 	Employees* newNode = (Employees*)malloc(sizeof(Employees));
 	if (newNode == NULL) {
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥ï¼\n");
 		exit(1);
 	}
-	*newNode = *originalNode;  // ¸´ÖÆÔ­½ÚµãµÄÊı¾İ
-	newNode->next = NULL;      // ĞÂ½ÚµãµÄ next Ö¸Õë³õÊ¼»¯Îª NULL
+	*newNode = *originalNode;  // å¤åˆ¶åŸèŠ‚ç‚¹çš„æ•°æ®
+	newNode->next = NULL;      // æ–°èŠ‚ç‚¹çš„ next æŒ‡é’ˆåˆå§‹åŒ–ä¸º NULL
 	return newNode;
 }
 
-Employees* getMiddle(Employees* head)// ÕÒµ½Á´±íµÄÖĞ¼ä½Úµã
+Employees* getMiddle(Employees* head)// æ‰¾åˆ°é“¾è¡¨çš„ä¸­é—´èŠ‚ç‚¹
 {
 	if (head == NULL) return head;
 
-	Employees* slow = head;        // ÂıÖ¸Õë£¬Ã¿´ÎÒÆ¶¯Ò»²½
-	Employees* fast = head;        // ¿ìÖ¸Õë£¬Ã¿´ÎÒÆ¶¯Á½²½
+	Employees* slow = head;        // æ…¢æŒ‡é’ˆï¼Œæ¯æ¬¡ç§»åŠ¨ä¸€æ­¥
+	Employees* fast = head;        // å¿«æŒ‡é’ˆï¼Œæ¯æ¬¡ç§»åŠ¨ä¸¤æ­¥
 
 	while (fast->next != NULL && fast->next->next != NULL) {
-		slow = slow->next;          // ÂıÖ¸ÕëÒÆ¶¯Ò»²½
-		fast = fast->next->next;    // ¿ìÖ¸ÕëÒÆ¶¯Á½²½
+		slow = slow->next;          // æ…¢æŒ‡é’ˆç§»åŠ¨ä¸€æ­¥
+		fast = fast->next->next;    // å¿«æŒ‡é’ˆç§»åŠ¨ä¸¤æ­¥
 	}
 
-	return slow;  // µ±¿ìÖ¸Õëµ½´ïÁ´±íÄ©Î²Ê±£¬ÂıÖ¸ÕëÖ¸ÏòÖĞ¼ä½Úµã
+	return slow;  // å½“å¿«æŒ‡é’ˆåˆ°è¾¾é“¾è¡¨æœ«å°¾æ—¶ï¼Œæ…¢æŒ‡é’ˆæŒ‡å‘ä¸­é—´èŠ‚ç‚¹
 }
 
-Employees* mergeByClockTimes(Employees* left, Employees* right) // ¹é²¢Á½¸öÁ´±í£¬°´´ò¿¨´ÎÊıÉıĞò£¨´ò¿¨µÄµ¥Ò»ÅÅĞò£©
+Employees* mergeByClockTimes(Employees* left, Employees* right) // å½’å¹¶ä¸¤ä¸ªé“¾è¡¨ï¼ŒæŒ‰æ‰“å¡æ¬¡æ•°å‡åºï¼ˆæ‰“å¡çš„å•ä¸€æ’åºï¼‰
 {
-	if (left == NULL) return right; // Èç¹û×óÁ´±íÎª¿Õ£¬·µ»ØÓÒÁ´±í
-	if (right == NULL) return left; // Èç¹ûÓÒÁ´±íÎª¿Õ£¬·µ»Ø×óÁ´±í
+	if (left == NULL) return right; // å¦‚æœå·¦é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å³é“¾è¡¨
+	if (right == NULL) return left; // å¦‚æœå³é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å·¦é“¾è¡¨
 
 	if (left->num_clock <= right->num_clock) {
-		Employees* newNode = createNewNode(left); // ´´½¨ĞÂ½Úµã
-		newNode->next = mergeByClockTimes(left->next, right); // µİ¹éºÏ²¢
+		Employees* newNode = createNewNode(left); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		newNode->next = mergeByClockTimes(left->next, right); // é€’å½’åˆå¹¶
 		return newNode;
 	}
 	else {
-		Employees* newNode = createNewNode(right); // ´´½¨ĞÂ½Úµã
-		newNode->next = mergeByClockTimes(left, right->next); // µİ¹éºÏ²¢
+		Employees* newNode = createNewNode(right); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		newNode->next = mergeByClockTimes(left, right->next); // é€’å½’åˆå¹¶
 		return newNode;
 	}
 
 }
 
-Employees* mergeSortByClockTimes(Employees* head) // ¹é²¢ÅÅĞòÖ÷º¯Êı£¬°´´ò¿¨´ÎÊıÉıĞò
+Employees* mergeSortByClockTimes(Employees* head) // å½’å¹¶æ’åºä¸»å‡½æ•°ï¼ŒæŒ‰æ‰“å¡æ¬¡æ•°å‡åº
 
 {
 	if (head == NULL || head->next == NULL) {
-		return createNewNode(head); // Èç¹ûÁ´±íÎª¿Õ»òÖ»ÓĞÒ»¸ö½Úµã£¬Ö±½Ó·µ»ØĞÂ½Úµã
+		return createNewNode(head); // å¦‚æœé“¾è¡¨ä¸ºç©ºæˆ–åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ï¼Œç›´æ¥è¿”å›æ–°èŠ‚ç‚¹
 	}
 
-	Employees* middle = getMiddle(head); // ÕÒµ½Á´±íµÄÖĞ¼ä½Úµã
+	Employees* middle = getMiddle(head); // æ‰¾åˆ°é“¾è¡¨çš„ä¸­é—´èŠ‚ç‚¹
 	Employees* nextOfMiddle = middle->next;
 
-	middle->next = NULL; // ½«Á´±í´ÓÖĞ¼ä½Úµã´¦·Ö¸î³ÉÁ½²¿·Ö
+	middle->next = NULL; // å°†é“¾è¡¨ä»ä¸­é—´èŠ‚ç‚¹å¤„åˆ†å‰²æˆä¸¤éƒ¨åˆ†
 
-	Employees* left = mergeSortByClockTimes(head); // µİ¹éµØ¶Ô×ó°ë²¿·Ö½øĞĞÅÅĞò
-	Employees* right = mergeSortByClockTimes(nextOfMiddle); // µİ¹éµØ¶ÔÓÒ°ë²¿·Ö½øĞĞÅÅĞò
+	Employees* left = mergeSortByClockTimes(head); // é€’å½’åœ°å¯¹å·¦åŠéƒ¨åˆ†è¿›è¡Œæ’åº
+	Employees* right = mergeSortByClockTimes(nextOfMiddle); // é€’å½’åœ°å¯¹å³åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 
-	return mergeByClockTimes(left, right); // ºÏ²¢Á½¸öÓĞĞòÁ´±í
+	return mergeByClockTimes(left, right); // åˆå¹¶ä¸¤ä¸ªæœ‰åºé“¾è¡¨
 }
 
-Employees* mergeByVacationTimes(Employees* left, Employees* right) //¹é²¢Á½¸öÁ´±í£¬°´Çë¼Ù´ÎÊıÉıĞò£¨Çë¼ÙµÄµ¥Ò»ÅÅĞò£©
+Employees* mergeByVacationTimes(Employees* left, Employees* right) //å½’å¹¶ä¸¤ä¸ªé“¾è¡¨ï¼ŒæŒ‰è¯·å‡æ¬¡æ•°å‡åºï¼ˆè¯·å‡çš„å•ä¸€æ’åºï¼‰
 {
-	if (left == NULL) return right; // Èç¹û×óÁ´±íÎª¿Õ£¬·µ»ØÓÒÁ´±í
-	if (right == NULL) return left; // Èç¹ûÓÒÁ´±íÎª¿Õ£¬·µ»Ø×óÁ´±í
+	if (left == NULL) return right; // å¦‚æœå·¦é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å³é“¾è¡¨
+	if (right == NULL) return left; // å¦‚æœå³é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å·¦é“¾è¡¨
 
 	if (left->num_ask_vacation <= right->num_ask_vacation) {
-		Employees* newNode = createNewNode(left); // ´´½¨ĞÂ½Úµã
-		newNode->next = mergeByVacationTimes(left->next, right); // µİ¹éºÏ²¢
+		Employees* newNode = createNewNode(left); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		newNode->next = mergeByVacationTimes(left->next, right); // é€’å½’åˆå¹¶
 		return newNode;
 	}
 	else {
-		Employees* newNode = createNewNode(right); // ´´½¨ĞÂ½Úµã
-		newNode->next = mergeByVacationTimes(left, right->next); // µİ¹éºÏ²¢
+		Employees* newNode = createNewNode(right); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		newNode->next = mergeByVacationTimes(left, right->next); // é€’å½’åˆå¹¶
 		return newNode;
 	}
 }
 
-Employees* mergeSortByVacationTimes(Employees* head)////¹é²¢Ö÷º¯Êı£¬°´Çë¼Ù´ÎÊıÉıĞò£¨Çë¼ÙµÄµ¥Ò»ÅÅĞò£©
+Employees* mergeSortByVacationTimes(Employees* head)////å½’å¹¶ä¸»å‡½æ•°ï¼ŒæŒ‰è¯·å‡æ¬¡æ•°å‡åºï¼ˆè¯·å‡çš„å•ä¸€æ’åºï¼‰
 {
 	if (head == NULL || head->next == NULL) {
-		return createNewNode(head); // Èç¹ûÁ´±íÎª¿Õ»òÖ»ÓĞÒ»¸ö½Úµã£¬Ö±½Ó·µ»ØĞÂ½Úµã
+		return createNewNode(head); // å¦‚æœé“¾è¡¨ä¸ºç©ºæˆ–åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ï¼Œç›´æ¥è¿”å›æ–°èŠ‚ç‚¹
 	}
 
-	Employees* middle = getMiddle(head); // ÕÒµ½Á´±íµÄÖĞ¼ä½Úµã
+	Employees* middle = getMiddle(head); // æ‰¾åˆ°é“¾è¡¨çš„ä¸­é—´èŠ‚ç‚¹
 	Employees* nextOfMiddle = middle->next;
 
-	middle->next = NULL; // ½«Á´±í´ÓÖĞ¼ä½Úµã´¦·Ö¸î³ÉÁ½²¿·Ö
+	middle->next = NULL; // å°†é“¾è¡¨ä»ä¸­é—´èŠ‚ç‚¹å¤„åˆ†å‰²æˆä¸¤éƒ¨åˆ†
 
-	Employees* left = mergeSortByVacationTimes(head); // µİ¹éµØ¶Ô×ó°ë²¿·Ö½øĞĞÅÅĞò
-	Employees* right = mergeSortByVacationTimes(nextOfMiddle); // µİ¹éµØ¶ÔÓÒ°ë²¿·Ö½øĞĞÅÅĞò
+	Employees* left = mergeSortByVacationTimes(head); // é€’å½’åœ°å¯¹å·¦åŠéƒ¨åˆ†è¿›è¡Œæ’åº
+	Employees* right = mergeSortByVacationTimes(nextOfMiddle); // é€’å½’åœ°å¯¹å³åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 
-	return mergeByVacationTimes(left, right); // ºÏ²¢Á½¸öÓĞĞòÁ´±í
+	return mergeByVacationTimes(left, right); // åˆå¹¶ä¸¤ä¸ªæœ‰åºé“¾è¡¨
 }
 
-Employees* mergeByMultipleAttributes(Employees* left, Employees* right) // ¹é²¢Á½¸öÁ´±í£¬Èç¹ûÇë¼Ù´ÎÊıÏàÍ¬£¬ÔÙ°´´ò¿¨´ÎÊıÅÅĞò,×îºóÔÙ°´Ãû×ÖÅÅĞò
+Employees* mergeByMultipleAttributes(Employees* left, Employees* right) // å½’å¹¶ä¸¤ä¸ªé“¾è¡¨ï¼Œå¦‚æœè¯·å‡æ¬¡æ•°ç›¸åŒï¼Œå†æŒ‰æ‰“å¡æ¬¡æ•°æ’åº,æœ€åå†æŒ‰åå­—æ’åº
 {
-	if (left == NULL) return right; // Èç¹û×óÁ´±íÎª¿Õ£¬·µ»ØÓÒÁ´±í
-	if (right == NULL) return left; // Èç¹ûÓÒÁ´±íÎª¿Õ£¬·µ»Ø×óÁ´±í
+	if (left == NULL) return right; // å¦‚æœå·¦é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å³é“¾è¡¨
+	if (right == NULL) return left; // å¦‚æœå³é“¾è¡¨ä¸ºç©ºï¼Œè¿”å›å·¦é“¾è¡¨
 
-	Employees* result = NULL; // ÓÃÓÚ´æ´¢ºÏ²¢ºóµÄÁ´±íÍ·Ö¸Õë
+	Employees* result = NULL; // ç”¨äºå­˜å‚¨åˆå¹¶åçš„é“¾è¡¨å¤´æŒ‡é’ˆ
 
-	// ±È½ÏÇë¼Ù´ÎÊı
+	// æ¯”è¾ƒè¯·å‡æ¬¡æ•°
 	if (left->num_ask_vacation < right->num_ask_vacation) {
-		result = createNewNode(left); // ´´½¨ĞÂ½Úµã
-		result->next = mergeByMultipleAttributes(left->next, right); // µİ¹éºÏ²¢
+		result = createNewNode(left); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		result->next = mergeByMultipleAttributes(left->next, right); // é€’å½’åˆå¹¶
 	}
 	else if (left->num_ask_vacation > right->num_ask_vacation) {
-		result = createNewNode(right); // ´´½¨ĞÂ½Úµã
-		result->next = mergeByMultipleAttributes(left, right->next); // µİ¹éºÏ²¢
+		result = createNewNode(right); // åˆ›å»ºæ–°èŠ‚ç‚¹
+		result->next = mergeByMultipleAttributes(left, right->next); // é€’å½’åˆå¹¶
 	}
 	else {
-		// Çë¼Ù´ÎÊıÏàµÈ£¬±È½Ï´ò¿¨´ÎÊı
+		// è¯·å‡æ¬¡æ•°ç›¸ç­‰ï¼Œæ¯”è¾ƒæ‰“å¡æ¬¡æ•°
 		if (left->num_clock < right->num_clock) {
-			result = createNewNode(left); // ´´½¨ĞÂ½Úµã
-			result->next = mergeByMultipleAttributes(left->next, right); // µİ¹éºÏ²¢
+			result = createNewNode(left); // åˆ›å»ºæ–°èŠ‚ç‚¹
+			result->next = mergeByMultipleAttributes(left->next, right); // é€’å½’åˆå¹¶
 		}
 		else if (left->num_clock > right->num_clock) {
-			result = createNewNode(right); // ´´½¨ĞÂ½Úµã
-			result->next = mergeByMultipleAttributes(left, right->next); // µİ¹éºÏ²¢
+			result = createNewNode(right); // åˆ›å»ºæ–°èŠ‚ç‚¹
+			result->next = mergeByMultipleAttributes(left, right->next); // é€’å½’åˆå¹¶
 		}
 		else {
-			// ´ò¿¨´ÎÊıÒ²ÏàµÈ£¬±È½ÏÃû×Ö
+			// æ‰“å¡æ¬¡æ•°ä¹Ÿç›¸ç­‰ï¼Œæ¯”è¾ƒåå­—
 			if (strcmp(left->name, right->name) < 0) {
-				result = createNewNode(left); // ´´½¨ĞÂ½Úµã
-				result->next = mergeByMultipleAttributes(left->next, right); // µİ¹éºÏ²¢
+				result = createNewNode(left); // åˆ›å»ºæ–°èŠ‚ç‚¹
+				result->next = mergeByMultipleAttributes(left->next, right); // é€’å½’åˆå¹¶
 			}
 			else {
-				result = createNewNode(right); // ´´½¨ĞÂ½Úµã
-				result->next = mergeByMultipleAttributes(left, right->next); // µİ¹éºÏ²¢
+				result = createNewNode(right); // åˆ›å»ºæ–°èŠ‚ç‚¹
+				result->next = mergeByMultipleAttributes(left, right->next); // é€’å½’åˆå¹¶
 			}
 		}
 	}
@@ -1896,7 +1896,7 @@ Employees* mergeSortByMultipleAttributes(Employees* head)
 	return mergeByMultipleAttributes(left, right);
 }
 
-void ManagerSort(Employees* emp)//²¿ÃÅ¾­ÀíµÄÅÅĞòº¯Êı
+void ManagerSort(Employees* emp)//éƒ¨é—¨ç»ç†çš„æ’åºå‡½æ•°
 {
 	int flag = 0;
 	while (1)
@@ -1904,11 +1904,11 @@ void ManagerSort(Employees* emp)//²¿ÃÅ¾­ÀíµÄÅÅĞòº¯Êı
 		int pick;
 		system("cls");
 		printf("-------------------------------\n");
-		printf("|         1.´ò¿¨´ÎÊı          |\n");
-		printf("|         2.Çë¼Ù´ÎÊı          |\n");
-		printf("|         3.¶àÖØÅÅĞò          |\n");
-		printf("|         4.×î¼ÑÔ±¹¤          |\n");
-		printf("|         0.ÍË³öÅÅĞò          |\n");
+		printf("|         1.æ‰“å¡æ¬¡æ•°          |\n");
+		printf("|         2.è¯·å‡æ¬¡æ•°          |\n");
+		printf("|         3.å¤šé‡æ’åº          |\n");
+		printf("|         4.æœ€ä½³å‘˜å·¥          |\n");
+		printf("|         0.é€€å‡ºæ’åº          |\n");
 		printf("-------------------------------\n");
 		int temp = scanf("%d", &pick);
 
@@ -1918,31 +1918,31 @@ void ManagerSort(Employees* emp)//²¿ÃÅ¾­ÀíµÄÅÅĞòº¯Êı
 		{
 			system("cls");
 			com[emp->id_department - 1].head = mergeSortByClockTimes(com[emp->id_department - 1].head);
-			printf("±¾²¿ÃÅÔ±¹¤ĞÅÏ¢ÒÑ°´´ò¿¨´ÎÊıÉıĞòÅÅĞò¡£\n");
-			Manager_Sorted_Print(com[emp->id_department - 1].head, "´ò¿¨´ÎÊı");
+			printf("æœ¬éƒ¨é—¨å‘˜å·¥ä¿¡æ¯å·²æŒ‰æ‰“å¡æ¬¡æ•°å‡åºæ’åºã€‚\n");
+			Manager_Sorted_Print(com[emp->id_department - 1].head, "æ‰“å¡æ¬¡æ•°");
 		}break;
 		case 2:
 		{
-			// °´Çë¼Ù´ÎÊıÅÅĞò
+			// æŒ‰è¯·å‡æ¬¡æ•°æ’åº
 			system("cls");
 			com[emp->id_department - 1].head = mergeSortByVacationTimes(com[emp->id_department - 1].head);
-			printf("±¾²¿ÃÅÔ±¹¤ĞÅÏ¢ÒÑ°´Çë¼Ù´ÎÊıÉıĞòÅÅĞò¡£\n");
-			Manager_Sorted_Print(com[emp->id_department - 1].head, "Çë¼Ù´ÎÊı");
+			printf("æœ¬éƒ¨é—¨å‘˜å·¥ä¿¡æ¯å·²æŒ‰è¯·å‡æ¬¡æ•°å‡åºæ’åºã€‚\n");
+			Manager_Sorted_Print(com[emp->id_department - 1].head, "è¯·å‡æ¬¡æ•°");
 
 		} break;
 		case 3:
 		{
-			// °´Çë¼Ù´ÎÊı¡¢´ò¿¨´ÎÊıºÍÃû×ÖÅÅĞò
+			// æŒ‰è¯·å‡æ¬¡æ•°ã€æ‰“å¡æ¬¡æ•°å’Œåå­—æ’åº
 			system("cls");
 			com[emp->id_department - 1].head = mergeSortByMultipleAttributes(com[emp->id_department - 1].head);
-			printf("±¾²¿ÃÅÔ±¹¤ĞÅÏ¢ÒÑ°´Çë¼Ù´ÎÊı¡¢´ò¿¨´ÎÊıºÍÃû×ÖÅÅĞò¡£\n");
-			Manager_Sorted_Print(com[emp->id_department - 1].head, "Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö");
+			printf("æœ¬éƒ¨é—¨å‘˜å·¥ä¿¡æ¯å·²æŒ‰è¯·å‡æ¬¡æ•°ã€æ‰“å¡æ¬¡æ•°å’Œåå­—æ’åºã€‚\n");
+			Manager_Sorted_Print(com[emp->id_department - 1].head, "è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—");
 			
 		} break;
 
 		case 4:
 		{
-			// ²éÕÒ²¢´òÓ¡×î¼ÑÔ±¹¤
+			// æŸ¥æ‰¾å¹¶æ‰“å°æœ€ä½³å‘˜å·¥
 			system("cls");
 			Find_And_Print_BestEmployees(com[emp->id_department - 1].head);
 		} break;
@@ -1953,45 +1953,45 @@ void ManagerSort(Employees* emp)//²¿ÃÅ¾­ÀíµÄÅÅĞòº¯Êı
 	}
 }
 
-void Manager_Sorted_Print(Employees* head, const char* sortBy)//²¿ÃÅ¾­Àí ´òÓ¡ÅÅĞòºóµÄĞÅÏ¢
+void Manager_Sorted_Print(Employees* head, const char* sortBy)//éƒ¨é—¨ç»ç† æ‰“å°æ’åºåçš„ä¿¡æ¯
 {
 	int flag = 0;
 	if (head == NULL)
 	{
-		printf("Ã»ÓĞÔ±¹¤ĞÅÏ¢¿ÉÏÔÊ¾¡£\n");
+		printf("æ²¡æœ‰å‘˜å·¥ä¿¡æ¯å¯æ˜¾ç¤ºã€‚\n");
 		flag = 1;
 	}
 	else
 	{
 		while (1)
 		{
-			if (strcmp(sortBy, "Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö") == 0)
+			if (strcmp(sortBy, "è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—") == 0)
 			{
 				printf("-------------------------------------\n");
-				printf("| ĞÕÃû | %s       |\n", sortBy);
+				printf("| å§“å | %s       |\n", sortBy);
 				printf("-------------------------------------\n");
 
 				Employees* current = head;
 				while (current != NULL)
 				{
-					if (strcmp(sortBy, "´ò¿¨´ÎÊı") == 0)
+					if (strcmp(sortBy, "æ‰“å¡æ¬¡æ•°") == 0)
 					{
 						printf("| %-4s | %-8d |\n", current->name, current->num_clock);
 					}
-					else if (strcmp(sortBy, "Çë¼Ù´ÎÊı") == 0)
+					else if (strcmp(sortBy, "è¯·å‡æ¬¡æ•°") == 0)
 					{
 						printf("| %-4s | %-8d |\n", current->name, current->num_ask_vacation);
 					}
-					else if (strcmp(sortBy, "Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö") == 0)
+					else if (strcmp(sortBy, "è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—") == 0)
 					{
-						printf("| %-4s | Çë¼Ù´ÎÊı: %-3d ´ò¿¨´ÎÊı: %-3d|\n", current->name, current->num_ask_vacation, current->num_clock);
+						printf("| %-4s | è¯·å‡æ¬¡æ•°: %-3d æ‰“å¡æ¬¡æ•°: %-3d|\n", current->name, current->num_ask_vacation, current->num_clock);
 					}
 					current = current->next;
 				}
 				printf("-------------------------------------\n");
 				while (1)
 				{
-					printf("°´ÁãÍË³ö\n");
+					printf("æŒ‰é›¶é€€å‡º\n");
 					while (!_kbhit());
 					char ch = _getch();
 					if (ch - '0' == 0)
@@ -2005,30 +2005,30 @@ void Manager_Sorted_Print(Employees* head, const char* sortBy)//²¿ÃÅ¾­Àí ´òÓ¡ÅÅĞ
 			else
 			{
 				printf("-------------------\n");
-				printf("| ĞÕÃû | %s |\n", sortBy);
+				printf("| å§“å | %s |\n", sortBy);
 				printf("-------------------\n");
 
 				Employees* current = head;
 				while (current != NULL)
 				{
-					if (strcmp(sortBy, "´ò¿¨´ÎÊı") == 0)
+					if (strcmp(sortBy, "æ‰“å¡æ¬¡æ•°") == 0)
 					{
 						printf("| %-4s | %-8d |\n", current->name, current->num_clock);
 					}
-					else if (strcmp(sortBy, "Çë¼Ù´ÎÊı") == 0)
+					else if (strcmp(sortBy, "è¯·å‡æ¬¡æ•°") == 0)
 					{
 						printf("| %-4s | %-8d |\n", current->name, current->num_ask_vacation);
 					}
-					else if (strcmp(sortBy, "Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö") == 0)
+					else if (strcmp(sortBy, "è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—") == 0)
 					{
-						printf("| %-4s | Çë¼Ù´ÎÊı: %-3d ´ò¿¨´ÎÊı: %-3d ĞÕÃû: %-4s |\n", current->name, current->num_ask_vacation, current->num_clock, current->name);
+						printf("| %-4s | è¯·å‡æ¬¡æ•°: %-3d æ‰“å¡æ¬¡æ•°: %-3d å§“å: %-4s |\n", current->name, current->num_ask_vacation, current->num_clock, current->name);
 					}
 					current = current->next;
 				}
 				printf("-------------------\n");
 				while (1)
 				{
-					printf("°´ÁãÍË³ö\n");
+					printf("æŒ‰é›¶é€€å‡º\n");
 					while (!_kbhit());
 					char ch = _getch();
 					if (ch - '0' == 0)
@@ -2043,10 +2043,10 @@ void Manager_Sorted_Print(Employees* head, const char* sortBy)//²¿ÃÅ¾­Àí ´òÓ¡ÅÅĞ
 	}
 }
 
-void AdminPrintSortedEmployees(const char* sortBy)//¹ÜÀíÔ±µÄÅÅĞò´òÓ¡º¯Êı£¬´òÓ¡ÅÅĞòºóµÄÊı¾İ
+void AdminPrintSortedEmployees(const char* sortBy)//ç®¡ç†å‘˜çš„æ’åºæ‰“å°å‡½æ•°ï¼Œæ‰“å°æ’åºåçš„æ•°æ®
 {
 	printf("------------------------------\n");
-	printf("| ²¿ÃÅ | ĞÕÃû | %s |\n", sortBy);
+	printf("| éƒ¨é—¨ | å§“å | %s |\n", sortBy);
 	printf("------------------------------\n");
 
 	for (int i = 0; i < 4; i++)
@@ -2054,14 +2054,14 @@ void AdminPrintSortedEmployees(const char* sortBy)//¹ÜÀíÔ±µÄÅÅĞò´òÓ¡º¯Êı£¬´òÓ¡ÅÅ
 		Employees* current = com[i].head;
 		while (current != NULL)
 		{
-			if (strcmp(sortBy, "´ò¿¨´ÎÊı") == 0) {
+			if (strcmp(sortBy, "æ‰“å¡æ¬¡æ•°") == 0) {
 				printf("| %-6s | %-4s | %-8d |\n", com[i].department, current->name, current->num_clock);
 			}
-			else if (strcmp(sortBy, "Çë¼Ù´ÎÊı") == 0) {
+			else if (strcmp(sortBy, "è¯·å‡æ¬¡æ•°") == 0) {
 				printf("| %-6s | %-4s | %-8d |\n", com[i].department, current->name, current->num_ask_vacation);
 			}
-			else if (strcmp(sortBy, "Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö") == 0) {
-				printf("| %-6s | %-4s | Çë¼Ù´ÎÊı: %-3d ´ò¿¨´ÎÊı: %-3d ĞÕÃû: %-4s |\n", com[i].department, current->name, current->num_ask_vacation, current->num_clock, current->name);
+			else if (strcmp(sortBy, "è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—") == 0) {
+				printf("| %-6s | %-4s | è¯·å‡æ¬¡æ•°: %-3d æ‰“å¡æ¬¡æ•°: %-3d å§“å: %-4s |\n", com[i].department, current->name, current->num_ask_vacation, current->num_clock, current->name);
 			}
 			current = current->next;
 		}
@@ -2069,7 +2069,7 @@ void AdminPrintSortedEmployees(const char* sortBy)//¹ÜÀíÔ±µÄÅÅĞò´òÓ¡º¯Êı£¬´òÓ¡ÅÅ
 	printf("------------------------------\n");
 }
 
-void AdminSort(void)//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
+void AdminSort(void)//ç®¡ç†å‘˜çš„æ’åºå‡½æ•°
 {
 	int flag = 0;
 	int sortOption;
@@ -2077,11 +2077,11 @@ void AdminSort(void)//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
 	{
 		system("cls");
 		printf("------------------------------\n");
-		printf("|         1.´ò¿¨´ÎÊı          |\n");
-		printf("|         2.Çë¼Ù´ÎÊı          |\n");
-		printf("|         3.¶àÖØÅÅĞò          |\n");
-		printf("|         4.×î¼ÑÔ±¹¤          |\n");
-		printf("|         0.ÍË³öÅÅĞò          |\n");
+		printf("|         1.æ‰“å¡æ¬¡æ•°          |\n");
+		printf("|         2.è¯·å‡æ¬¡æ•°          |\n");
+		printf("|         3.å¤šé‡æ’åº          |\n");
+		printf("|         4.æœ€ä½³å‘˜å·¥          |\n");
+		printf("|         0.é€€å‡ºæ’åº          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &sortOption);
 
@@ -2092,35 +2092,35 @@ void AdminSort(void)//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
 			int flag = 0;
 			while (1)
 			{
-				// °´´ò¿¨´ÎÊıÅÅĞò
+				// æŒ‰æ‰“å¡æ¬¡æ•°æ’åº
 				for (int i = 0; i < 4; i++) {
-					Employees* sortedHead = mergeSortByClockTimes(com[i].head); // ´´½¨ĞÂµÄÅÅĞòÁ´±í
-					AdminPrintSortedEmployees("´ò¿¨´ÎÊı"); // ´òÓ¡ÅÅĞòºóµÄÁ´±í
+					Employees* sortedHead = mergeSortByClockTimes(com[i].head); // åˆ›å»ºæ–°çš„æ’åºé“¾è¡¨
+					AdminPrintSortedEmployees("æ‰“å¡æ¬¡æ•°"); // æ‰“å°æ’åºåçš„é“¾è¡¨
 				}
-				printf("ËùÓĞ²¿ÃÅµÄÔ±¹¤ĞÅÏ¢ÒÑ°´´ò¿¨´ÎÊıÉıĞòÅÅĞò¡£\n");
+				printf("æ‰€æœ‰éƒ¨é—¨çš„å‘˜å·¥ä¿¡æ¯å·²æŒ‰æ‰“å¡æ¬¡æ•°å‡åºæ’åºã€‚\n");
 				flag = Exit_with_Flag(flag);
 			}
 
 		} break;
 		case 2: {
-			// °´Çë¼Ù´ÎÊıÅÅĞò
+			// æŒ‰è¯·å‡æ¬¡æ•°æ’åº
 			for (int i = 0; i < 4; i++) {
-				Employees* sortedHead = mergeSortByVacationTimes(com[i].head); // ´´½¨ĞÂµÄÅÅĞòÁ´±í
-				AdminPrintSortedEmployees("Çë¼Ù´ÎÊı"); // ´òÓ¡ÅÅĞòºóµÄÁ´±í
+				Employees* sortedHead = mergeSortByVacationTimes(com[i].head); // åˆ›å»ºæ–°çš„æ’åºé“¾è¡¨
+				AdminPrintSortedEmployees("è¯·å‡æ¬¡æ•°"); // æ‰“å°æ’åºåçš„é“¾è¡¨
 			}
-			printf("ËùÓĞ²¿ÃÅµÄÔ±¹¤ĞÅÏ¢ÒÑ°´Çë¼Ù´ÎÊıÉıĞòÅÅĞò¡£\n");
+			printf("æ‰€æœ‰éƒ¨é—¨çš„å‘˜å·¥ä¿¡æ¯å·²æŒ‰è¯·å‡æ¬¡æ•°å‡åºæ’åºã€‚\n");
 
 		} break;
 		case 3: {
-			// °´Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×ÖÅÅĞò
+			// æŒ‰è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—æ’åº
 			for (int i = 0; i < 4; i++) {
 				com[i].head = mergeSortByMultipleAttributes(com[i].head);
-				AdminPrintSortedEmployees("Çë¼Ù¡¢´ò¿¨´ÎÊıºÍÃû×Ö");
+				AdminPrintSortedEmployees("è¯·å‡ã€æ‰“å¡æ¬¡æ•°å’Œåå­—");
 			}
-			printf("ËùÓĞ²¿ÃÅµÄÔ±¹¤ĞÅÏ¢ÒÑ°´Çë¼Ù´ÎÊı¡¢´ò¿¨´ÎÊıºÍÃû×ÖÅÅĞò¡£\n");
+			printf("æ‰€æœ‰éƒ¨é—¨çš„å‘˜å·¥ä¿¡æ¯å·²æŒ‰è¯·å‡æ¬¡æ•°ã€æ‰“å¡æ¬¡æ•°å’Œåå­—æ’åºã€‚\n");
 
 		} break;
-		case 4: {// ²éÕÒ²¢´òÓ¡×î¼ÑÔ±¹¤
+		case 4: {// æŸ¥æ‰¾å¹¶æ‰“å°æœ€ä½³å‘˜å·¥
 			Employees* allEmployees = NULL;
 			for (int i = 0; i < 4; i++)
 			{
@@ -2133,7 +2133,7 @@ void AdminSort(void)//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
 				}
 			}
 			Find_And_Print_BestEmployees(allEmployees);
-			// ÊÍ·ÅÁÙÊ±Á´±í
+			// é‡Šæ”¾ä¸´æ—¶é“¾è¡¨
 			while (allEmployees != NULL) {
 				Employees* temp = allEmployees;
 				allEmployees = allEmployees->next;
@@ -2147,7 +2147,7 @@ void AdminSort(void)//¹ÜÀíÔ±µÄÅÅĞòº¯Êı
 	}
 }
 
-void Find_And_Print_BestEmployees(Employees* head)// ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
+void Find_And_Print_BestEmployees(Employees* head)// æŸ¥æ‰¾å¹¶æ‰“å°æ‰€æœ‰æœ€ä½³å‘˜å·¥
 {
 	int flag = 0;
 	while (1)
@@ -2157,11 +2157,11 @@ void Find_And_Print_BestEmployees(Employees* head)// ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
 		Employees* emp = head;
 		int bestEmployeeCount = 0;
 
-		// µÚÒ»´Î±éÀú£¬ÕÒµ½×î´ó´ò¿¨´ÎÊıºÍ×îĞ¡Çë¼Ù´ÎÊı
+		// ç¬¬ä¸€æ¬¡éå†ï¼Œæ‰¾åˆ°æœ€å¤§æ‰“å¡æ¬¡æ•°å’Œæœ€å°è¯·å‡æ¬¡æ•°
 		while (emp != NULL)
 		{
 			if (emp->num_late == 0)
-			{ // ³Ùµ½ÊıÎª0
+			{ // è¿Ÿåˆ°æ•°ä¸º0
 				if (emp->num_clock > maxClock)
 				{
 					maxClock = emp->num_clock;
@@ -2175,11 +2175,11 @@ void Find_And_Print_BestEmployees(Employees* head)// ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
 			emp = emp->next;
 		}
 
-		// µÚ¶ş´Î±éÀú£¬´òÓ¡ËùÓĞ·ûºÏÌõ¼şµÄ×î¼ÑÔ±¹¤
+		// ç¬¬äºŒæ¬¡éå†ï¼Œæ‰“å°æ‰€æœ‰ç¬¦åˆæ¡ä»¶çš„æœ€ä½³å‘˜å·¥
 		emp = head;
-		printf("×î¼ÑÔ±¹¤ĞÅÏ¢£º\n");
+		printf("æœ€ä½³å‘˜å·¥ä¿¡æ¯ï¼š\n");
 		printf("------------------------------------------------\n");
-		printf("|ĞÕÃû\t¹¤ºÅ\t    ´ò¿¨´ÎÊı\tÇë¼Ù´ÎÊı       |\n");
+		printf("|å§“å\tå·¥å·\t    æ‰“å¡æ¬¡æ•°\tè¯·å‡æ¬¡æ•°       |\n");
 		while (emp != NULL)
 		{
 			if (emp->num_late == 0 && emp->num_clock == maxClock && emp->num_ask_vacation == minVacation)
@@ -2192,11 +2192,11 @@ void Find_And_Print_BestEmployees(Employees* head)// ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
 		printf("------------------------------------------------\n");
 		if (bestEmployeeCount == 0)
 		{
-			printf("Ã»ÓĞ·ûºÏÌõ¼şµÄ×î¼ÑÔ±¹¤¡£\n");
+			printf("æ²¡æœ‰ç¬¦åˆæ¡ä»¶çš„æœ€ä½³å‘˜å·¥ã€‚\n");
 		}
 		else
 		{
-			printf("¹²ÕÒµ½ %d Ãû×î¼ÑÔ±¹¤¡£\n", bestEmployeeCount);
+			printf("å…±æ‰¾åˆ° %d åæœ€ä½³å‘˜å·¥ã€‚\n", bestEmployeeCount);
 		}
 		flag = Exit_with_Flag(flag);
 		if (flag == 1)
@@ -2207,7 +2207,7 @@ void Find_And_Print_BestEmployees(Employees* head)// ²éÕÒ²¢´òÓ¡ËùÓĞ×î¼ÑÔ±¹¤
 void Information_Management(Employees* emp)
 {
 	char pass[5] = { '\0' };
-	printf("ÇëÔÙ´ÎÊäÈëÃÜÂë£º");
+	printf("è¯·å†æ¬¡è¾“å…¥å¯†ç ï¼š");
 	int temp = scanf("%s", pass);
 	if (strcmp(emp->password, pass) == 0)
 	{
@@ -2216,11 +2216,11 @@ void Information_Management(Employees* emp)
 		{
 			system("cls");
 			printf("------------------------------\n");
-			printf("|         1.²É¹º²¿ÃÅ          |\n");
-			printf("|         2.Éú²ú²¿ÃÅ          |\n");
-			printf("|         3.³öÊÛ²¿ÃÅ          |\n");
-			printf("|         4.¹ÜÀí²¿ÃÅ          |\n");
-			printf("|         0.ÍË³ö¹ÜÀí          |\n");
+			printf("|         1.é‡‡è´­éƒ¨é—¨          |\n");
+			printf("|         2.ç”Ÿäº§éƒ¨é—¨          |\n");
+			printf("|         3.å‡ºå”®éƒ¨é—¨          |\n");
+			printf("|         4.ç®¡ç†éƒ¨é—¨          |\n");
+			printf("|         0.é€€å‡ºç®¡ç†          |\n");
 			printf("------------------------------\n");
 			int temp = scanf("%d", &pick);
 			switch (pick)
@@ -2229,7 +2229,7 @@ void Information_Management(Employees* emp)
 			case 2:Information_Management_1(com[1]); break;
 			case 3:Information_Management_1(com[2]); break;
 			case 4:Information_Management_1(com[3]); break;
-			case 0:flag = 1; printf("ÍË³ö³É¹¦"); Sleep(commmon_time); system("cls"); break;
+			case 0:flag = 1; printf("é€€å‡ºæˆåŠŸ"); Sleep(commmon_time); system("cls"); break;
 			}
 			if (flag == 1)
 				break;
@@ -2237,7 +2237,7 @@ void Information_Management(Employees* emp)
 	}
 	else
 	{
-		printf("ÃÜÂë´íÎó\n");
+		printf("å¯†ç é”™è¯¯\n");
 		Sleep(commmon_time);
 		system("cls");
 	}
@@ -2250,13 +2250,13 @@ void Information_Management_1(Companys com)
 	while (1)
 	{
 		system("cls");
-		printf("%s£º\n", com.department);
-		printf("Ô±¹¤Êı£º%d\n", com.num_of_staff);
+		printf("%sï¼š\n", com.department);
+		printf("å‘˜å·¥æ•°ï¼š%d\n", com.num_of_staff);
 		printf("------------------------------\n");
-		printf("|         1.ĞŞ¸ÄĞÅÏ¢          |\n");
-		printf("|         2.Ìí¼ÓÔ±¹¤          |\n");
-		printf("|         3.É¾³ıÔ±¹¤          |\n");
-		printf("|         0.ÍË³ö¹ÜÀí          |\n");
+		printf("|         1.ä¿®æ”¹ä¿¡æ¯          |\n");
+		printf("|         2.æ·»åŠ å‘˜å·¥          |\n");
+		printf("|         3.åˆ é™¤å‘˜å·¥          |\n");
+		printf("|         0.é€€å‡ºç®¡ç†          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -2264,14 +2264,14 @@ void Information_Management_1(Companys com)
 		case 1:Modify_Seek(com); break;
 		case 2:InputStaff(); break;
 		case 3:DeleteStaff();
-		case 0:flag = 1; printf("ÍË³ö³É¹¦"); Sleep(commmon_time); system("cls"); break;
+		case 0:flag = 1; printf("é€€å‡ºæˆåŠŸ"); Sleep(commmon_time); system("cls"); break;
 		}
 		if (flag == 1)
 			break;
 	}
 }
 
-void System_maintenance(void)//ÏµÍ³Î¬»¤
+void System_maintenance(void)//ç³»ç»Ÿç»´æŠ¤
 {
 	system("cls");
 	Save();
@@ -2279,7 +2279,7 @@ void System_maintenance(void)//ÏµÍ³Î¬»¤
 	FILE* newFile = fopen("new.txt", "w");
 	if (newFile == NULL)
 	{
-		printf("ÎŞ·¨´ò¿ªÁÙÊ±ÎÄ¼ş\n");
+		printf("æ— æ³•æ‰“å¼€ä¸´æ—¶æ–‡ä»¶\n");
 		Sleep(error_time);
 		exit(1);
 	}
@@ -2302,11 +2302,11 @@ void System_maintenance(void)//ÏµÍ³Î¬»¤
 	snprintf(filename, sizeof(filename), "data%d.%d.txt", local_time->tm_mon + 1, local_time->tm_mday);
 	int team = rename("data.txt", filename);
 	team = rename("new.txt", "data.txt");
-	printf("³É¹¦±£´æµ±ÈÕÊı¾İ");
+	printf("æˆåŠŸä¿å­˜å½“æ—¥æ•°æ®");
 	Sleep(commmon_time);
 }
 
-void Annual_leave_allocation(void)//·ÖÅäÄê¼Ù
+void Annual_leave_allocation(void)//åˆ†é…å¹´å‡
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -2340,11 +2340,11 @@ void Stats(Employees* emp_m)
 	{
 		system("cls");
 		printf("------------------------------\n");
-		printf("|         1.´ò¿¨Í³¼Æ          |\n");
-		printf("|         2.³Ùµ½Í³¼Æ          |\n");
-		printf("|         3.ÄêÁäÍ³¼Æ          |\n");
-		printf("|         4.×´Ì¬Í³¼Æ          |\n");
-		printf("|         0.ÍË³öÍ³¼Æ          |\n");
+		printf("|         1.æ‰“å¡ç»Ÿè®¡          |\n");
+		printf("|         2.è¿Ÿåˆ°ç»Ÿè®¡          |\n");
+		printf("|         3.å¹´é¾„ç»Ÿè®¡          |\n");
+		printf("|         4.çŠ¶æ€ç»Ÿè®¡          |\n");
+		printf("|         0.é€€å‡ºç»Ÿè®¡          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		temp = getchar();
@@ -2360,7 +2360,7 @@ void Stats(Employees* emp_m)
 					count++;
 				emp = emp->next;
 			}
-			printf("½ñÈÕ±¾²¿ÃÅÓĞ%dÈËÎ´´ò¿¨", count);
+			printf("ä»Šæ—¥æœ¬éƒ¨é—¨æœ‰%däººæœªæ‰“å¡", count);
 			Sleep(commmon_time);
 		}break;
 		case 2:
@@ -2373,13 +2373,13 @@ void Stats(Employees* emp_m)
 					count++;
 				emp = emp->next;
 			}
-			printf("½ñÈÕ±¾²¿ÃÅÓĞ%dÈË³Ùµ½", count);
+			printf("ä»Šæ—¥æœ¬éƒ¨é—¨æœ‰%däººè¿Ÿåˆ°", count);
 			Sleep(commmon_time);
 		}break;
 		case 3:
 		{
 			int age = 0;
-			printf("ÇëÊäÈëÒ»¸ö·Ö½çÄêÁä");
+			printf("è¯·è¾“å…¥ä¸€ä¸ªåˆ†ç•Œå¹´é¾„");
 			int temp = scanf("%d", &age);
 			int count_less = 0, count_more = 0, count = 0;
 			emp = com[emp_m->id_department - 1].head;
@@ -2393,9 +2393,9 @@ void Stats(Employees* emp_m)
 					count_more++;
 				emp = emp->next;
 			}
-			printf("µÈÓÚ%dËêµÄÈËÓĞ%d¸ö\n", age, count);
-			printf("Ğ¡ÓÚ%dËêµÄÈËÓĞ%d¸ö\n", age, count_less);
-			printf("´óÓÚ%dËêµÄÈËÓĞ%d¸ö\n", age, count_more);
+			printf("ç­‰äº%då²çš„äººæœ‰%dä¸ª\n", age, count);
+			printf("å°äº%då²çš„äººæœ‰%dä¸ª\n", age, count_less);
+			printf("å¤§äº%då²çš„äººæœ‰%dä¸ª\n", age, count_more);
 			Sleep(commmon_time);
 		}break;
 		case 4:
@@ -2408,7 +2408,7 @@ void Stats(Employees* emp_m)
 					count++;
 				emp = emp->next;
 			}
-			printf("½ñÈÕ±¾²¿ÃÅÓĞ%dÈËĞİ¼Ù", count);
+			printf("ä»Šæ—¥æœ¬éƒ¨é—¨æœ‰%däººä¼‘å‡", count);
 			Sleep(commmon_time);
 		}break;
 		case 0:flag = 1; system("cls"); break;

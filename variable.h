@@ -12,53 +12,53 @@
 
 
 
-struct Employees//¹ÍÔ±½á¹¹
+struct Employees//é›‡å‘˜ç»“æ„
 {
-	char name[4];//ĞÕÃû
-	char job_num[8];//¹¤ºÅ
-	char department[8];//ËùÊô²¿ÃÅ
-	int id_department;//ËùÊô²¿ÃÅ±àºÅ
-	char identity[7];//Ö°Î»
-	int id_identity;// Ö°Î»±àºÅ
-	int age;//ÄêÁä
-	short age_of_work;//¹¤Áä
-	int stage;//¹¤×÷×´Ì¬ 1ÎªÕı³£¹¤×÷ 0Îª¼ÙÆÚÖĞ
-	char password[5];//ËÄÎ»ÃÜÂë
-	int Whether_clock;//ÊÇ·ñ´ò¿¨ 1ÊÇ 0·ñ
-	char time_of_clock[20];//´ò¿¨Ê±¼ä
-	char time_of_leave[20];//Àë¿ªÊ±¼ä
-	int Whether_be_late;//ÊÇ·ñ³Ùµ½ 1ÊÇ 0·ñ
-	int num_late;//³Ùµ½Êı
-	int num_clock;//´ò¿¨´ÎÊı
-	int num_ask_vacation;//Çë¼Ù´ÎÊı
-	int total_annual_vacation;//×ÜÄê¼Ù
-	int remaining_annual_vacation;//Ê£ÓàÄê¼Ù
-	int taken_vacation;//ÒÑÓÃ¼ÙÆÚ
-	int ask_vacation_status; // Çë¼Ù×´Ì¬£º0 - Î´ÉêÇë£¬1 - ÒÑÉêÇë´ıÉóÅú£¬2 - ÒÑÅú×¼£¬3 - ÒÑ¾Ü¾ø
-	struct Employees* next;//Ô±¹¤ÀàĞÍÖ¸Õë
+	char name[4];//å§“å
+	char job_num[8];//å·¥å·
+	char department[8];//æ‰€å±éƒ¨é—¨
+	int id_department;//æ‰€å±éƒ¨é—¨ç¼–å·
+	char identity[7];//èŒä½
+	int id_identity;// èŒä½ç¼–å·
+	int age;//å¹´é¾„
+	short age_of_work;//å·¥é¾„
+	int stage;//å·¥ä½œçŠ¶æ€ 1ä¸ºæ­£å¸¸å·¥ä½œ 0ä¸ºå‡æœŸä¸­
+	char password[5];//å››ä½å¯†ç 
+	int Whether_clock;//æ˜¯å¦æ‰“å¡ 1æ˜¯ 0å¦
+	char time_of_clock[20];//æ‰“å¡æ—¶é—´
+	char time_of_leave[20];//ç¦»å¼€æ—¶é—´
+	int Whether_be_late;//æ˜¯å¦è¿Ÿåˆ° 1æ˜¯ 0å¦
+	int num_late;//è¿Ÿåˆ°æ•°
+	int num_clock;//æ‰“å¡æ¬¡æ•°
+	int num_ask_vacation;//è¯·å‡æ¬¡æ•°
+	int total_annual_vacation;//æ€»å¹´å‡
+	int remaining_annual_vacation;//å‰©ä½™å¹´å‡
+	int taken_vacation;//å·²ç”¨å‡æœŸ
+	int ask_vacation_status; // è¯·å‡çŠ¶æ€ï¼š0 - æœªç”³è¯·ï¼Œ1 - å·²ç”³è¯·å¾…å®¡æ‰¹ï¼Œ2 - å·²æ‰¹å‡†ï¼Œ3 - å·²æ‹’ç»
+	struct Employees* next;//å‘˜å·¥ç±»å‹æŒ‡é’ˆ
 };
 typedef struct Employees Employees;
 
 struct Companys
 {
-	char order;//²¿ÃÅ±àºÅ ¸ñÊ½Îª1 2 3 4
-	char department[8];//²¿ÃÅÃû
-	int num_of_staff;//²¿ÃÅ¸÷×ÔÔ±¹¤Êı
-	Employees* head;//Ô±¹¤ÀàĞÍÖ¸Õë
+	char order;//éƒ¨é—¨ç¼–å· æ ¼å¼ä¸º1 2 3 4
+	char department[8];//éƒ¨é—¨å
+	int num_of_staff;//éƒ¨é—¨å„è‡ªå‘˜å·¥æ•°
+	Employees* head;//å‘˜å·¥ç±»å‹æŒ‡é’ˆ
 };
 typedef struct Companys Companys;
 
-//È«¾Ö±äÁ¿£º
-Companys com[4];//ËÄ¸ö²¿ÃÅ
-const char* departments[4];//ËÄ¸ö²¿ÃÅÃû
-const char* identities[3];//Èı¸ö²»Í¬Ö°Î»
-const char time_of_start_hour;//¹æ¶¨ÉÏ°àÊ±¼ä
-const char time_of_end_hour;//¹æ¶¨ÏÂ°àÊ±¼ä
+//å…¨å±€å˜é‡ï¼š
+Companys com[4];//å››ä¸ªéƒ¨é—¨
+const char* departments[4];//å››ä¸ªéƒ¨é—¨å
+const char* identities[3];//ä¸‰ä¸ªä¸åŒèŒä½
+const char time_of_start_hour;//è§„å®šä¸Šç­æ—¶é—´
+const char time_of_end_hour;//è§„å®šä¸‹ç­æ—¶é—´
 const char time_of_end_min;
-const short vacation_of_less_10;//¹¤ÁäĞ¡ÓÚ10ÄêµÄÄê¼ÙÊı
-const short vacation_of_less_20;//¹¤ÁäÔÚ10~20ÄêµÄÄê¼ÙÊı
-const short vacation_of_more_20;//¹¤Áä´óÓÚ20ÄêµÄÄê¼ÙÊı
-const short error_time;//´íÎóĞÅÏ¢ÏÔÊ¾Ê±¼ä
-const short commmon_time;//ÆÕÍ¨ĞÅÏ¢ÏÔÊ¾Ê±¼ä
+const short vacation_of_less_10;//å·¥é¾„å°äº10å¹´çš„å¹´å‡æ•°
+const short vacation_of_less_20;//å·¥é¾„åœ¨10~20å¹´çš„å¹´å‡æ•°
+const short vacation_of_more_20;//å·¥é¾„å¤§äº20å¹´çš„å¹´å‡æ•°
+const short error_time;//é”™è¯¯ä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
+const short commmon_time;//æ™®é€šä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
 
 #endif

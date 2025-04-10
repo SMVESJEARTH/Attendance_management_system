@@ -1,25 +1,25 @@
 #include"variable.h"
 #include"fun.h"
 
-Companys com[4];//ËÄ¸ö²¿ÃÅ
-const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//ËÄ¸ö²¿ÃÅÃû
-const char* identities[3] = { "Admin","Manger","Staff" };//Èı¸öÖ°Î»
-const char time_of_start_hour = 9;//¹æ¶¨ÉÏ°àÊ±¼ä
-const char time_of_end_hour = 16;//¹æ¶¨ÏÂ°àÊ±¼ä
+Companys com[4];//å››ä¸ªéƒ¨é—¨
+const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//å››ä¸ªéƒ¨é—¨å
+const char* identities[3] = { "Admin","Manger","Staff" };//ä¸‰ä¸ªèŒä½
+const char time_of_start_hour = 9;//è§„å®šä¸Šç­æ—¶é—´
+const char time_of_end_hour = 16;//è§„å®šä¸‹ç­æ—¶é—´
 const char time_of_end_min = 30;
-const short vacation_of_less_10 = 5;//¹¤ÁäĞ¡ÓÚ10ÄêµÄÄê¼ÙÊı
-const short vacation_of_less_20 = 10;//¹¤ÁäÔÚ10~20ÄêµÄÄê¼ÙÊı
-const short vacation_of_more_20 = 20;//¹¤Áä´óÓÚ20ÄêµÄÄê¼ÙÊı
-const short error_time = 1500;//´íÎóĞÅÏ¢ÏÔÊ¾Ê±¼ä
-const short commmon_time = 2000;//ÆÕÍ¨ĞÅÏ¢ÏÔÊ¾Ê±¼ä
+const short vacation_of_less_10 = 5;//å·¥é¾„å°äº10å¹´çš„å¹´å‡æ•°
+const short vacation_of_less_20 = 10;//å·¥é¾„åœ¨10~20å¹´çš„å¹´å‡æ•°
+const short vacation_of_more_20 = 20;//å·¥é¾„å¤§äº20å¹´çš„å¹´å‡æ•°
+const short error_time = 1500;//é”™è¯¯ä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
+const short commmon_time = 2000;//æ™®é€šä¿¡æ¯æ˜¾ç¤ºæ—¶é—´
 
 int main()
 {
 	Employees* emp;
 	Init_company();
 	Complete_job_num();
-	printf("¹¤ºÅÒÑÉú³É\n");
-	Annual_leave_allocation();//·ÖÅäÄê¼Ù
+	printf("å·¥å·å·²ç”Ÿæˆ\n");
+	Annual_leave_allocation();//åˆ†é…å¹´å‡
 	Save();
 	Sleep(commmon_time);
 	emp = LoginAndUi();
