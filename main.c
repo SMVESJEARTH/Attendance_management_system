@@ -2,8 +2,8 @@
 #include"fun.h"
 
 Companys com[4];//四个部门
-const char* departments[4] = { "Purchar","Produce" ,"Sale","Manage" };//四个部门名
-const char* identities[3] = { "Admin","Manger","Staff" };//三个职位
+const char *departments[4] = { "Purchar","Produce" ,"Selling","Manage " };//四个部门名
+const char *identities[3] = { "Admin","Manger","Staff" };//三个职位
 const char time_of_start_hour = 9;//规定上班时间
 const char time_of_end_hour = 16;//规定下班时间
 const char time_of_end_min = 30;
@@ -18,10 +18,10 @@ int main()
 	Employees *emp;
 	Init_company(); 
 	Complete_job_num();
-	printf("工号已生成\n");
+	//printf("工号已生成\n");
 	Annual_leave_allocation();//分配年假
 	Save();
-	Sleep(commmon_time);
+	//Sleep(commmon_time);
 	emp = LoginAndUi();
 	switch (emp->id_identity)
 	{
