@@ -79,6 +79,6 @@ void ChangePassword(Employees *emp);//修改密码 修改个人密码
 //管理员 部门经理共用
 void Information_Inquiry_Department(Employees *emp);//部门信息查询
 void Find_And_Print_BestEmployees(Employees *head); // 查找并打印所有最佳员工
-
+void Stats(Employees *emp_m);//信息统计
 
 #endif
