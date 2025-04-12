@@ -44,6 +44,7 @@ void Staff_And_Ui(Employees *emp);// 员工功能 打印员工功能界面 并�
 
 //部门经理 部门经理登录系统后可使用的功能模块，除了具备员工的部分功能外，还拥有部门管理相关的功能，如审批请假和部门信息排序等。
 void Manager_And_Ui(Employees *emp); //部门经理功能 打印经理功能界面 并在switch中进行经理功能选择
+    void Manger_Information_Inquiry_Department(Employees *emp);//部门信息查询
     void Vacation_Management(Employees *emp);//请假申请管理 根据员工请假类型选择是否准假
     void ManagerSort(Employees *emp);//部门经理的排序函数 信息排序 可根据打卡数，请假数进行排序，也可寻找最佳员工
         void Manager_Sorted_Print(Employees *head, const char *sortBy);//部门经理 打印排序后的信息
@@ -51,6 +52,7 @@ void Manager_And_Ui(Employees *emp); //部门经理功能 打印经理功能界�
 //管理员 管理员登录系统后可使用的功能模块，拥有最高权限，可对整个系统进行全面管理，包括系统维护、员工信息管理和数据排序等。
 void Admin_And_Ui(Employees *emp);//管理员功能 打印管理员功能界面 并在switch中进行管理员功能选择
     void System_maintenance(void);//系统维护 将今日data文件根据日期进行重命名并保存，然后生成第二天要使用的data文件
+    void Admin_Information_Inquiry_Department(Employees *emp);//部门信息查询
     void Information_Management(Employees *emp);//信息管理 修改员工信息 添加员工 删除员工
         void Information_Management_1(Companys com);
             void Modify_Seek(Companys com);//修改员工信息（寻找）修改前查找待修改员工
@@ -77,7 +79,6 @@ void Information_Inquiry_Individual(Employees *emp);//个人信息查询
 void ChangePassword(Employees *emp);//修改密码 修改个人密码
 
 //管理员 部门经理共用
-void Information_Inquiry_Department(Employees *emp);//部门信息查询
 void Find_And_Print_BestEmployees(Employees *head); // 查找并打印所有最佳员工
 void Stats(Employees *emp_m);//信息统计
 
