@@ -52,7 +52,7 @@ void Manager_And_Ui(Employees *emp); //部门经理功能 打印经理功能界�
 //管理员 管理员登录系统后可使用的功能模块，拥有最高权限，可对整个系统进行全面管理，包括系统维护、员工信息管理和数据排序等。
 void Admin_And_Ui(Employees *emp);//管理员功能 打印管理员功能界面 并在switch中进行管理员功能选择
     void System_maintenance(void);//系统维护 将今日data文件根据日期进行重命名并保存，然后生成第二天要使用的data文件
-    void Admin_Information_Inquiry_Department(Employees *emp);//部门信息查询
+    void Admin_Information_Inquiry_Department(void);//部门信息查询
     void Information_Management(Employees *emp);//信息管理 修改员工信息 添加员工 删除员工
         void Information_Management_1(Companys com);
             void Modify_Seek(Companys com);//修改员工信息（寻找）修改前查找待修改员工

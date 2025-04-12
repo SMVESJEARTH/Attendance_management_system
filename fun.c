@@ -653,9 +653,9 @@ void Manger_Information_Inquiry_Department(Employees *emp)
 	}
 }
 
-void Admin_Information_Inquiry_Department(Employees *emp)
+void Admin_Information_Inquiry_Department(void)
 {
-	Employees *emp_s;
+	Employees *emp;
 	int pick = -1, flag = 0;
 
 	while (1)
@@ -667,6 +667,7 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 		printf("|         3.职位查询          |\n");
 		printf("|         4.年龄查询          |\n");
 		printf("|         5.状态查询          |\n");
+		printf("|         6.模糊年龄          |\n");
 		printf("|         0.退出查询          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
@@ -683,59 +684,59 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 					char useless = getchar();
 					for (int i = 0;; i++)
 					{
-						emp_s = com[i].head;
-						while (emp_s != NULL)
+						emp = com[i].head;
+						while (emp != NULL)
 						{
-							if (strcmp(emp_s->job_num, j_num) == 0)
+							if (strcmp(emp->job_num, j_num) == 0)
 							{
 								judge = 1;
 								break;
 							}
-							emp_s = emp_s->next;
+							emp = emp->next;
 						}
 					}
 					if (judge == 1)
 					{
 						system("cls");
 						printf("信息如下:\n");
-						printf("姓名：%s\n", emp_s->name);
+						printf("姓名：%s\n", emp->name);
 						printf("工号：%s\n", j_num);
-						printf("部门：%s\n", departments[emp_s->id_department - 1]);
-						printf("职务：%s\n", identities[emp_s->id_identity - 1]);
-						printf("年龄：%d\n", emp_s->age);
-						printf("工龄：%d\n", emp_s->age_of_work);
+						printf("部门：%s\n", departments[emp->id_department - 1]);
+						printf("职务：%s\n", identities[emp->id_identity - 1]);
+						printf("年龄：%d\n", emp->age);
+						printf("工龄：%d\n", emp->age_of_work);
 						printf("工作状态：");
-						if (emp_s->stage)
+						if (emp->stage)
 							printf("工作中...\n");
 						else
 							printf("休假中\n");
 						printf("是否打卡：");
-						if (emp_s->Whether_clock)
+						if (emp->Whether_clock)
 							printf("已打卡...\n");
 						else
 							printf("未打卡O.o\n");
 
-						if (strcmp(emp_s->time_of_clock, "1111111111111111") == 0)
+						if (strcmp(emp->time_of_clock, "1111111111111111") == 0)
 							printf("上班时间：还未进行上班打卡\n");
 						else
-							printf("打卡时间：%s\n", emp_s->time_of_clock);
+							printf("打卡时间：%s\n", emp->time_of_clock);
 
-						if (strcmp(emp_s->time_of_leave, "1111111111111111") == 0)
+						if (strcmp(emp->time_of_leave, "1111111111111111") == 0)
 							printf("下班时间：还未进行下班打卡\n");
 						else
-							printf("下班时间：%s\n", emp_s->time_of_leave);
+							printf("下班时间：%s\n", emp->time_of_leave);
 						printf("是否迟到：");
-						if (emp_s->Whether_be_late)
+						if (emp->Whether_be_late)
 							printf("已迟到＞﹏＜\n");
 						else
 							printf("未迟到\n");
-						printf("迟到数：%d\n", emp_s->num_late);
-						printf("打卡数：%d\n", emp_s->num_clock);
-						printf("请假数：%d\n", emp_s->num_ask_vacation);
-						printf("总年假：%d\n", emp_s->total_annual_vacation);
-						printf("已用假期：%d\n", emp_s->taken_vacation);
-						printf("剩余年假：%d\n", emp_s->remaining_annual_vacation);
-						printf("请假状态：%d\n", emp_s->ask_vacation_status);
+						printf("迟到数：%d\n", emp->num_late);
+						printf("打卡数：%d\n", emp->num_clock);
+						printf("请假数：%d\n", emp->num_ask_vacation);
+						printf("总年假：%d\n", emp->total_annual_vacation);
+						printf("已用假期：%d\n", emp->taken_vacation);
+						printf("剩余年假：%d\n", emp->remaining_annual_vacation);
+						printf("请假状态：%d\n", emp->ask_vacation_status);
 						printf("--输入0退出--\n");
 						flag=Exit_with_Flag(flag);
 					}
@@ -757,19 +758,19 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 					printf("------------------------------\n");
 					for (int i = 0; i < 4; i++)
 					{
-						emp_s = com[i].head;
-						while (emp_s != NULL)
+						emp = com[i].head;
+						while (emp != NULL)
 						{
-							if (strcmp(emp_s->name, name) == 0)
+							if (strcmp(emp->name, name) == 0)
 							{
 								judge = 1;
-								printf("工号：%s\n", emp_s->job_num);
-								printf("职位：%s\n", emp_s->identity);
-								printf("年龄：%d\n", emp_s->age);
-								printf("状态：%d\n", emp_s->stage);
+								printf("工号：%s\n", emp->job_num);
+								printf("职位：%s\n", emp->identity);
+								printf("年龄：%d\n", emp->age);
+								printf("状态：%d\n", emp->stage);
 								printf("------------------------------\n");
 							}
-							emp_s = emp_s->next;
+							emp = emp->next;
 						}
 					}
 					if (judge == 0)
@@ -786,19 +787,19 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 					printf("------------------------------\n");
 					for (int i = 0; i < 4; i++)
 					{
-						emp_s = com[i].head;
-						while (emp_s != NULL)
+						emp = com[i].head;
+						while (emp != NULL)
 						{
-							if (emp_s->id_identity == identity_num)
+							if (emp->id_identity == identity_num)
 							{
 								judge = 1;
-								printf("姓名：%s\n", emp_s->job_num);
-								printf("工号：%s\n", emp_s->job_num);
-								printf("年龄：%d\n", emp_s->age);
-								printf("状态：%d\n", emp_s->stage);
+								printf("姓名：%s\n", emp->job_num);
+								printf("工号：%s\n", emp->job_num);
+								printf("年龄：%d\n", emp->age);
+								printf("状态：%d\n", emp->stage);
 								printf("------------------------------\n");
 							}
-							emp_s = emp_s->next;
+							emp = emp->next;
 						}
 					}
 					if (judge == 0)
@@ -815,19 +816,19 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 					printf("------------------------------\n");
 					for (int i = 0; i < 4; i++)
 					{
-						emp_s = com[i].head;
-						while (emp_s != NULL)
+						emp = com[i].head;
+						while (emp != NULL)
 						{
-							if (emp_s->age == age)
+							if (emp->age == age)
 							{
 								judge = 1;
-								printf("姓名：%s\n", emp_s->job_num);
-								printf("工号：%s\n", emp_s->job_num);
-								printf("职位：%s\n", emp_s->identity);
-								printf("状态：%d\n", emp_s->stage);
+								printf("姓名：%s\n", emp->job_num);
+								printf("工号：%s\n", emp->job_num);
+								printf("职位：%s\n", emp->identity);
+								printf("状态：%d\n", emp->stage);
 								printf("------------------------------\n");
 							}
-							emp_s = emp_s->next;
+							emp = emp->next;
 						}
 					}
 					if (judge == 0)
@@ -844,25 +845,108 @@ void Admin_Information_Inquiry_Department(Employees *emp)
 					printf("------------------------------\n");
 					for (int i = 0; i < 4; i++)
 					{
-						emp_s = com[i].head;
-						while (emp_s != NULL)
+						emp = com[i].head;
+						while (emp != NULL)
 						{
-							if (emp_s->stage == stage)
+							if (emp->stage == stage)
 							{
 								judge = 1;
-								printf("姓名：%s\n", emp_s->job_num);
-								printf("工号：%s\n", emp_s->job_num);
-								printf("职位：%s\n", emp_s->identity);
-								printf("年龄：%d\n", emp_s->age);
+								printf("姓名：%s\n", emp->job_num);
+								printf("工号：%s\n", emp->job_num);
+								printf("职位：%s\n", emp->identity);
+								printf("年龄：%d\n", emp->age);
 								printf("------------------------------\n");
 							}
-							emp_s = emp_s->next;
+							emp = emp->next;
 						}
 					}
 					if (judge == 0)
 						printf("查无此人\n");
 					flag=Exit_with_Flag(flag);
 				}break;
+			case 6:
+				{
+					int Minage = 0, Maxage = 0, flag = -1;
+					system("cls");
+					printf("请输入要查询的年龄范围:\n");
+					while (1)
+					{
+						flag = -1;
+						ClearLine(2);
+						ClearLine(3);
+						Set_Cursor_And_Position(0, 1);
+						printf("最小年龄：");
+						scanf("%d", &Minage);
+						if (Minage < 18 || Minage>60)
+						{
+							printf("输入错误 请输入1重新输入或输入0退出输入");
+							char ch = fgetc(stdin);
+							if (ch - '0' == 0)
+								flag = 1;
+							if (flag == 1)
+								break;
+						}
+						else
+							break;
+					}
+					if (flag == 1)
+						break;
+
+					while (1)
+					{
+						flag = -1;
+						ClearLine(3);
+						ClearLine(4);
+						Set_Cursor_And_Position(0, 2);
+						printf("最大年龄：");
+						scanf("%d", &Maxage);
+						if(Maxage< Minage)
+						{
+							printf("输入错误 请输入1重新输入或输入0退出输入");
+							char ch = fgetc(stdin);
+							if (ch - '0' == 0)
+								flag = 1;
+							else
+								continue;
+							if (flag == 1)
+								break;
+						}
+						if (Maxage < 18 || Maxage>60)
+						{
+
+							printf("输入错误 请输入1重新输入或输入0退出输入");
+							char ch = fgetc(stdin);
+							if (ch - '0' == 0)
+								flag = 1;
+							if (flag == 1)
+								break;
+						}
+						else
+							break;
+					}
+					if (flag == 1)
+						break;
+					printf("------------------------------\n");
+					for (int i = 0; i < 4; i++)
+					{
+						Employees *emp = com[i].head;
+						while (emp != NULL)
+						{
+							if (emp->age <= Maxage && emp->age >= Minage)
+							{
+								printf("姓名：%s\n", emp->name);
+								printf("工号：%s\n", emp->job_num);
+								printf("部门：%s\n", emp->department);
+								printf("职位：%s\n", emp->identity);
+								printf("年龄：%d\n", emp->age);
+								printf("------------------------------\n");
+							}
+							
+							emp = emp->next;
+						}
+					}
+					flag = Exit_with_Flag(flag);
+				}
 			case 0:flag = 1; system("cls"); break;
 			default: printf("请重新选择"); Sleep(commmon_time); break;
 		}
@@ -961,7 +1045,7 @@ void Admin_And_Ui(Employees* emp)//管理员功能
 			case 1:  System_maintenance(); break;
 			case 2: Select_clock(emp); break;
 			case 3: Information_Inquiry_Individual(emp); break;
-			case 4: Admin_Information_Inquiry_Department(emp); break;
+			case 4: Admin_Information_Inquiry_Department(); break;
 			case 5: AdminSort(); break;
 			case 6: Information_Management(emp); break;
 			case 7: ChangePassword(emp); break;
