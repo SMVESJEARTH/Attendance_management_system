@@ -209,7 +209,6 @@ Employees* LoginAndUi(void)//登录系统
 		printf("密码：");
 		temp = scanf("%s", pass);
 		temp = getchar();
-		bool flag = 0;
 		for (int i = 0; i < 4; i++)
 		{
 			Employees* emp = com[i].head;
@@ -223,8 +222,6 @@ Employees* LoginAndUi(void)//登录系统
 				}
 				emp = emp->next;
 			}
-			if (flag == 1)
-				break;
 		}
 		printf("密码错误,请重新输入");
 		Sleep(commmon_time);
@@ -268,7 +265,7 @@ void Select_clock(Employees *emp)//打卡选择
 			}
 			time_t current_time = time(NULL);
 			struct tm *local_tm;
-			local_tm = localtime(&current_time);//将时间戳转为本地时间
+		 	local_tm =localtime(&current_time);//将时间戳转为本地时间
 			if (emp->Whether_clock != 1 && local_tm->tm_hour > 6)
 			{
 				emp->Whether_clock = 1;
@@ -892,7 +889,6 @@ void Staff_And_Ui(Employees *emp)//员工功能
 		printf("|         3.请假系统          |\n");
 		printf("|         4.修改密码          |\n");
 		printf("|         0.退出登录          |\n");
-
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -977,7 +973,7 @@ void Admin_And_Ui(Employees* emp)//管理员功能
 	}
 }
 
-void InputStaff(Companys com) //添加员工
+void InputStaff(Companies com) //添加员工
 {
 	system("cls");
 	int flag = 0;
@@ -1528,7 +1524,7 @@ void DeleteStaff() // 删除员工
 
 }
 
-void Modify_Seek(Companys com) // 修改员工信息
+void Modify_Seek(Companies com) // 修改员工信息
 {
 	system("cls");
 	char j_num[8] = { '\0' };
@@ -2250,7 +2246,7 @@ void RequestVacation(Employees* emp) //假期申请函数
 		printf("------------------------------\n");
 		printf("|         1.请假申请          |\n");
 		printf("|         2.取消申请          |\n");
-		printf("|         0.退出登录          |\n");
+		printf("|         0.退出申请          |\n");
 		printf("------------------------------\n");
 		int temp = scanf("%d", &pick);
 		switch (pick)
@@ -3027,7 +3023,7 @@ void Information_Management(Employees *emp)
 	}
 }
 
-void Information_Management_1(Companys com)
+void Information_Management_1(Companies com)
 {
 
 	int flag = 0, pick = -1;

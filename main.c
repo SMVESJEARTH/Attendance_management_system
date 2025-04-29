@@ -1,7 +1,7 @@
 ﻿#include"variable.h"
 #include"fun.h"
 
-Companys com[4];//四个部门
+Companies com[4];//四个部门
 const char *departments[4] = { "Purchar","Produce" ,"Selling","Manage " };//四个部门名
 const char *identities[3] = { "Admin","Manger","Staff" };//三个职位
 const char time_of_start_hour = 9;//规定上班时间

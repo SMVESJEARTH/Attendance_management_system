@@ -42,17 +42,17 @@ struct Employees//雇员结构
 };
 typedef struct Employees Employees;
 
-struct Companys
+struct Companies
 {
 	char order;//部门编号 格式为1 2 3 4
 	char department[8];//部门名
 	int num_of_staff;//部门各自员工数
 	Employees* head;//员工类型指针
 };
-typedef struct Companys Companys;
+typedef struct Companies Companies;
 
 //全局变量：
-Companys com[4];//四个部门
+Companies com[4];//四个部门
 const char* departments[4];//四个部门名
 const char* identities[3];//三个不同职位
 const char time_of_start_hour;//规定上班时间

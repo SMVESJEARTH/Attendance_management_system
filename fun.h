@@ -54,10 +54,10 @@ void Admin_And_Ui(Employees *emp);//管理员功能 打印管理员功能界面 
     void System_maintenance(void);//系统维护 将今日data文件根据日期进行重命名并保存，然后生成第二天要使用的data文件
     void Admin_Information_Inquiry_Department(void);//部门信息查询
     void Information_Management(Employees *emp);//信息管理 修改员工信息 添加员工 删除员工
-        void Information_Management_1(Companys com);
-            void Modify_Seek(Companys com);//修改员工信息（寻找）修改前查找待修改员工
+        void Information_Management_1(Companies com);
+            void Modify_Seek(Companies com);//修改员工信息（寻找）修改前查找待修改员工
                 void Modify(Employees *emp);//修改员工信息（修改）信息修改
-            void InputStaff(Companys com);//添加员工 
+            void InputStaff(Companies com);//添加员工 
             void DeleteStaff(void);//删除员工
 
 void AdminSort(void);//管理员的排序函数 信息排序 可根据打卡数，请假数进行排序，也可寻找最佳员工
